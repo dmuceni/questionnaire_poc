@@ -1,0 +1,237 @@
+/* Question.css - gradiente giallo-blu */
+.question-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: linear-gradient(90deg, #ffd54f, #ffb74d, #42a5f5, #1976d2);
+  border-radius: 20px 20px 0 0;
+}
+
+/* QuestionnaireList.css - gradiente giallo-blu */
+.ql-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: linear-gradient(90deg, #ffd54f, #ffb74d, #42a5f5, #1976d2);
+  border-radius: 20px 20px 0 0;
+}
+
+/* Question.css - aggiungi questi stili per le scale */
+.question-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 24px 20px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+}
+
+.question-card {
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  margin-bottom: 24px;
+  box-sizing: border-box;
+  overflow: hidden; /* Importante per il border-radius */
+  position: relative;
+}
+
+/* Fascia gradiente in alto */
+.question-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: linear-gradient(90deg, #ffd54f, #ffb74d, #42a5f5, #1976d2);
+  border-radius: 20px 20px 0 0;
+}
+
+/* Aggiusta il padding per compensare la fascia */
+.question-card {
+  padding: 38px 24px 32px 24px; /* Più spazio in alto */
+}
+
+.question-text {
+  font-size: 20px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 32px;
+  line-height: 1.4;
+  text-align: center;
+}
+
+/* Stile per la scala numerica */
+.rating-scale {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  margin: 24px 0;
+  padding: 0 8px;
+}
+
+.rating-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.rating-circle {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 2px solid #e0e0e0;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 600;
+  color: #666666;
+  transition: all 0.2s ease;
+  margin-bottom: 8px;
+}
+
+.rating-option:hover .rating-circle {
+  border-color: #4285f4;
+  color: #4285f4;
+  transform: scale(1.05);
+}
+
+.rating-option.selected .rating-circle {
+  background: #4285f4;
+  border-color: #4285f4;
+  color: #ffffff;
+  transform: scale(1.1);
+}
+
+.rating-label {
+  font-size: 12px;
+  color: #666666;
+  text-align: center;
+  font-weight: 500;
+}
+
+.rating-option.selected .rating-label {
+  color: #4285f4;
+  font-weight: 600;
+}
+
+/* Labels per gli estremi della scala */
+.scale-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 16px;
+  padding: 0 8px;
+}
+
+.scale-label {
+  font-size: 14px;
+  color: #666666;
+  font-weight: 500;
+}
+
+/* Responsive per schermi piccoli */
+@media (max-width: 640px) {
+  .rating-scale {
+    gap: 4px;
+    padding: 0 4px;
+  }
+  
+  .rating-circle {
+    width: 40px;
+    height: 40px;
+    font-size: 14px;
+  }
+  
+  .rating-label {
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 480px) {
+  .rating-scale {
+    gap: 2px;
+    padding: 0;
+  }
+  
+  .rating-circle {
+    width: 36px;
+    height: 36px;
+    font-size: 13px;
+  }
+  
+  .scale-labels {
+    padding: 0;
+  }
+}
+
+/* Aggiungi al Question.css per completare */
+
+/* Card options */
+.card-options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.card-option {
+  background: #ffffff;
+  border: 2px solid #e0e0e0;
+  border-radius: 16px;
+  padding: 16px 20px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #333333;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+}
+
+.card-option:hover {
+  border-color: #4285f4;
+  color: #4285f4;
+}
+
+.card-option.selected {
+  background: #4285f4;
+  border-color: #4285f4;
+  color: #ffffff;
+}
+
+/* Open question */
+.open-question-container {
+  margin-top: 24px;
+}
+
+.open-input {
+  width: 100%;
+  min-height: 120px;
+  border: 2px solid #e0e0e0;
+  border-radius: 16px;
+  padding: 16px 20px;
+  font-size: 16px;
+  font-family: inherit;
+  resize: vertical;
+  transition: border-color 0.2s ease;
+  box-sizing: border-box;
+  display: block; /* Forza block display */
+}
+
+.open-input:focus {
+  outline: none;
+  border-color: #4285f4;
+}
+
+.open-input::placeholder {
+  color: #999999;
+}
