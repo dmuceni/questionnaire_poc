@@ -1,0 +1,46 @@
+{
+  "user_123": {
+    "answers": {
+      "tv_gusto": {
+        "q1_gusto": "sport",
+        "q2_tipo_sport": "tennis",
+        "q_finale": 3
+      },
+      "customer_satisfaction": {
+        "cs_q1": 3,
+        "cs_q3_expectations": "k",
+        "cs_q4_nps": 4,
+        "cs_q5_nps_why_bad": "m",
+        "cs_finish": "mb"
+      },
+      "retention_check": {
+        "rc_q1_leave": "no",
+        "rc_q3_satisfaction": 2,
+        "rc_finish": "j"
+      },
+      "animali_casa": {
+        "ac_q1_hai_animali": "si",
+        "ac_q2_tipo_animale": "gatto",
+        "ac_q2_gatto_dettagli": "casa",
+        "ac_q4_soddisfazione": 3,
+        "ac_finish": "n"
+      },
+      "assicurazioni_casa_device": {
+        "acd_q1_proprieta": "proprieta",
+        "acd_q2_anni_abitazione": "1"
+      },
+      "product_research_tv": {
+        "pr_q1_genere": "film",
+        "pr_q3_device": "mobile",
+        "pr_q4_feature": "prezzo",
+        "pr_finish": "n"
+      },
+      "installazione_internet": {
+        "net_q1_tipo_casa": "appartamento",
+        "net_q2_fibra": "ftth",
+        "net_q3_app": "h",
+        "net_finish": 5
+      }
+    }
+  }
+}
