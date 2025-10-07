@@ -12,44 +12,72 @@ function getNextId(q, ansVal) {
   return null;
 }
 
-function buildPath(questions, answers) {
+// QuestionnaireLoader.js - fix completo
+function buildFullPath(questions, answers) {
   const map = new Map((questions || []).map(q => [q.id, q]));
   const startId = questions?.[0]?.id;
-  const path = [];
-  let endReached = false;
-  if (!startId) return { path, endReached };
-  const visited = new Set();
-  let id = startId;
-  let safety = 0;
-  while (id && !visited.has(id) && safety++ < 200) {
-    path.push(id);
-    visited.add(id);
-    const q = map.get(id);
-    const ans = answers[id];
-    if (!q?.next) { endReached = true; break; }
-    if (ans === undefined) break;
-    const nextId = getNextId(q, ans);
-    if (!nextId || !map.has(nextId)) { endReached = true; break; }
-    id = nextId;
+  
+  if (!startId) return { path: [], endReached: false };
+  
+  // Se non ci sono risposte, ritorna solo la prima domanda
+  if (Object.keys(answers).length === 0) {
+    return { path: [startId], endReached: false };
   }
+  
+  // Costruisci il percorso seguendo le risposte esistenti
+  const path = [];
+  let currentId = startId;
+  let endReached = false;
+  const visited = new Set();
+  let safety = 0;
+  
+  while (currentId && !visited.has(currentId) && safety++ < 200) {
+    path.push(currentId);
+    visited.add(currentId);
+    const q = map.get(currentId);
+    
+    if (!q?.next) { 
+      endReached = true; 
+      break; 
+    }
+    
+    const ans = answers[currentId];
+    
+    // Se non c'è risposta, fermati qui (non aggiungere altre domande)
+    if (ans === undefined) {
+      break;
+    }
+    
+    // Segui la risposta effettiva
+    let nextId = null;
+    if (typeof q.next === 'string') {
+      nextId = q.next;
+    } else if (typeof q.next === 'object') {
+      nextId = q.next[ans] ?? q.next.default ?? null;
+    }
+    
+    if (!nextId || !map.has(nextId)) { 
+      endReached = true; 
+      break; 
+    }
+    currentId = nextId;
+  }
+  
   return { path, endReached };
 }
 
-function computeProgress(questions, answers, currentStack, completed) {
+// QuestionnaireLoader.js - fix calcolo percentuale
+function computeProgress(questions, answers, stack, completed) {
   if (completed) return 100;
   if (!Array.isArray(questions) || questions.length === 0) return 0;
   
-  // Conta il numero totale di domande possibili nel questionario
+  // Usa sempre il totale delle domande del questionario, non lo stack
   const totalQuestions = questions.length;
-  
-  // Conta quante domande hanno una risposta
   const answeredCount = Object.keys(answers).filter(id => 
     questions.some(q => q.id === id)
   ).length;
   
-  // Percentuale basata sul totale delle domande del questionario
   const percentage = Math.round((answeredCount / totalQuestions) * 100);
-  
   return completed ? 100 : Math.min(percentage, 99);
 }
 
@@ -64,14 +92,19 @@ const QuestionnaireLoader = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
+  // QuestionnaireLoader.js - debug dell'inizializzazione
   useEffect(() => {
     if (!cluster) {
       setLoading(false);
       navigate('/');
       return;
     }
+    
+    console.log('🔍 Inizializzazione questionario:', cluster);
+    
     setLoading(true);
     setError('');
+    
     Promise.all([
       fetch(`/api/questionnaire/${cluster}`),
       fetch(`/api/userAnswers/${USER_ID}/${cluster}`)
@@ -79,21 +112,33 @@ const QuestionnaireLoader = () => {
       .then(async ([qsRes, ansRes]) => {
         if (!qsRes.ok) throw new Error('Questionario non disponibile');
         if (!ansRes.ok) throw new Error('Risposte non disponibili');
+        
         const qs = await qsRes.json();
         const userData = await ansRes.json();
         const a = userData?.answers || {};
+        
+        console.log('📋 Domande caricate:', qs);
+        console.log('💾 Risposte caricate:', a);
+        
         setQuestions(Array.isArray(qs) ? qs : []);
         setAnswers(a);
 
-        const { path, endReached } = buildPath(qs || [], a);
+        const { path, endReached } = buildFullPath(qs || [], a);
+        console.log('🛤️ Percorso costruito:', path);
+        console.log('🎯 Prima domanda dovrebbe essere:', qs?.[0]?.id);
+        
         const pathNonVuoto = path.length > 0 ? path : (qs?.[0]?.id ? [qs[0].id] : []);
+        console.log('📍 Stack finale:', pathNonVuoto);
+        
         setStack(pathNonVuoto);
         setCurrentId(pathNonVuoto[pathNonVuoto.length - 1] || null);
+        
         const allAnsweredOnPath = path.every(id => a[id] !== undefined);
         setCompleted(endReached && allAnsweredOnPath);
         setLoading(false);
       })
-      .catch(() => {
+      .catch((e) => {
+        console.error('❌ Errore caricamento:', e);
         setError('Errore di caricamento');
         setLoading(false);
       });
@@ -135,6 +180,7 @@ const QuestionnaireLoader = () => {
     saveAnswers(trimmedAnswers);
   };
 
+  // QuestionnaireLoader.js - cancella risposta quando vai indietro
   const handleBack = () => {
     if (!stack.length) {
       navigate('/');
@@ -144,9 +190,31 @@ const QuestionnaireLoader = () => {
       navigate('/');
       return;
     }
+    
+    // Vai alla domanda precedente
     const newStack = stack.slice(0, -1);
+    const previousQuestionId = newStack[newStack.length - 1]; // domanda dove atterro
+    
+    // Cancella la risposta della domanda dove atterro
+    const updatedAnswers = { ...answers };
+    if (previousQuestionId && updatedAnswers[previousQuestionId] !== undefined) {
+      delete updatedAnswers[previousQuestionId];
+      setAnswers(updatedAnswers);
+      
+      // Salva le risposte aggiornate
+      fetch(`/api/userAnswers/${USER_ID}/${cluster}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ answers: updatedAnswers })
+      }).then(() => {
+        console.log(`🗑️ Cancellata risposta di: ${previousQuestionId}`);
+        // Triggera aggiornamento lista questionari
+        window.dispatchEvent(new CustomEvent('progressChanged'));
+      }).catch(() => {});
+    }
+    
     setStack(newStack);
-    setCurrentId(newStack[newStack.length - 1] || null);
+    setCurrentId(previousQuestionId || null);
     setCompleted(false);
   };
 

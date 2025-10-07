@@ -1,3 +1,4 @@
+// backend/routes/progress.js - usa la stessa logica del frontend
 const express = require('express');
 const router = express.Router();
 const fs = require('fs');
@@ -10,39 +11,70 @@ function safeLoad(p, fallback) {
   try { return JSON.parse(fs.readFileSync(p, 'utf8')); } catch { return fallback; }
 }
 
-// percentuale basata sul percorso effettivo
-function computeFlowPercent(questions, answers) {
-  const qs = (questions || []).filter(q => q && q.id);
-  if (qs.length === 0) return 0;
-  const map = new Map(qs.map(q => [q.id, q]));
-  const startId = qs[0].id;
-
-  const visited = new Set();
+// Stessa logica di QuestionnaireLoader.js
+function buildFullPath(questions, answers) {
+  const map = new Map((questions || []).map(q => [q.id, q]));
+  const startId = questions?.[0]?.id;
+  
+  if (!startId) return { path: [], endReached: false };
+  
+  // Se non ci sono risposte, ritorna solo la prima domanda
+  if (Object.keys(answers).length === 0) {
+    return { path: [startId], endReached: false };
+  }
+  
   const path = [];
   let currentId = startId;
   let endReached = false;
+  const visited = new Set();
   let safety = 0;
-
+  
   while (currentId && !visited.has(currentId) && safety++ < 200) {
     path.push(currentId);
     visited.add(currentId);
     const q = map.get(currentId);
+    
+    if (!q?.next) { 
+      endReached = true; 
+      break; 
+    }
+    
     const ans = answers[currentId];
-    if (!q || !q.next) { endReached = true; break; }
-    if (ans === undefined) break;
-
+    
+    // Se non c'è risposta, fermati qui
+    if (ans === undefined) {
+      break;
+    }
+    
     let nextId = null;
-    if (typeof q.next === 'string') nextId = q.next;
-    else if (typeof q.next === 'object') nextId = q.next[ans] ?? q.next.default ?? null;
-
-    if (!nextId || !map.has(nextId)) { endReached = true; break; }
+    if (typeof q.next === 'string') {
+      nextId = q.next;
+    } else if (typeof q.next === 'object') {
+      nextId = q.next[ans] ?? q.next.default ?? null;
+    }
+    
+    if (!nextId || !map.has(nextId)) { 
+      endReached = true; 
+      break; 
+    }
     currentId = nextId;
   }
+  
+  return { path, endReached };
+}
 
-  const answeredOnPath = path.filter(id => answers[id] !== undefined).length;
-  if (endReached && answeredOnPath === path.length) return 100;
-  const denom = Math.max(path.length, 1);
-  return Math.round((answeredOnPath / denom) * 100);
+function computeProgress(questions, answers, completed) {
+  if (completed) return 100;
+  if (!Array.isArray(questions) || questions.length === 0) return 0;
+  
+  // Usa sempre il totale delle domande del questionario
+  const totalQuestions = questions.length;
+  const answeredCount = Object.keys(answers).filter(id => 
+    questions.some(q => q.id === id)
+  ).length;
+  
+  const percentage = Math.round((answeredCount / totalQuestions) * 100);
+  return completed ? 100 : Math.min(percentage, 99);
 }
 
 router.get('/:userId', (req, res) => {
@@ -55,22 +87,23 @@ router.get('/:userId', (req, res) => {
 
     const result = Object.entries(clusters).map(([clusterKey, data]) => {
       const questions = data.questionnaire || [];
-      // retrocompatibilità: se non annidato, filtra dal flat
-      const qids = new Set(questions.filter(q => q && q.id).map(q => q.id));
-      const flat = (typeof answersByCluster[clusterKey] === 'object') ? null : answersByCluster;
-      const clusterAnswers = answersByCluster[clusterKey] || (flat
-        ? Object.fromEntries(Object.entries(flat).filter(([k]) => qids.has(k)))
-        : {});
+      const clusterAnswers = answersByCluster[clusterKey] || {};
+      
+      // Usa la stessa logica del frontend
+      const { path, endReached } = buildFullPath(questions, clusterAnswers);
+      const allAnsweredOnPath = path.every(id => clusterAnswers[id] !== undefined);
+      const completed = endReached && allAnsweredOnPath;
+      
       return {
         cluster: clusterKey,
         title: data.title || clusterKey,
-        percent: computeFlowPercent(questions, clusterAnswers)
+        percent: computeProgress(questions, clusterAnswers, completed)
       };
     });
 
     res.json(result);
   } catch {
-    res.json([]); // mai errore: torna lista vuota
+    res.json([]);
   }
 });
 

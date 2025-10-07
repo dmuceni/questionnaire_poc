@@ -10,7 +10,14 @@ function App() {
     <div className="App">
       <Routes>
         <Route path="/" element={<QuestionnaireList />} />
-        <Route path="/questionario/:cluster" element={<QuestionnaireLoader />} />
+        <Route path="/questionario/:cluster" element={
+          <QuestionnaireLoader 
+            onProgressChange={() => {
+              // Notifica che le percentuali sono cambiate
+              window.dispatchEvent(new CustomEvent('progressChanged'));
+            }} 
+          />
+        } />
         <Route path="/cms-editor" element={<CmsEditor />} />
       </Routes>
     </div>

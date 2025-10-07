@@ -38,28 +38,32 @@ router.get('/:userId/:cluster', (req, res) => {
 
 // POST salva risposte per cluster (merge) — FIX: inizializzazione answers
 router.post('/:userId/:cluster', (req, res) => {
+  console.log('📝 POST ricevuto:', {
+    userId: req.params.userId,
+    cluster: req.params.cluster,
+    body: req.body
+  });
+  
+  const { userId, cluster } = req.params;
+  const { answers } = req.body || {};
+  
+  if (!answers || typeof answers !== 'object') {
+    console.log('❌ Answers non valide');
+    return res.status(400).json({ error: 'answers richieste' });
+  }
+
   try {
-    const { userId, cluster } = req.params;
-    const { answers } = req.body || {};
-    if (!answers || typeof answers !== 'object') {
-      return res.status(400).json({ error: 'answers mancanti' });
-    }
-
-    const users = safeLoad(USER_DATA_PATH, {});
-    // inizializza struttura annidata in modo sicuro
-    users[userId] = users[userId] || {};
-    users[userId].answers = users[userId].answers && typeof users[userId].answers === 'object'
-      ? users[userId].answers
-      : {};
-
-    const byCluster = users[userId].answers;
-    byCluster[cluster] = { ...(byCluster[cluster] || {}), ...answers };
-    users[userId].answers = byCluster;
-
-    saveJson(USER_DATA_PATH, users);
+    const userData = safeLoad(USER_DATA_PATH, {});
+    userData[userId] = userData[userId] || { answers: {} };
+    userData[userId].answers[cluster] = answers;
+    
+    console.log('💾 Salvando in userData.json:', userData);
+    saveJson(USER_DATA_PATH, userData);
+    
     res.json({ ok: true });
   } catch (e) {
-    res.status(500).json({ error: 'Errore salvataggio risposte' });
+    console.error('❌ Errore salvataggio:', e);
+    res.status(500).json({ error: 'Errore salvataggio' });
   }
 });
 

@@ -9,7 +9,7 @@ const QuestionnaireList = () => {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
-  useEffect(() => {
+  const loadProgress = () => {
     fetch(`/api/progress/${USER_ID}`)
       .then(r => r.ok ? r.json() : [])
       .then(data => {
@@ -20,6 +20,30 @@ const QuestionnaireList = () => {
         setItems([]);
         setLoading(false);
       });
+  };
+
+  useEffect(() => {
+    loadProgress();
+  }, []);
+
+  useEffect(() => {
+    const handleFocus = () => {
+      console.log('🔄 Refresh percentuali lista questionari');
+      loadProgress();
+    };
+    
+    window.addEventListener('focus', handleFocus);
+    return () => window.removeEventListener('focus', handleFocus);
+  }, []);
+
+  useEffect(() => {
+    const handleProgressChange = () => {
+      console.log('🔄 Aggiornamento percentuali richiesto');
+      loadProgress();
+    };
+    
+    window.addEventListener('progressChanged', handleProgressChange);
+    return () => window.removeEventListener('progressChanged', handleProgressChange);
   }, []);
 
   const handleRestart = async (cluster) => {
