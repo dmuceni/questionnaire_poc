@@ -1,15 +1,3 @@
-/* Question.css - gradiente giallo-blu */
-.question-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 6px;
-  background: linear-gradient(90deg, #ffd54f, #ffb74d, #42a5f5, #1976d2);
-  border-radius: 20px 20px 0 0;
-}
-
 /* QuestionnaireList.css - gradiente giallo-blu */
 .ql-card::before {
   content: '';
@@ -31,13 +19,15 @@
 }
 
 .question-card {
-  background: #ffffff;
+  background: #f3f4f8;
   border-radius: 20px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
   margin-bottom: 24px;
   box-sizing: border-box;
   overflow: hidden; /* Importante per il border-radius */
   position: relative;
+  padding: 38px 24px 32px 24px; /* Più spazio in alto */
 }
 
 /* Fascia gradiente in alto */
@@ -47,14 +37,9 @@
   top: 0;
   left: 0;
   right: 0;
-  height: 6px;
-  background: linear-gradient(90deg, #ffd54f, #ffb74d, #42a5f5, #1976d2);
+  height: 8px;
+  background: linear-gradient(90deg, #ffd54f 0%, #ffb74d 20%, #42a5f5 60%, #1976d2 100%);
   border-radius: 20px 20px 0 0;
-}
-
-/* Aggiusta il padding per compensare la fascia */
-.question-card {
-  padding: 38px 24px 32px 24px; /* Più spazio in alto */
 }
 
 .question-text {
@@ -66,62 +51,114 @@
   text-align: center;
 }
 
-/* Stile per la scala numerica */
-.rating-scale {
+/* Nuovo stile per le scale numeriche */
+.scale-interaction {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  gap: 8px;
+  gap: 16px;
   margin: 24px 0;
-  padding: 0 8px;
+  padding: 16px 20px;
+  background: #f8f9ff;
+  border: 1px solid #e1e5f8;
+  border-radius: 20px;
 }
 
-.rating-option {
+.scale-button {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  border: 2px solid #0d6efd;
+  background: #ffffff;
+  color: #0d6efd;
+  font-size: 28px;
+  font-weight: 600;
   display: flex;
-  flex-direction: column;
   align-items: center;
+  justify-content: center;
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
-.rating-circle {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  border: 2px solid #e0e0e0;
-  background: #ffffff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 16px;
-  font-weight: 600;
-  color: #666666;
-  transition: all 0.2s ease;
-  margin-bottom: 8px;
+.scale-button:hover:not(:disabled) {
+  background: #0d6efd;
+  color: #ffffff;
+  box-shadow: 0 6px 18px rgba(13, 110, 253, 0.25);
 }
 
-.rating-option:hover .rating-circle {
-  border-color: #4285f4;
-  color: #4285f4;
+.scale-button:disabled {
+  border-color: #c7d2f5;
+  color: #c7d2f5;
+  cursor: not-allowed;
+  background: #ffffff;
+}
+
+.scale-button-symbol {
+  line-height: 1;
+  transform: translateY(-2px);
+}
+
+.scale-slider-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.scale-slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 14px;
+  background: linear-gradient(90deg, #eef1ff, #eef1ff);
+  border-radius: 999px;
+  outline: none;
+  position: relative;
+  border: 2px solid #d5dcf8;
+  padding: 0;
+}
+
+.scale-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 3px solid #0d6efd;
+  box-shadow: 0 6px 18px rgba(13, 110, 253, 0.25);
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.scale-slider::-moz-range-thumb {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 3px solid #0d6efd;
+  box-shadow: 0 6px 18px rgba(13, 110, 253, 0.25);
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.scale-slider::-webkit-slider-thumb:hover,
+.scale-slider::-moz-range-thumb:hover {
   transform: scale(1.05);
 }
 
-.rating-option.selected .rating-circle {
-  background: #4285f4;
-  border-color: #4285f4;
-  color: #ffffff;
-  transform: scale(1.1);
+.scale-ticks {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 6px;
 }
 
-.rating-label {
-  font-size: 12px;
-  color: #666666;
-  text-align: center;
+.scale-tick {
+  font-size: 14px;
   font-weight: 500;
+  color: #8a94b5;
 }
 
-.rating-option.selected .rating-label {
-  color: #4285f4;
+.scale-tick.active {
+  color: #0d6efd;
   font-weight: 600;
 }
 
@@ -141,34 +178,62 @@
 
 /* Responsive per schermi piccoli */
 @media (max-width: 640px) {
-  .rating-scale {
-    gap: 4px;
-    padding: 0 4px;
+  .scale-interaction {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    padding: 16px;
   }
-  
-  .rating-circle {
-    width: 40px;
-    height: 40px;
-    font-size: 14px;
+
+  .scale-button {
+    width: 44px;
+    height: 44px;
+    font-size: 24px;
   }
-  
-  .rating-label {
-    font-size: 11px;
+
+  .scale-button-symbol {
+    transform: translateY(-1px);
+  }
+
+  .scale-slider-wrapper {
+    width: 100%;
+    gap: 10px;
+  }
+
+  .scale-ticks {
+    padding: 0;
+  }
+
+  .scale-tick {
+    font-size: 13px;
   }
 }
 
 @media (max-width: 480px) {
-  .rating-scale {
-    gap: 2px;
-    padding: 0;
+  .scale-interaction {
+    padding: 14px;
   }
-  
-  .rating-circle {
-    width: 36px;
-    height: 36px;
-    font-size: 13px;
+
+  .scale-button {
+    width: 40px;
+    height: 40px;
+    font-size: 22px;
   }
-  
+
+  .scale-slider {
+    height: 12px;
+  }
+
+  .scale-slider::-webkit-slider-thumb,
+  .scale-slider::-moz-range-thumb {
+    width: 28px;
+    height: 28px;
+  }
+
+  .scale-tick {
+    font-size: 12px;
+  }
+
   .scale-labels {
     padding: 0;
   }
