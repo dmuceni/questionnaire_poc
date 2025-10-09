@@ -10,6 +10,7 @@ struct QuestionView: View {
     @State private var openText: String = ""
     @State private var pendingText: String = ""
     @State private var hasUnsavedChanges: Bool = false
+    @State private var sliderValue: Double = 0
 
     var body: some View {
         VStack(alignment: .leading, spacing: 24) {
@@ -27,31 +28,85 @@ struct QuestionView: View {
                 openQuestion
             }
         }
-        .onAppear(perform: syncOpenText)
-        .onChange(of: answer, perform: { _ in syncOpenText() })
+        .onAppear {
+            syncOpenText()
+            syncRatingValue()
+        }
+        .onChange(of: answer) { _ in
+            syncOpenText()
+            syncRatingValue()
+        }
+        .onChange(of: question.id) { _ in
+            syncOpenText()
+            syncRatingValue()
+        }
     }
 
     private var ratingView: some View {
-        let scale = question.scale ?? 5
-        let values = Array(1...max(scale, 1))
+        let values = ratingValues
         return VStack(alignment: .leading, spacing: 16) {
-            HStack(spacing: 8) {
-                ForEach(values, id: \.self) { value in
-                    Button(action: { onSelectRating(value) }) {
-                        Image(systemName: selectedRating != nil && selectedRating! >= value ? "star.fill" : "star")
-                            .font(.title2)
-                            .foregroundColor(selectedRating != nil && selectedRating! >= value ? .yellow : .gray)
+            HStack(spacing: 16) {
+                scaleAdjustButton(symbol: "−", isDisabled: currentRating <= minRatingValue) {
+                    changeRating(by: -1)
+                }
+
+                VStack(spacing: 12) {
+                    Slider(
+                        value: Binding(
+                            get: { sliderValue },
+                            set: { newValue in
+                                sliderValue = newValue
+                                onSelectRating(Int(newValue.rounded()))
+                            }
+                        ),
+                        in: Double(minRatingValue)...Double(maxRatingValue),
+                        step: 1
+                    )
+                    .tint(.accentColor)
+                    .frame(maxWidth: .infinity)
+
+                    HStack(spacing: 0) {
+                        ForEach(values, id: \.self) { value in
+                            Text("\(value)")
+                                .font(.footnote)
+                                .fontWeight(currentRating == value ? .semibold : .regular)
+                                .foregroundColor(currentRating == value ? .accentColor : .secondary)
+                            if value != values.last {
+                                Spacer(minLength: 0)
+                            }
+                        }
                     }
-                    .buttonStyle(.plain)
+                }
+
+                scaleAdjustButton(symbol: "+", isDisabled: currentRating >= maxRatingValue) {
+                    changeRating(by: 1)
                 }
             }
 
-            if scale == 5 {
+            if maxRatingValue == 5 {
                 scaleLabels(start: "Per niente", end: "Moltissimo")
-            } else if scale == 10 {
+            } else if maxRatingValue == 10 {
                 scaleLabels(start: "Per niente probabile", end: "Estremamente probabile")
             }
         }
+    }
+
+    private func scaleAdjustButton(symbol: String, isDisabled: Bool, action: @escaping () -> Void) -> some View {
+        Button(action: action) {
+            Text(symbol)
+                .font(.system(size: 24, weight: .semibold))
+                .frame(width: 44, height: 44)
+                .background(Color(.systemGray6))
+                .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+        }
+        .buttonStyle(.plain)
+        .foregroundColor(isDisabled ? Color(.systemGray3) : .primary)
+        .overlay(
+            RoundedRectangle(cornerRadius: 12, style: .continuous)
+                .stroke(isDisabled ? Color(.systemGray4) : Color.accentColor, lineWidth: isDisabled ? 1 : 2)
+        )
+        .opacity(isDisabled ? 0.6 : 1.0)
+        .disabled(isDisabled)
     }
 
     private func scaleLabels(start: String, end: String) -> some View {
@@ -138,9 +193,26 @@ struct QuestionView: View {
         }
     }
 
-    private var selectedRating: Int? {
-        guard case .int(let value) = answer else { return nil }
-        return value
+    private var minRatingValue: Int {
+        if let scale = question.scale, scale >= 10 {
+            return 0
+        }
+        return 1
+    }
+
+    private var maxRatingValue: Int {
+        let scale = question.scale ?? 5
+        return max(scale, minRatingValue)
+    }
+
+    private var ratingValues: [Int] {
+        guard maxRatingValue >= minRatingValue else { return [] }
+        return Array(minRatingValue...maxRatingValue)
+    }
+
+    private var currentRating: Int {
+        let value = Int(sliderValue.rounded())
+        return min(max(value, minRatingValue), maxRatingValue)
     }
 
     private var selectedOptionID: String? {
@@ -161,6 +233,24 @@ struct QuestionView: View {
             pendingText = ""
             hasUnsavedChanges = false
         }
+    }
+
+    private func changeRating(by delta: Int) {
+        let newValue = min(max(currentRating + delta, minRatingValue), maxRatingValue)
+        sliderValue = Double(newValue)
+        onSelectRating(newValue)
+    }
+
+    private func syncRatingValue() {
+        guard question.type == .rating else { return }
+        let range = Double(minRatingValue)...Double(maxRatingValue)
+        let target: Double
+        if case .int(let value) = answer {
+            target = Double(value)
+        } else {
+            target = range.lowerBound
+        }
+        sliderValue = min(max(target, range.lowerBound), range.upperBound)
     }
 }
 
