@@ -1,4 +1,5 @@
 import SwiftUI
+import UIKit
 
 struct QuestionView: View {
     let question: Question
@@ -294,5 +295,19 @@ struct QuestionView_Previews: PreviewProvider {
             .padding()
             .previewLayout(.sizeThatFits)
         }
+    }
+}
+
+struct RoundedCorners: Shape {
+    var radius: CGFloat = .infinity
+    var corners: UIRectCorner = .allCorners
+
+    func path(in rect: CGRect) -> Path {
+        let path = UIBezierPath(
+            roundedRect: rect,
+            byRoundingCorners: corners,
+            cornerRadii: CGSize(width: radius, height: radius)
+        )
+        return Path(path.cgPath)
     }
 }

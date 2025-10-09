@@ -1,15 +1,3 @@
-/* Question.css - gradiente giallo-blu */
-.question-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 6px;
-  background: linear-gradient(90deg, #ffd54f, #ffb74d, #42a5f5, #1976d2);
-  border-radius: 20px 20px 0 0;
-}
-
 /* QuestionnaireList.css - gradiente giallo-blu */
 .ql-card::before {
   content: '';
@@ -31,13 +19,15 @@
 }
 
 .question-card {
-  background: #ffffff;
+  background: #f3f4f8;
   border-radius: 20px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
   margin-bottom: 24px;
   box-sizing: border-box;
   overflow: hidden; /* Importante per il border-radius */
   position: relative;
+  padding: 38px 24px 32px 24px; /* Più spazio in alto */
 }
 
 /* Fascia gradiente in alto */
@@ -47,14 +37,9 @@
   top: 0;
   left: 0;
   right: 0;
-  height: 6px;
-  background: linear-gradient(90deg, #ffd54f, #ffb74d, #42a5f5, #1976d2);
+  height: 8px;
+  background: linear-gradient(90deg, #ffd54f 0%, #ffb74d 20%, #42a5f5 60%, #1976d2 100%);
   border-radius: 20px 20px 0 0;
-}
-
-/* Aggiusta il padding per compensare la fascia */
-.question-card {
-  padding: 38px 24px 32px 24px; /* Più spazio in alto */
 }
 
 .question-text {
