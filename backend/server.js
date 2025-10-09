@@ -5,12 +5,16 @@ app.use(express.json()); // necessario per leggere req.body
 const cmsRouter = require('./routes/cms');
 const questionnaireRouter = require('./routes/questionnaire');
 const userAnswersRouter = require('./routes/userAnswers');
-const progressRouter = require('./routes/progress'); // <- assicurati che il file si chiami progress.js
+const progressRouter = require('./routes/progress');
+const pagesRouter = require('./routes/pages');
+const pageAnswersRouter = require('./routes/pageAnswers');
 
 app.use('/api/cms', cmsRouter);
 app.use('/api/questionnaire', questionnaireRouter);
 app.use('/api/userAnswers', userAnswersRouter);
-app.use('/api/progress', progressRouter); // <- monta la route
+app.use('/api/progress', progressRouter);
+app.use('/api/pages', pagesRouter);
+app.use('/api/pageAnswers', pageAnswersRouter);
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => console.log('Backend avviato su porta', PORT));

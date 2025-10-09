@@ -1,0 +1,182 @@
+{
+  "clusters": {
+    "assicurazioni_casa_device": {
+      "title": "Assicurazioni Casa e Device",
+      "pages": [
+        {
+          "id": "page_1_casa",
+          "title": "Informazioni sulla Casa",
+          "description": "Iniziamo con alcune domande sulla tua abitazione",
+          "questions": [
+            {
+              "id": "acd_q1_proprieta",
+              "text": "Vivi in un immobile di tua proprietà o sei in affitto?",
+              "type": "card",
+              "required": true,
+              "options": [
+                { "id": "proprieta", "label": "Di proprietà" },
+                { "id": "affitto", "label": "In affitto" }
+              ]
+            },
+            {
+              "id": "acd_q2_anni_abitazione",
+              "text": "Da quanti anni vivi nella tua abitazione?",
+              "type": "open",
+              "required": true,
+              "showIf": {
+                "questionId": "acd_q1_proprieta",
+                "value": "proprieta"
+              }
+            },
+            {
+              "id": "acd_q3_competenza",
+              "text": "Quanto ti senti competente in materia di assicurazioni?",
+              "type": "card",
+              "required": true,
+              "options": [
+                { "id": "affatto", "label": "Affatto" },
+                { "id": "poco_consulente", "label": "Poco, ma mi affido a un consulente" },
+                { "id": "competente", "label": "Sono assolutamente competente" }
+              ]
+            }
+          ],
+          "nextPage": {
+            "default": "page_2_assicurazioni",
+            "conditions": [
+              {
+                "questionId": "acd_q1_proprieta",
+                "value": "affitto",
+                "nextPage": "page_3_dispositivi"
+              }
+            ]
+          }
+        },
+        {
+          "id": "page_2_assicurazioni",
+          "title": "Assicurazioni Casa",
+          "description": "Parliamo delle tue assicurazioni sulla casa",
+          "questions": [
+            {
+              "id": "acd_q4_assicurazione_casa",
+              "text": "Hai un'assicurazione sulla casa?",
+              "type": "card",
+              "required": true,
+              "options": [
+                { "id": "si", "label": "Sì" },
+                { "id": "no", "label": "No" }
+              ]
+            },
+            {
+              "id": "acd_q5_tipo_assicurazione",
+              "text": "Che genere di assicurazione sulla casa hai?",
+              "type": "card",
+              "required": true,
+              "showIf": {
+                "questionId": "acd_q4_assicurazione_casa",
+                "value": "si"
+              },
+              "options": [
+                { "id": "furto_incendio", "label": "Furto/Incendio" },
+                { "id": "danni", "label": "Danni" },
+                { "id": "eventi_naturali", "label": "Eventi naturali" }
+              ]
+            },
+            {
+              "id": "acd_q6_barriere",
+              "text": "Quali sono le principali barriere che ti impediscono di sottoscrivere un'assicurazione per la casa?",
+              "type": "card",
+              "required": true,
+              "showIf": {
+                "questionId": "acd_q4_assicurazione_casa",
+                "value": "no"
+              },
+              "options": [
+                { "id": "costi", "label": "Costi" },
+                { "id": "mancanza_info", "label": "Mancanza di informazioni" },
+                { "id": "non_necessaria", "label": "Non la ritengo necessaria" }
+              ]
+            }
+          ],
+          "nextPage": {
+            "default": "page_3_dispositivi"
+          }
+        },
+        {
+          "id": "page_3_dispositivi",
+          "title": "I Tuoi Dispositivi",
+          "description": "Ora parliamo dei tuoi dispositivi elettronici",
+          "questions": [
+            {
+              "id": "acd_q7_dispositivi",
+              "text": "Quali dispositivi elettronici possiedi attualmente?",
+              "type": "card",
+              "required": true,
+              "multiple": true,
+              "options": [
+                { "id": "smartphone", "label": "Smartphone" },
+                { "id": "tablet", "label": "Tablet" },
+                { "id": "smartwatch", "label": "Smartwatch" },
+                { "id": "laptop", "label": "Laptop" }
+              ]
+            },
+            {
+              "id": "acd_q8_uso_dispositivi",
+              "text": "Li usi più in casa o fuori?",
+              "type": "card",
+              "required": true,
+              "options": [
+                { "id": "casa", "label": "Più in casa" },
+                { "id": "fuori", "label": "Più fuori casa" },
+                { "id": "entrambi", "label": "Ugualmente" }
+              ]
+            }
+          ],
+          "nextPage": {
+            "default": "page_4_valutazioni"
+          }
+        },
+        {
+          "id": "page_4_valutazioni",
+          "title": "Valutazioni Finali",
+          "description": "Ultime domande per completare il questionario",
+          "questions": [
+            {
+              "id": "acd_q9_danni_preoccupanti",
+              "text": "Quali tipi di danni ai tuoi dispositivi ti preoccupano di più?",
+              "type": "card",
+              "required": true,
+              "multiple": true,
+              "options": [
+                { "id": "schermo_rotto", "label": "Schermo rotto" },
+                { "id": "danni", "label": "Danni" },
+                { "id": "guasti_hardware", "label": "Guasti hardware" }
+              ]
+            },
+            {
+              "id": "acd_q10_utilita_assicurazione",
+              "text": "Ritieni utile assicurare i tuoi dispositivi oltre i 2 anni di garanzia legale già prevista?",
+              "type": "card",
+              "required": true,
+              "options": [
+                { "id": "si", "label": "Sì" },
+                { "id": "no", "label": "No" }
+              ]
+            },
+            {
+              "id": "acd_q12_soddisfazione",
+              "text": "Quanto ti soddisfano le assicurazioni che hai sui tuoi device?",
+              "type": "rating",
+              "required": false,
+              "scale": 5,
+              "showIf": {
+                "questionId": "acd_q10_utilita_assicurazione",
+                "value": "si"
+              }
+            }
+          ],
+          "nextPage": null
+        }
+      ]
+    }
+  }
+}

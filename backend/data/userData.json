@@ -2,16 +2,43 @@
   "user_123": {
     "answers": {
       "assicurazioni_casa_device": {
-        "acd_q1_proprieta": "affitto",
-        "acd_q7_dispositivi": "tablet",
-        "acd_q8_uso_dispositivi": "entrambi",
-        "acd_q9_danni_preoccupanti": "guasti_hardware",
+        "acd_q2_anni_abitazione": "Jj",
         "acd_q10_utilita_assicurazione": "no",
-        "acd_q11_copertura_attuale": "si_alcuni",
-        "acd_q11_fornitori": "american_express",
-        "acd_q12_soddisfazione": 5,
-        "acd_finish": "v"
-      }
+        "acd_q4_assicurazione_casa": "si",
+        "acd_q8_uso_dispositivi": "fuori",
+        "acd_q1_proprieta": "proprieta",
+        "acd_finish": "Jjj",
+        "acd_q7_dispositivi": "tablet",
+        "acd_q3_competenza": "poco_consulente",
+        "acd_q9_danni_preoccupanti": "schermo_rotto",
+        "acd_q5_tipo_assicurazione": "furto_incendio",
+        "acd_q11_copertura_attuale": "no"
+      },
+      "valutazione_servizi": {}
+    },
+    "viaggi_vacanze": {
+      "pageAnswers": {
+        "page_1": {},
+        "page_2": {},
+        "page_3": {},
+        "page_4": {}
+      },
+      "lastUpdated": "2025-10-09T12:21:14.144Z"
+    },
+    "valutazione_servizi": {
+      "pageAnswers": {
+        "page_1": {
+          "vs_q2_rapidita": 5,
+          "vs_q5_prezzo": 5,
+          "vs_q4_competenza": 5,
+          "vs_q1_qualita": 5,
+          "vs_q3_cortesia": 5
+        },
+        "page_2": {
+          "vs_finish": "Mmm"
+        }
+      },
+      "lastUpdated": "2025-10-09T12:52:06.151Z"
     }
   }
 }

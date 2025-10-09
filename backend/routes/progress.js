@@ -1,4 +1,4 @@
-// backend/routes/progress.js - usa la stessa logica del frontend
+// backend/routes/progress.js - supporta sia il formato classico che le pagine
 const express = require('express');
 const router = express.Router();
 const fs = require('fs');
@@ -11,7 +11,33 @@ function safeLoad(p, fallback) {
   try { return JSON.parse(fs.readFileSync(p, 'utf8')); } catch { return fallback; }
 }
 
-// Stessa logica di QuestionnaireLoader.js
+// Calcola il progresso per il formato a pagine
+function calculatePageProgress(pages, pageAnswers) {
+  if (!pages || pages.length === 0) return 0;
+  
+  let totalQuestions = 0;
+  let answeredQuestions = 0;
+  
+  for (const page of pages) {
+    for (const question of page.questions || []) {
+      totalQuestions++;
+      
+      // Controlla se la domanda ha una risposta in qualsiasi pagina
+      const hasAnswer = Object.values(pageAnswers).some(answers => 
+        answers[question.id] !== undefined
+      );
+      
+      if (hasAnswer) {
+        answeredQuestions++;
+      }
+    }
+  }
+  
+  if (totalQuestions === 0) return 0;
+  return Math.round((answeredQuestions / totalQuestions) * 100);
+}
+
+// Stessa logica di QuestionnaireLoader.js per formato classico
 function buildFullPath(questions, answers) {
   const map = new Map((questions || []).map(q => [q.id, q]));
   const startId = questions?.[0]?.id;
@@ -82,27 +108,39 @@ router.get('/:userId', (req, res) => {
     const userId = req.params.userId;
     const cms = safeLoad(CMS_PATH, { clusters: {} });
     const users = safeLoad(USER_DATA_PATH, {});
-    const answersByCluster = users[userId]?.answers || {};
+    const userAnswers = users[userId]?.answers || {};
+    const userPageAnswers = users[userId] || {};
     const clusters = cms.clusters || {};
 
     const result = Object.entries(clusters).map(([clusterKey, data]) => {
-      const questions = data.questionnaire || [];
-      const clusterAnswers = answersByCluster[clusterKey] || {};
+      let percent = 0;
       
-      // Usa la stessa logica del frontend
-      const { path, endReached } = buildFullPath(questions, clusterAnswers);
-      const allAnsweredOnPath = path.every(id => clusterAnswers[id] !== undefined);
-      const completed = endReached && allAnsweredOnPath;
+      // Controlla se usa il nuovo formato a pagine
+      if (data.pages && Array.isArray(data.pages)) {
+        const pageAnswers = userPageAnswers[clusterKey]?.pageAnswers || {};
+        percent = calculatePageProgress(data.pages, pageAnswers);
+      } else {
+        // Usa il formato classico
+        const questions = data.questionnaire || [];
+        const clusterAnswers = userAnswers[clusterKey] || {};
+        
+        const { path, endReached } = buildFullPath(questions, clusterAnswers);
+        const allAnsweredOnPath = path.every(id => clusterAnswers[id] !== undefined);
+        const completed = endReached && allAnsweredOnPath;
+        
+        percent = computeProgress(questions, clusterAnswers, completed);
+      }
       
       return {
         cluster: clusterKey,
         title: data.title || clusterKey,
-        percent: computeProgress(questions, clusterAnswers, completed)
+        percent
       };
     });
 
     res.json(result);
-  } catch {
+  } catch (error) {
+    console.error('Errore nel calcolo del progresso:', error);
     res.json([]);
   }
 });

@@ -10,13 +10,13 @@ struct QuestionnaireAppApp: App {
             NavigationStack(path: $path) {
                 QuestionnaireListView(path: $path)
                     .environmentObject(listViewModel)
-            }
-            .navigationDestination(for: QuestionnaireRoute.self) { route in
-                switch route {
-                case .questionnaire(let cluster, let title):
-                    QuestionnaireFlowView(cluster: cluster, title: title)
-                        .environmentObject(listViewModel)
-                }
+                    .navigationDestination(for: QuestionnaireRoute.self) { route in
+                        switch route {
+                        case .questionnaire(let cluster, let title):
+                            QuestionnaireFlowView(cluster: cluster, title: title)
+                                .environmentObject(listViewModel)
+                        }
+                    }
             }
         }
     }

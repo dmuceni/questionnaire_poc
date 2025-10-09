@@ -153,6 +153,251 @@
           "type": "open"
         }
       ]
+    },
+    "viaggi_vacanze": {
+      "title": "Viaggi e Vacanze",
+      "pages": [
+        {
+          "id": "page_1",
+          "title": "Le Tue Abitudini di Viaggio",
+          "description": "Raccontaci come ami viaggiare",
+          "showContinue": true,
+          "isLast": false,
+          "questions": [
+            {
+              "id": "tv_q1_frequenza",
+              "text": "Con che frequenza viaggi durante l'anno?",
+              "type": "card",
+              "required": true,
+              "options": [
+                { "id": "mai", "label": "Mai o quasi mai" },
+                { "id": "1_2_volte", "label": "1-2 volte l'anno" },
+                { "id": "3_5_volte", "label": "3-5 volte l'anno" },
+                { "id": "piu_5", "label": "Più di 5 volte l'anno" }
+              ]
+            },
+            {
+              "id": "tv_q2_destinazioni",
+              "text": "Che tipo di destinazioni preferisci?",
+              "type": "card",
+              "required": true,
+              "options": [
+                { "id": "italia", "label": "Principalmente in Italia" },
+                { "id": "europa", "label": "Europa" },
+                { "id": "intercontinentali", "label": "Viaggi intercontinentali" },
+                { "id": "tutto", "label": "Un po' di tutto" }
+              ]
+            },
+            {
+              "id": "tv_q3_durata",
+              "text": "Qual è la durata media dei tuoi viaggi?",
+              "type": "card",
+              "required": true,
+              "options": [
+                { "id": "weekend", "label": "Weekend (2-3 giorni)" },
+                { "id": "settimana", "label": "Una settimana" },
+                { "id": "due_settimane", "label": "Due settimane" },
+                { "id": "piu_due", "label": "Più di due settimane" }
+              ]
+            }
+          ],
+          "nextPage": "page_2"
+        },
+        {
+          "id": "page_2",
+          "title": "Budget e Organizzazione",
+          "description": "Come organizzi e finanzi i tuoi viaggi",
+          "showContinue": true,
+          "isLast": false,
+          "questions": [
+            {
+              "id": "tv_q4_budget",
+              "text": "Qual è il tuo budget annuale per i viaggi?",
+              "type": "card",
+              "required": true,
+              "options": [
+                { "id": "sotto_1000", "label": "Sotto i 1.000€" },
+                { "id": "1000_3000", "label": "1.000€ - 3.000€" },
+                { "id": "3000_5000", "label": "3.000€ - 5.000€" },
+                { "id": "sopra_5000", "label": "Sopra i 5.000€" }
+              ]
+            },
+            {
+              "id": "tv_q5_prenotazione",
+              "text": "Come prenoti solitamente i tuoi viaggi?",
+              "type": "card",
+              "required": true,
+              "options": [
+                { "id": "online", "label": "Online (booking, expedia, etc.)" },
+                { "id": "agenzia", "label": "Agenzia di viaggi" },
+                { "id": "diretto", "label": "Direttamente con hotel/compagnie" },
+                { "id": "misto", "label": "Combinazione di metodi" }
+              ]
+            },
+            {
+              "id": "tv_q6_anticipo",
+              "text": "Con quanto anticipo prenoti di solito?",
+              "type": "card",
+              "required": true,
+              "options": [
+                { "id": "ultima_ora", "label": "All'ultimo momento" },
+                { "id": "1_mese", "label": "1 mese prima" },
+                { "id": "3_mesi", "label": "2-3 mesi prima" },
+                { "id": "oltre_3", "label": "Oltre 3 mesi prima" }
+              ]
+            }
+          ],
+          "nextPage": "page_3"
+        },
+        {
+          "id": "page_3",
+          "title": "Assicurazione Viaggio",
+          "description": "Le tue abitudini riguardo l'assicurazione di viaggio",
+          "showContinue": true,
+          "isLast": false,
+          "questions": [
+            {
+              "id": "tv_q7_assicurazione",
+              "text": "Fai sempre un'assicurazione viaggio?",
+              "type": "card",
+              "required": true,
+              "options": [
+                { "id": "sempre", "label": "Sempre" },
+                { "id": "spesso", "label": "Spesso" },
+                { "id": "raramente", "label": "Raramente" },
+                { "id": "mai", "label": "Mai" }
+              ]
+            },
+            {
+              "id": "tv_q8_coperture",
+              "text": "Quali coperture consideri più importanti?",
+              "type": "card",
+              "required": true,
+              "options": [
+                { "id": "medica", "label": "Assistenza medica" },
+                { "id": "bagaglio", "label": "Bagaglio" },
+                { "id": "annullamento", "label": "Annullamento viaggio" },
+                { "id": "tutte", "label": "Tutte le coperture" }
+              ]
+            }
+          ],
+          "nextPage": "page_4"
+        },
+        {
+          "id": "page_4",
+          "title": "Valutazione Finale",
+          "description": "Completa il questionario con la tua valutazione",
+          "showContinue": false,
+          "isLast": true,
+          "questions": [
+            {
+              "id": "tv_q9_soddisfazione",
+              "text": "Quanto sei soddisfatto delle assicurazioni viaggio che hai utilizzato?",
+              "type": "rating",
+              "required": true,
+              "scale": 5
+            },
+            {
+              "id": "tv_q10_commenti",
+              "text": "Hai suggerimenti o commenti aggiuntivi sui viaggi e le assicurazioni?",
+              "type": "open",
+              "required": false
+            },
+            {
+              "id": "tv_finish",
+              "text": "Grazie per aver completato il questionario sui viaggi!",
+              "type": "open",
+              "required": true
+            }
+          ],
+          "nextPage": null
+        }
+      ]
+    },
+    "valutazione_servizi": {
+      "title": "Valutazione Servizi",
+      "pages": [
+        {
+          "id": "page_1",
+          "title": "Valuta i Nostri Servizi",
+          "description": "Esprimi la tua valutazione da 1 a 5 per ciascun aspetto",
+          "showContinue": true,
+          "isLast": false,
+          "questions": [
+            {
+              "id": "vs_q1_qualita",
+              "text": "Come valuti la qualità del servizio ricevuto?",
+              "type": "rating",
+              "required": true,
+              "scale": 5
+            },
+            {
+              "id": "vs_q2_rapidita", 
+              "text": "Quanto sei soddisfatto della rapidità del servizio?",
+              "type": "rating",
+              "required": true,
+              "scale": 5
+            },
+            {
+              "id": "vs_q3_cortesia",
+              "text": "Come valuti la cortesia del personale?",
+              "type": "rating",
+              "required": true,
+              "scale": 5
+            },
+            {
+              "id": "vs_q4_competenza",
+              "text": "Quanto ritieni competente il nostro staff?",
+              "type": "rating",
+              "required": true,
+              "scale": 5
+            },
+            {
+              "id": "vs_q5_prezzo",
+              "text": "Come giudichi il rapporto qualità-prezzo?",
+              "type": "rating",
+              "required": true,
+              "scale": 5
+            }
+          ],
+          "nextPage": "page_2"
+        },
+        {
+          "id": "page_2",
+          "title": "Feedback Aggiuntivo",
+          "description": "Aiutaci a migliorare con i tuoi commenti",
+          "showContinue": false,
+          "isLast": true,
+          "questions": [
+            {
+              "id": "vs_q6_miglioramenti",
+              "text": "Cosa pensi che potremmo migliorare?",
+              "type": "open",
+              "required": false
+            },
+            {
+              "id": "vs_q7_raccomandazione",
+              "text": "Consiglieresti i nostri servizi ad un amico?",
+              "type": "card",
+              "required": true,
+              "options": [
+                { "id": "si_sicuramente", "label": "Sì, sicuramente" },
+                { "id": "si_probabilmente", "label": "Sì, probabilmente" },
+                { "id": "forse", "label": "Forse" },
+                { "id": "probabilmente_no", "label": "Probabilmente no" },
+                { "id": "no_mai", "label": "No, mai" }
+              ]
+            },
+            {
+              "id": "vs_finish",
+              "text": "Grazie per il tuo prezioso feedback!",
+              "type": "open",
+              "required": true
+            }
+          ],
+          "nextPage": null
+        }
+      ]
     }
   }
 }
