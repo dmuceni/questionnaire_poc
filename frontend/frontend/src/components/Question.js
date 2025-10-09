@@ -1,14 +1,40 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Question.css';
 
 const Question = ({ question, onAnswer }) => {
-  const [selectedValue, setSelectedValue] = useState(null);
+  const getRatingMinValue = () => {
+    if (typeof question?.minScale === 'number') {
+      return question.minScale;
+    }
+
+    return 0;
+  };
+
+  const getRatingDefaultValue = () => {
+    if (typeof question?.defaultValue === 'number') {
+      return question.defaultValue;
+    }
+
+    return getRatingMinValue();
+  };
+
+  const [selectedValue, setSelectedValue] = useState(() => (
+    question?.type === 'rating' ? getRatingDefaultValue() : null
+  ));
   const [inputValue, setInputValue] = useState('');
 
   const handleAnswer = (value) => {
     setSelectedValue(value);
     onAnswer(value);
   };
+
+  useEffect(() => {
+    if (question?.type === 'rating') {
+      setSelectedValue(getRatingDefaultValue());
+    } else {
+      setSelectedValue(null);
+    }
+  }, [question]);
 
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
@@ -23,38 +49,82 @@ const Question = ({ question, onAnswer }) => {
   };
 
   const renderRatingScale = () => {
-    const scale = question.scale || 5;
-    const options = Array.from({ length: scale }, (_, i) => i + 1);
+    const minScale = getRatingMinValue();
+    const maxScale = question.scale || 5;
+    const scaleValues = Array.from(
+      { length: maxScale - minScale + 1 },
+      (_, i) => minScale + i
+    );
+    const currentValue = selectedValue ?? minScale;
+
+    const updateValue = (value) => {
+      const clamped = Math.min(Math.max(value, minScale), maxScale);
+      handleAnswer(clamped);
+    };
+
+    const decrement = () => {
+      updateValue(currentValue - 1);
+    };
+
+    const increment = () => {
+      updateValue(currentValue + 1);
+    };
 
     return (
       <div className="question-card">
         <h2 className="question-text">{question.text}</h2>
+        <div className="scale-interaction">
+          <button
+            type="button"
+            className="scale-button"
+            onClick={decrement}
+            disabled={currentValue <= minScale}
+            aria-label="Diminuisci valore"
+          >
+            <span className="scale-button-symbol">−</span>
+          </button>
 
-        <div className="rating-scale">
-          {options.map((value) => (
-            <div
-              key={value}
-              className={`rating-option ${selectedValue === value ? 'selected' : ''}`}
-              onClick={() => handleAnswer(value)}
-            >
-              <div className="rating-circle">
-                {value}
-              </div>
-              <div className="rating-label">
-                {value}
-              </div>
+          <div className="scale-slider-wrapper">
+            <input
+              type="range"
+              min={minScale}
+              max={maxScale}
+              value={currentValue}
+              className="scale-slider"
+              onChange={(event) => updateValue(Number(event.target.value))}
+            />
+
+            <div className="scale-ticks" aria-hidden="true">
+              {scaleValues.map((value) => (
+                <span
+                  key={value}
+                  className={`scale-tick ${currentValue === value ? 'active' : ''}`}
+                >
+                  {value}
+                </span>
+              ))}
             </div>
-          ))}
+          </div>
+
+          <button
+            type="button"
+            className="scale-button"
+            onClick={increment}
+            disabled={currentValue >= maxScale}
+            aria-label="Aumenta valore"
+          >
+            <span className="scale-button-symbol">+</span>
+          </button>
         </div>
 
-        {scale === 5 && (
+        {maxScale === 5 && (
           <div className="scale-labels">
             <span className="scale-label">Per niente</span>
             <span className="scale-label">Moltissimo</span>
           </div>
         )}
 
-        {scale === 10 && (
+        {maxScale === 10 && (
           <div className="scale-labels">
             <span className="scale-label">Per niente probabile</span>
             <span className="scale-label">Estremamente probabile</span>
