@@ -27,8 +27,10 @@ struct QuestionnaireListView: View {
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
                 Button(action: viewModel.refresh) {
-                    Image(systemName: "arrow.clockwise")
+                    Text("\u{27F3}")
+                        .font(.system(size: 16, weight: .semibold))
                 }
+                .accessibilityLabel(Text("Aggiorna questionari"))
                 .disabled(viewModel.isLoading)
             }
         }
