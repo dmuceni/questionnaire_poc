@@ -29,32 +29,6 @@ struct QuestionView: View {
                 openQuestion
             }
         }
-        .padding(24)
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .background(
-            RoundedRectangle(cornerRadius: 24, style: .continuous)
-                .fill(Color(.systemGray6))
-        )
-        .overlay(
-            LinearGradient(
-                gradient: Gradient(colors: [
-                    Color(red: 1.0, green: 0.835, blue: 0.310),
-                    Color(red: 1.0, green: 0.718, blue: 0.302),
-                    Color(red: 0.259, green: 0.647, blue: 0.961),
-                    Color(red: 0.098, green: 0.463, blue: 0.824)
-                ]),
-                startPoint: .leading,
-                endPoint: .trailing
-            )
-            .frame(height: 10)
-            .clipShape(RoundedCorners(radius: 24, corners: [.topLeft, .topRight])),
-            alignment: .top
-        )
-        .overlay(
-            RoundedRectangle(cornerRadius: 24, style: .continuous)
-                .stroke(Color.black.opacity(0.05), lineWidth: 1)
-        )
-        .shadow(color: Color.black.opacity(0.08), radius: 12, x: 0, y: 8)
         .onAppear {
             syncOpenText()
             syncRatingValue()
