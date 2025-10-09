@@ -14,9 +14,10 @@ Questa cartella contiene l'app iOS nativa (SwiftUI) che replica le funzionalità
 ## Avvio
 1. Apri `QuestionnaireApp.xcodeproj` con Xcode.
 2. Assicurati che il backend sia in esecuzione (`npm start` per il frontend oppure `node backend/server.js` per il solo API server).
-3. Esegui l'app su simulatore o dispositivo reale.
+3. Se lavori da dispositivo reale, imposta l'URL raggiungibile dalla rete locale usando la variabile d'ambiente `API_BASE_URL` nello schema di Xcode oppure modificando il valore `APIBaseURL` in `Info.plist`.
+4. Esegui l'app su simulatore o dispositivo reale.
 
-Il file `AppConfiguration.swift` contiene l'URL base del backend e l'ID utente di test (attualmente `user_123`).
+Il file `AppConfiguration.swift` contiene la logica di risoluzione dell'URL base del backend e l'ID utente di test (attualmente `user_123`).
 
 ## Download rapido del progetto iOS
 Per scaricare l'intero progetto iOS in un singolo archivio ZIP, è disponibile uno script di supporto:
