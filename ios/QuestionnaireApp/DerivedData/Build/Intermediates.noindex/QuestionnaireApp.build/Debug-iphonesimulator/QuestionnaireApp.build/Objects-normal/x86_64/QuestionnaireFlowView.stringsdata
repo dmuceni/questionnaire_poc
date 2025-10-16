@@ -1,0 +1,144 @@
+{
+  "source": "/Users/mucenid/questionnaire_poc/ios/QuestionnaireApp/QuestionnaireApp/QuestionnaireFlowView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Caricamento...",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 57
+        }
+      },
+      {
+        "comment": "",
+        "key": "Indietro",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 23
+        }
+      },
+      {
+        "comment": "",
+        "key": "Torna all'elenco",
+        "location": {
+          "startingColumn": 24,
+          "startingLine": 63
+        }
+      },
+      {
+        "comment": "",
+        "key": "Nessuna pagina disponibile",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 150
+        }
+      },
+      {
+        "comment": "",
+        "key": "DEBUG INFO:",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 80
+        }
+      },
+      {
+        "comment": "",
+        "key": "Questions count: %lld",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 82
+        }
+      },
+      {
+        "comment": "",
+        "key": "Current ID: %@",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 83
+        }
+      },
+      {
+        "comment": "",
+        "key": "Completed: %@",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 84
+        }
+      },
+      {
+        "comment": "",
+        "key": "Loading: %@",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 85
+        }
+      },
+      {
+        "comment": "",
+        "key": "Error: %@",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 87
+        }
+      },
+      {
+        "comment": "",
+        "key": "Nessuna domanda disponibile",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 91
+        }
+      },
+      {
+        "comment": "",
+        "key": "Torna all'elenco",
+        "location": {
+          "startingColumn": 24,
+          "startingLine": 95
+        }
+      },
+      {
+        "comment": "",
+        "key": "Completa",
+        "location": {
+          "startingColumn": 55,
+          "startingLine": 135
+        }
+      },
+      {
+        "comment": "",
+        "key": "Continua",
+        "location": {
+          "startingColumn": 68,
+          "startingLine": 135
+        }
+      },
+      {
+        "comment": "",
+        "key": "Torna all'elenco",
+        "location": {
+          "startingColumn": 20,
+          "startingLine": 184
+        }
+      },
+      {
+        "comment": "",
+        "key": "Questionario Completato!",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 170
+        }
+      },
+      {
+        "comment": "",
+        "key": "Grazie per aver condiviso le tue informazioni. Le tue risposte sono state salvate con successo.",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 175
+        }
+      }
+    ]
+  },
+  "version": 1
+}

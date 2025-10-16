@@ -5,6 +5,7 @@ import Foundation
 enum CodableValue: Hashable {
     case string(String)
     case int(Int)
+    case stringArray([String])
 }
 
 extension CodableValue: Codable {
@@ -14,6 +15,8 @@ extension CodableValue: Codable {
             self = .int(intValue)
         } else if let stringValue = try? container.decode(String.self) {
             self = .string(stringValue)
+        } else if let arrayValue = try? container.decode([String].self) {
+            self = .stringArray(arrayValue)
         } else {
             throw DecodingError.typeMismatch(
                 CodableValue.self,
@@ -29,6 +32,8 @@ extension CodableValue: Codable {
             try container.encode(value)
         case .string(let value):
             try container.encode(value)
+        case .stringArray(let value):
+            try container.encode(value)
         }
     }
 }
@@ -40,6 +45,30 @@ extension CodableValue {
             return String(value)
         case .string(let value):
             return value
+        case .stringArray(let value):
+            return value.joined(separator: ",")
+        }
+    }
+    
+    var intValue: Int {
+        switch self {
+        case .int(let value):
+            return value
+        case .string(let value):
+            return Int(value) ?? 0
+        case .stringArray(_):
+            return 0
+        }
+    }
+    
+    var stringValue: String {
+        switch self {
+        case .int(let value):
+            return String(value)
+        case .string(let value):
+            return value
+        case .stringArray(let value):
+            return value.joined(separator: ",")
         }
     }
 }

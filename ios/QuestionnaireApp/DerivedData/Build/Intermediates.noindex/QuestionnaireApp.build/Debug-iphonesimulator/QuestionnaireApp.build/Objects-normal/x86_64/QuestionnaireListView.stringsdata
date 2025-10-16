@@ -1,0 +1,72 @@
+{
+  "source": "/Users/mucenid/questionnaire_poc/ios/QuestionnaireApp/QuestionnaireApp/QuestionnaireListView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Questionari",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 26
+        }
+      },
+      {
+        "comment": "",
+        "key": "Caricamento...",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 10
+        }
+      },
+      {
+        "comment": "",
+        "key": "Riprova",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 16
+        }
+      },
+      {
+        "comment": "",
+        "key": "Aggiorna questionari",
+        "location": {
+          "startingColumn": 42,
+          "startingLine": 33
+        }
+      },
+      {
+        "comment": "",
+        "key": "⟳",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 30
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld%%",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 68
+        }
+      },
+      {
+        "comment": "",
+        "key": "Continua",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 79
+        }
+      },
+      {
+        "comment": "",
+        "key": "Ricomincia",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 83
+        }
+      }
+    ]
+  },
+  "version": 1
+}

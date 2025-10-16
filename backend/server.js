@@ -17,4 +17,4 @@ app.use('/api/pages', pagesRouter);
 app.use('/api/pageAnswers', pageAnswersRouter);
 
 const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => console.log('Backend avviato su porta', PORT));
+app.listen(PORT, '0.0.0.0', () => console.log('Backend avviato su porta', PORT, 'su tutte le interfacce'));

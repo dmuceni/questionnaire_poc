@@ -1,18 +1,11 @@
 const express = require('express');
 const router = express.Router();
 
-const fs = require('fs');
 const path = require('path');
+const { safeLoad, saveJson } = require('../utils/storage');
 
 const USER_DATA_PATH = path.join(__dirname, '../data/userData.json');
 const CMS_PATH = path.join(__dirname, '../data/cms.json');
-
-function safeLoad(p, fallback) {
-  try { return JSON.parse(fs.readFileSync(p, 'utf8')); } catch { return fallback; }
-}
-function saveJson(p, data) {
-  fs.writeFileSync(p, JSON.stringify(data, null, 2), 'utf8');
-}
 
 // GET risposte per cluster
 router.get('/:userId/:cluster', (req, res) => {

@@ -42,6 +42,29 @@ router.get('/:cluster', (req, res) => {
   }
 });
 
+// GET /api/pages/page/:pageId - Ottieni una singola pagina per ID
+router.get('/page/:pageId', (req, res) => {
+  const { pageId } = req.params;
+  const data = loadPagesData();
+  
+  if (!data || !data.clusters) {
+    return res.status(404).json({ error: 'Dati non trovati' });
+  }
+
+  // Cerca la pagina in tutti i cluster
+  for (const clusterName in data.clusters) {
+    const cluster = data.clusters[clusterName];
+    if (cluster.pages) {
+      const page = cluster.pages.find(p => p.id === pageId);
+      if (page) {
+        return res.json(page);
+      }
+    }
+  }
+  
+  return res.status(404).json({ error: 'Pagina non trovata' });
+});
+
 // Funzione per convertire il formato vecchio al nuovo
 const convertQuestionnaireToPages = (questions) => {
   if (!questions || questions.length === 0) return [];

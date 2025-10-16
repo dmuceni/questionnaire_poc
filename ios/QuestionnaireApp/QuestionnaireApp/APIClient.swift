@@ -40,8 +40,10 @@ actor APIClient {
 
     func saveAnswers(_ answers: [String: CodableValue], cluster: String) async {
         let body = UserAnswersResponse(answers: answers)
+        print("🔼 DEBUG saveAnswers -> /api/userAnswers/... payload keys: \(answers.keys)")
         do {
             try await send(path: "/api/userAnswers/\(AppConfiguration.userID)/\(cluster)", method: "POST", body: body)
+            print("✅ DEBUG saveAnswers successo")
         } catch {
             print("❌ Errore salvataggio risposte:", error)
         }
@@ -49,8 +51,10 @@ actor APIClient {
     
     func savePageAnswers(_ answers: [String: CodableValue], cluster: String, pageId: String) async {
         let body = UserAnswersResponse(answers: answers)
+        print("🔼 DEBUG savePageAnswers -> /api/pageAnswers/... pageId=\(pageId) payload keys: \(answers.keys)")
         do {
             try await send(path: "/api/pageAnswers/\(AppConfiguration.userID)/\(cluster)/\(pageId)", method: "POST", body: body)
+            print("✅ DEBUG savePageAnswers successo pageId=\(pageId)")
         } catch {
             print("❌ Errore salvataggio risposte pagina:", error)
         }
@@ -77,11 +81,22 @@ actor APIClient {
     private func request<T: Decodable>(path: String) async throws -> T {
         do {
             let request = try makeURLRequest(path: path)
+            print("🌐 APIClient: Requesting \(request.url?.absoluteString ?? path)")
             let (data, response) = try await URLSession.shared.data(for: request)
             guard let httpResponse = response as? HTTPURLResponse, (200..<300).contains(httpResponse.statusCode) else {
+                print("⚠️ APIClient: Bad response status=\((response as? HTTPURLResponse)?.statusCode ?? -1) for \(request.url?.absoluteString ?? path)")
                 throw URLError(.badServerResponse)
             }
-            return try decoder.decode(T.self, from: data)
+            do {
+                let decoded = try decoder.decode(T.self, from: data)
+                print("✅ APIClient: Decoded response for \(request.url?.absoluteString ?? path)")
+                return decoded
+            } catch {
+                if let jsonString = String(data: data, encoding: .utf8) {
+                    print("❌ APIClient: Decoding failure for \(path). Raw JSON: \n\(jsonString)")
+                }
+                throw error
+            }
         } catch {
             // Se il primo tentativo fallisce e stiamo usando localhost, prova con l'IP fallback
             if currentBaseURL == AppConfiguration.baseURL && AppConfiguration.baseURL.host == "localhost" {
@@ -89,12 +104,24 @@ actor APIClient {
                 currentBaseURL = AppConfiguration.fallbackURL
                 
                 let request = try makeURLRequest(path: path)
+                print("🌐 APIClient: Fallback requesting \(request.url?.absoluteString ?? path)")
                 let (data, response) = try await URLSession.shared.data(for: request)
                 guard let httpResponse = response as? HTTPURLResponse, (200..<300).contains(httpResponse.statusCode) else {
+                    print("⚠️ APIClient: Fallback bad response status=\((response as? HTTPURLResponse)?.statusCode ?? -1) for \(request.url?.absoluteString ?? path)")
                     throw URLError(.badServerResponse)
                 }
-                return try decoder.decode(T.self, from: data)
+                do {
+                    let decoded = try decoder.decode(T.self, from: data)
+                    print("✅ APIClient: Fallback decoded response for \(request.url?.absoluteString ?? path)")
+                    return decoded
+                } catch {
+                    if let jsonString = String(data: data, encoding: .utf8) {
+                        print("❌ APIClient: Fallback decoding failure for \(path). Raw JSON: \n\(jsonString)")
+                    }
+                    throw error
+                }
             } else {
+                print("❌ APIClient: Request failed for path \(path) error=\(error)")
                 throw error
             }
         }
@@ -103,10 +130,12 @@ actor APIClient {
     private func send<T: Encodable>(path: String, method: String, body: T) async throws {
         do {
             var request = try makeURLRequest(path: path, method: method)
+            print("⬆️ APIClient: Sending \(method) to \(request.url?.absoluteString ?? path) payloadType=\(T.self)")
             request.httpBody = try encoder.encode(body)
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
             let (_, response) = try await URLSession.shared.data(for: request)
             guard let httpResponse = response as? HTTPURLResponse, (200..<300).contains(httpResponse.statusCode) else {
+                print("⚠️ APIClient: Send bad response status=\((response as? HTTPURLResponse)?.statusCode ?? -1) for \(request.url?.absoluteString ?? path)")
                 throw URLError(.badServerResponse)
             }
         } catch {
@@ -116,13 +145,16 @@ actor APIClient {
                 currentBaseURL = AppConfiguration.fallbackURL
                 
                 var request = try makeURLRequest(path: path, method: method)
+                print("⬆️ APIClient: Fallback sending \(method) to \(request.url?.absoluteString ?? path) payloadType=\(T.self)")
                 request.httpBody = try encoder.encode(body)
                 request.setValue("application/json", forHTTPHeaderField: "Content-Type")
                 let (_, response) = try await URLSession.shared.data(for: request)
                 guard let httpResponse = response as? HTTPURLResponse, (200..<300).contains(httpResponse.statusCode) else {
+                    print("⚠️ APIClient: Fallback send bad response status=\((response as? HTTPURLResponse)?.statusCode ?? -1) for \(request.url?.absoluteString ?? path)")
                     throw URLError(.badServerResponse)
                 }
             } else {
+                print("❌ APIClient: Send failed for path \(path) error=\(error)")
                 throw error
             }
         }

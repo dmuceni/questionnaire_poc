@@ -1,0 +1,16 @@
+{
+  "source": "/Users/mucenid/questionnaire_poc/ios/QuestionnaireApp/QuestionnaireApp/ProgressBarView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "%lld%% completato",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 21
+        }
+      }
+    ]
+  },
+  "version": 1
+}

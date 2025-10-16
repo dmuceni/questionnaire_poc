@@ -23,10 +23,16 @@ final class QuestionnaireListViewModel: ObservableObject {
     func resetProgress(for cluster: String) {
         Task {
             do {
-                try await apiClient.resetAnswers(cluster: cluster)
+                try await apiClient.resetPageAnswers(cluster: cluster)
                 questionnaires = questionnaires.map { item in
                     guard item.cluster == cluster else { return item }
-                    return QuestionnaireProgress(cluster: item.cluster, title: item.title, percent: 0)
+                    return QuestionnaireProgress(
+                        cluster: item.cluster, 
+                        title: item.title, 
+                        percent: 0,
+                        questionnaireTitle: item.questionnaireTitle,
+                        questionnaireSubtitle: item.questionnaireSubtitle
+                    )
                 }
             } catch {
                 errorMessage = "Impossibile azzerare il questionario"

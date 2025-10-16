@@ -14,11 +14,12 @@ struct QuestionnairePageView: View {
             VStack(alignment: .leading, spacing: 32) {
                 // Header
                 VStack(alignment: .leading, spacing: 12) {
-                    Text(page.title)
-                        .font(.largeTitle)
-                        .fontWeight(.bold)
-                    
-                    if let description = page.description {
+                    if let title = page.title, !title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                        Text(title)
+                            .font(.largeTitle)
+                            .fontWeight(.bold)
+                    }
+                    if let description = page.description, !description.isEmpty {
                         Text(description)
                             .font(.body)
                             .foregroundColor(.secondary)

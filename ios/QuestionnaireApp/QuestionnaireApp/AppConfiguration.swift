@@ -9,15 +9,19 @@ enum AppConfiguration {
     static let baseURL: URL = {
         if let envValue = ProcessInfo.processInfo.environment["API_BASE_URL"],
            let url = URL(string: envValue), !envValue.isEmpty {
+            print("🔧 AppConfiguration: Using API_BASE_URL env variable -> \(url)")
             return url
         }
 
         if let plistValue = Bundle.main.object(forInfoDictionaryKey: "APIBaseURL") as? String,
            let url = URL(string: plistValue), !plistValue.isEmpty {
+            print("🔧 AppConfiguration: Using Info.plist APIBaseURL -> \(url)")
             return url
         }
 
-        return URL(string: "http://localhost:3001")!
+        let fallback = URL(string: "http://192.168.0.246:3001")!
+        print("🔧 AppConfiguration: Falling back to hardcoded IP -> \(fallback)")
+        return fallback
     }()
     
     static let fallbackURL = URL(string: "http://192.168.0.246:3001")!

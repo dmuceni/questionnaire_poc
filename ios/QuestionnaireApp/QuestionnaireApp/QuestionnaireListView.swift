@@ -23,7 +23,7 @@ struct QuestionnaireListView: View {
                 listContent
             }
         }
-        .navigationTitle("Questionari")
+        .navigationTitle("Personalizzazione")
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
                 Button(action: viewModel.refresh) {
@@ -39,9 +39,73 @@ struct QuestionnaireListView: View {
 
     private var listContent: some View {
         ScrollView {
-            LazyVStack(spacing: 16) {
+            LazyVStack(spacing: 24) {
+                // Sezione "Il tuo stile"
+                VStack(alignment: .leading, spacing: 16) {
+                    Text("Il tuo stile")
+                        .font(.title2)
+                        .fontWeight(.bold)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    
+                    Text("Rendi l'app davvero tua con un aspetto che rispecchia il tuo stile.")
+                        .font(.body)
+                        .foregroundColor(.secondary)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    
+                    // Link finto con aspetto uguale al questionario
+                    HStack(spacing: 16) {
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text("Personalizza aspetto")
+                                .font(.headline)
+                                .foregroundColor(.primary)
+                            
+                            Text("Scegli colori, temi e layout")
+                                .font(.subheadline)
+                                .foregroundColor(.secondary)
+                                .lineLimit(2)
+                        }
+                        
+                        Spacer()
+                        
+                        Image(systemName: "chevron.right")
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                    }
+                    .padding()
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .background(Color(.systemBackground))
+                    .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+                    .shadow(color: Color.black.opacity(0.05), radius: 4, x: 0, y: 2)
+                    .onTapGesture {
+                        // Link finto - nessuna azione
+                    }
+                }
+                .padding(.horizontal)
+                .padding(.top, 8)
+                
+                // Separatore
+                Rectangle()
+                    .fill(Color(.systemGray4))
+                    .frame(height: 1)
+                    .padding(.horizontal)
+                
+                // Sezione "La tua esperienza"
+                VStack(alignment: .leading, spacing: 16) {
+                    Text("La tua esperienza")
+                        .font(.title2)
+                        .fontWeight(.bold)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    
+                    Text("Ottieni solo i contenuti e le offerte adatte a te, senza perdere tempo.")
+                        .font(.body)
+                        .foregroundColor(.secondary)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                }
+                .padding(.horizontal)
+                
+                // Lista dei questionari
                 ForEach(viewModel.questionnaires) { questionnaire in
-                    QuestionnaireRow(item: questionnaire, onContinue: {
+                    QuestionnaireRow(item: questionnaire, onTap: {
                         path.append(.questionnaire(cluster: questionnaire.cluster, title: questionnaire.title))
                     }, onRestart: {
                         viewModel.resetProgress(for: questionnaire.cluster)
@@ -56,33 +120,46 @@ struct QuestionnaireListView: View {
 
 private struct QuestionnaireRow: View {
     let item: QuestionnaireProgress
-    let onContinue: () -> Void
+    let onTap: () -> Void
     let onRestart: () -> Void
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            HStack {
-                Text(item.title)
+        HStack(spacing: 16) {
+            VStack(alignment: .leading, spacing: 4) {
+                Text(item.questionnaireTitle ?? item.title)
                     .font(.headline)
-                Spacer()
+                    .foregroundColor(.primary)
+                
+                if let subtitle = item.questionnaireSubtitle {
+                    Text(subtitle)
+                        .font(.subheadline)
+                        .foregroundColor(.secondary)
+                        .lineLimit(2)
+                }
+            }
+            
+            Spacer()
+            
+            HStack(spacing: 8) {
                 Text("\(item.percent)%")
                     .font(.subheadline)
-                    .padding(6)
-                    .background(item.percent == 100 ? Color.green.opacity(0.15) : Color.blue.opacity(0.15))
-                    .clipShape(Capsule())
-            }
-
-            ProgressBarView(percentage: item.percent)
-
-            HStack {
-                if item.percent < 100 {
-                    Button("Continua", action: onContinue)
-                        .buttonStyle(.borderedProminent)
-                }
-                if item.percent == 100 {
-                    Button("Ricomincia", action: onRestart)
-                        .buttonStyle(.bordered)
-                        .tint(.red)
+                    .fontWeight(.medium)
+                    .foregroundColor(.secondary)
+                
+                if item.percent >= 100 {
+                    Button("Ricomincia") {
+                        onRestart()
+                    }
+                    .font(.caption)
+                    .foregroundColor(.blue)
+                    .padding(.horizontal, 8)
+                    .padding(.vertical, 4)
+                    .background(Color.blue.opacity(0.1))
+                    .clipShape(RoundedRectangle(cornerRadius: 6))
+                } else {
+                    Image(systemName: "chevron.right")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
                 }
             }
         }
@@ -91,6 +168,14 @@ private struct QuestionnaireRow: View {
         .background(Color(.systemBackground))
         .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
         .shadow(color: Color.black.opacity(0.05), radius: 4, x: 0, y: 2)
+        .onTapGesture {
+            onTap()
+        }
+        .contextMenu {
+            if item.percent >= 100 {
+                Button("Ricomincia", action: onRestart)
+            }
+        }
     }
 }
 
@@ -105,8 +190,13 @@ struct QuestionnaireListView_Previews: PreviewProvider {
     private static var previewModel: QuestionnaireListViewModel = {
         let vm = QuestionnaireListViewModel()
         vm.questionnaires = [
-            QuestionnaireProgress(cluster: "health", title: "Questionario Salute", percent: 40),
-            QuestionnaireProgress(cluster: "customer", title: "Customer Satisfaction", percent: 100)
+            QuestionnaireProgress(
+                cluster: "preview_cluster",
+                title: "Questionario di esempio",
+                percent: 40,
+                questionnaireTitle: "Titolo questionario",
+                questionnaireSubtitle: "Sottotitolo descrittivo placeholder."
+            )
         ]
         return vm
     }()

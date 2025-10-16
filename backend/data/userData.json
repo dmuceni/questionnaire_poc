@@ -1,44 +1,118 @@
 {
+  "users": {},
+  "sessions": {},
+  "metadata": {
+    "version": "1.0.0",
+    "lastModified": "2025-10-15T20:10:00.000Z",
+    "totalUsers": 0,
+    "totalSessions": 0
+  },
   "user_123": {
+    "contenuti_televisivi": {
+      "pageAnswers": {},
+      "lastUpdated": "2025-10-16T20:05:39.731Z"
+    },
     "answers": {
-      "assicurazioni_casa_device": {
-        "acd_q2_anni_abitazione": "Jj",
-        "acd_q10_utilita_assicurazione": "no",
-        "acd_q4_assicurazione_casa": "si",
-        "acd_q8_uso_dispositivi": "fuori",
-        "acd_q1_proprieta": "proprieta",
-        "acd_finish": "Jjj",
-        "acd_q7_dispositivi": "tablet",
-        "acd_q3_competenza": "poco_consulente",
-        "acd_q9_danni_preoccupanti": "schermo_rotto",
-        "acd_q5_tipo_assicurazione": "furto_incendio",
-        "acd_q11_copertura_attuale": "no"
-      },
-      "valutazione_servizi": {}
+      "contenuti_televisivi": {}
     },
-    "viaggi_vacanze": {
+    "abitudini_streaming": {
       "pageAnswers": {
-        "page_1": {},
-        "page_2": {},
-        "page_3": {},
-        "page_4": {}
-      },
-      "lastUpdated": "2025-10-09T12:21:14.144Z"
-    },
-    "valutazione_servizi": {
-      "pageAnswers": {
-        "page_1": {
-          "vs_q2_rapidita": 5,
-          "vs_q5_prezzo": 5,
-          "vs_q4_competenza": 5,
-          "vs_q1_qualita": 5,
-          "vs_q3_cortesia": 5
+        "page_streaming_interessi": {
+          "interesse_documentari": 4,
+          "interesse_bambini": 5,
+          "interesse_serie": 4,
+          "interesse_film_originali": 5
         },
-        "page_2": {
-          "vs_finish": "Mmm"
+        "page_film_originali": {
+          "film_originali_genere": "commedia",
+          "film_originali_frequenza": "mensile"
+        },
+        "page_serie": {
+          "serie_formato": "antologia",
+          "serie_modalita_visione": [
+            "binge"
+          ]
+        },
+        "page_documentari": {
+          "documentari_profondita": "brevi",
+          "documentari_temi": [
+            "true_crime"
+          ]
+        },
+        "page_bambini": {
+          "bambini_tipologie": [
+            "musicali",
+            "educativi"
+          ],
+          "bambini_modalita_controllo": "a_volte"
+        },
+        "page_streaming_feedback": {
+          "feedback_streaming_soddisfazione": "no"
+        },
+        "page_streaming_miglioramenti": {
+          "streaming_suggerimenti": "Dgsdfsg"
         }
       },
-      "lastUpdated": "2025-10-09T12:52:06.151Z"
+      "lastUpdated": "2025-10-16T12:08:09.415Z"
+    },
+    "impostazioni_notifiche": {
+      "pageAnswers": {
+        "page_canali_preferiti": {
+          "canale_principale": "push"
+        },
+        "page_push_dettagli": {
+          "push_eventi": [
+            "scadenze"
+          ]
+        },
+        "page_frequenza_notifiche": {
+          "frequenza_notifiche": "moderato"
+        },
+        "page_feedback_notifiche": {
+          "suggerimenti_notifiche": "Nnnn",
+          "feedback_notifiche": "si"
+        }
+      },
+      "lastUpdated": "2025-10-16T12:12:54.486Z"
+    },
+    "preferenze_dispositivi": {
+      "pageAnswers": {
+        "page_dispositivo_principale": {
+          "dispositivo_principale": "smart_tv"
+        },
+        "page_smart_tv_dettagli": {
+          "smart_tv_dimensione": "66",
+          "smart_tv_modalita": "standard"
+        },
+        "page_feedback_dispositivi": {
+          "feedback_dispositivi": "no"
+        },
+        "page_suggerimenti_dispositivi": {
+          "suggerimenti_dispositivi": "Jjj"
+        }
+      },
+      "lastUpdated": "2025-10-16T12:25:26.957Z"
+    },
+    "assicurazioni_casa_device": {
+      "pageAnswers": {},
+      "lastUpdated": "2025-10-16T20:14:13.035Z"
+    },
+    "animali_domestici": {
+      "pageAnswers": {
+        "page_pet_tipo": {
+          "pet_tipo": "gatto"
+        },
+        "page_pet_gatto": {
+          "gatto_eta": "1_5",
+          "gatto_indoor": "si"
+        },
+        "page_pet_finale": {
+          "pet_cura_servizi": [
+            "veterinario"
+          ]
+        }
+      },
+      "lastUpdated": "2025-10-16T20:18:38.191Z"
     }
   }
 }

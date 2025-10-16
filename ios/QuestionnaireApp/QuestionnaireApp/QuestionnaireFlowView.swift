@@ -18,15 +18,20 @@ struct QuestionnaireFlowView: View {
         content
             .navigationTitle(title)
             .navigationBarTitleDisplayMode(.inline)
+            // Nasconde il back di default per evitare doppio pulsante quando SwiftUI genera automaticamente il back
+            .navigationBarBackButtonHidden(true)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
-                    Button("Indietro") {
-                        if viewModel.usePageMode {
-                            viewModel.previousPage()
-                        } else {
-                            viewModel.goBack()
+                    Button {
+                        viewModel.previousPage()
+                    } label: {
+                        HStack(spacing: 4) {
+                            Image(systemName: "chevron.left")
+                                .font(.system(size: 16, weight: .medium))
+                            Text("Indietro")
                         }
                     }
+                    .accessibilityLabel("Indietro")
                 }
             }
             .onAppear {
@@ -105,64 +110,59 @@ struct QuestionnaireFlowView: View {
     @ViewBuilder
     private var pageBasedView: some View {
         if let currentPage = viewModel.currentPage {
-            ScrollView {
-                VStack(alignment: .leading, spacing: 24) {
-                    // Progress indicator
-                    ProgressBarView(percentage: viewModel.progress)
-                    
-                    // Page title
-                    Text(currentPage.title)
-                        .font(.largeTitle)
-                        .fontWeight(.bold)
-                        .padding(.bottom)
-                    
-                    // Questions in this page
-                    ForEach(currentPage.questions) { question in
-                        VStack(alignment: .leading, spacing: 16) {
-                            QuestionView(
-                                question: question,
-                                answer: viewModel.answers[question.id],
-                                onSelectRating: { rating in
-                                    viewModel.answerPageRating(questionId: question.id, rating: rating)
-                                },
-                                onSelectOption: { optionId in
-                                    viewModel.answerPageOption(questionId: question.id, optionId: optionId)
-                                },
-                                onUpdateOpen: { text in
-                                    viewModel.answerPageOpenQuestion(questionId: question.id, text: text)
-                                }
-                            )
+            ScrollViewReader { proxy in
+                ScrollView {
+                    LazyVStack(alignment: .leading, spacing: 24) {
+                        // Progress indicator
+                        ProgressBarView(percentage: viewModel.progress)
+                            .id("top") // Identificatore per lo scroll
+                        
+                        if let pageTitle = currentPage.title, !pageTitle.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                            Text(pageTitle)
+                                .font(.largeTitle)
+                                .fontWeight(.bold)
+                                .padding(.bottom)
                         }
-                        .padding(20)
-                        .background(Color(.systemBackground))
-                        .cornerRadius(16)
-                        .shadow(color: Color.black.opacity(0.05), radius: 8, x: 0, y: 4)
+                        
+                        // RIMOSSO titolo pagina
+                        ForEach(currentPage.questions) { question in
+                            questionCard(for: question)
+                        }
+                        
+                        Button(action: {
+                            // Clear any previous error messages
+                            viewModel.errorMessage = nil
+                            
+                            // Save answers and proceed
+                            viewModel.saveCurrentPageAnswers()
+                            if currentPage.isLast {
+                                viewModel.completed = true
+                            } else {
+                                viewModel.nextPage()
+                            }
+                        }) {
+                            HStack {
+                                Text(currentPage.isLast ? "Completa" : "Continua")
+                                    .fontWeight(.semibold)
+                                Spacer()
+                                Image(systemName: currentPage.isLast ? "checkmark" : "arrow.right")
+                            }
+                            .padding()
+                            .background(viewModel.canProceedToNextPage() ? Color.accentColor : Color.gray)
+                            .foregroundColor(.white)
+                            .cornerRadius(12)
+                        }
+                        .disabled(!viewModel.canProceedToNextPage())
+                        .padding(.top)
                     }
-                    
-                    // Continue button - always show, different text for last page
-                    Button(action: {
-                        viewModel.saveCurrentPageAnswers()
-                        if currentPage.isLast {
-                            // Complete the questionnaire on last page
-                            viewModel.completed = true
-                        } else {
-                            viewModel.nextPage()
-                        }
-                    }) {
-                        HStack {
-                            Text(currentPage.isLast ? "Completa" : "Continua")
-                                .fontWeight(.semibold)
-                            Spacer()
-                            Image(systemName: currentPage.isLast ? "checkmark" : "arrow.right")
-                        }
-                        .padding()
-                        .background(Color.accentColor)
-                        .foregroundColor(.white)
-                        .cornerRadius(12)
-                    }
-                    .padding(.top)
+                    .padding()
                 }
-                .padding()
+                .onChange(of: viewModel.currentPage?.id) { _ in
+                    // Scroll automatico verso l'alto quando cambia pagina
+                    withAnimation(.easeInOut(duration: 0.5)) {
+                        proxy.scrollTo("top", anchor: .top)
+                    }
+                }
             }
         } else {
             Text("Nessuna pagina disponibile")
@@ -211,35 +211,92 @@ struct QuestionnaireFlowView: View {
     
     @ViewBuilder
     private var pageStyleView: some View {
-        ScrollView {
-            VStack(alignment: .leading, spacing: 24) {
-                // Progress indicator
-                ProgressBarView(percentage: viewModel.progress)
-                
-                // Current question in a card style
-                if let question = currentQuestion {
-                    VStack(alignment: .leading, spacing: 16) {
-                        Text(question.text)
-                            .font(.title2)
-                            .fontWeight(.semibold)
-                            .multilineTextAlignment(.leading)
-                        
-                        QuestionView(
-                            question: question,
-                            answer: viewModel.answers[question.id],
-                            onSelectRating: viewModel.answerRating,
-                            onSelectOption: viewModel.answerOption,
-                            onUpdateOpen: viewModel.answerOpenQuestion
-                        )
+        ScrollViewReader { proxy in
+            ScrollView {
+                VStack(alignment: .leading, spacing: 24) {
+                    // Progress indicator
+                    ProgressBarView(percentage: viewModel.progress)
+                        .id("top") // Identificatore per lo scroll
+                    
+                    // Current question in a card style
+                    if let question = currentQuestion {
+                        VStack(alignment: .leading, spacing: 16) {
+                            Text(question.text)
+                                .font(.title2)
+                                .fontWeight(.semibold)
+                                .multilineTextAlignment(.leading)
+                            
+                            QuestionView(
+                                question: question,
+                                answer: viewModel.answers[question.id],
+                                onSelectRating: viewModel.answerRating,
+                                onSelectOption: viewModel.answerOption,
+                                onUpdateOpen: viewModel.answerOpenQuestion,
+                                onSelectMultipleChoice: viewModel.answerMultipleChoice
+                            )
+                        }
+                        .padding(20)
+                        .background(Color(.systemBackground))
+                        .cornerRadius(16)
+                        .shadow(color: Color.black.opacity(0.05), radius: 8, x: 0, y: 4)
                     }
-                    .padding(20)
-                    .background(Color(.systemBackground))
-                    .cornerRadius(16)
-                    .shadow(color: Color.black.opacity(0.05), radius: 8, x: 0, y: 4)
+                }
+                .padding()
+            }
+            .onChange(of: viewModel.currentQuestionID) { _ in
+                // Scroll automatico verso l'alto quando cambia domanda
+                withAnimation(.easeInOut(duration: 0.5)) {
+                    proxy.scrollTo("top", anchor: .top)
                 }
             }
-            .padding()
         }
+    }
+
+    @ViewBuilder
+    private func questionCard(for question: Question) -> some View {
+        LazyVStack(alignment: .leading, spacing: 16) {
+            QuestionView(
+                question: question,
+                answer: viewModel.answers[question.id],
+                onSelectRating: { rating in
+                    viewModel.answerPageRating(questionId: question.id, rating: rating)
+                },
+                onSelectOption: { optionId in
+                    viewModel.answerPageOption(questionId: question.id, optionId: optionId)
+                },
+                onUpdateOpen: { text in
+                    viewModel.answerPageOpenQuestion(questionId: question.id, text: text)
+                },
+                onSelectMultipleChoice: { selectedOptions in
+                    viewModel.answerPageMultipleChoice(questionId: question.id, selectedOptions: selectedOptions)
+                }
+            )
+        }
+        .padding(16)
+        .background(
+            RoundedRectangle(cornerRadius: 12)
+                .fill(Color(.systemBackground))
+                .shadow(color: Color.black.opacity(0.03), radius: 4, x: 0, y: 2)
+        )
+        .overlay(alignment: .top) {
+            if question.type == .rating {
+                scaleGradientOverlay
+            }
+        }
+    }
+    
+    private var scaleGradientOverlay: some View {
+        LinearGradient(
+            colors: [
+                Color.accentColor.opacity(0.8),
+                Color.accentColor.opacity(0.4),
+                Color.clear
+            ],
+            startPoint: .top,
+            endPoint: .bottom
+        )
+        .frame(height: 4)
+        .clipShape(RoundedRectangle(cornerRadius: 16))
     }
 
     private var currentQuestion: Question? {

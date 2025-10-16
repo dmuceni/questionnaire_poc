@@ -1,0 +1,48 @@
+{
+  "source": "/Users/mucenid/questionnaire_poc/ios/QuestionnaireApp/QuestionnaireApp/QuestionView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "%lld",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 87
+        }
+      },
+      {
+        "comment": "",
+        "key": "Annulla",
+        "location": {
+          "startingColumn": 32,
+          "startingLine": 180
+        }
+      },
+      {
+        "comment": "",
+        "key": "Conferma",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 190
+        }
+      },
+      {
+        "comment": "",
+        "key": "Risposta salvata",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 204
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld opzioni selezionate",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 246
+        }
+      }
+    ]
+  },
+  "version": 1
+}

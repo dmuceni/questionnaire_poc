@@ -1,401 +1,269 @@
 {
   "clusters": {
+    "contenuti_televisivi": {
+      "title": "Preferenze Contenuti Televisivi",
+      "questionnaireTitle": "I tuoi contenuti",
+      "questionnaireSubtitle": "Indica le passioni e gli interessi di chi utilizza questo abbonamento.",
+      "pages": [
+        {
+          "id": "page_interessi",
+          "title": "I Tuoi Interessi",
+          "description": "Valuta quanto ti piacciono i seguenti contenuti su una scala da 1 a 5",
+          "showContinue": true,
+          "isLast": false,
+          "conditionalRouting": {
+            "rules": [
+              { "condition": { "questionId": "interesse_cinema", "operator": ">=", "value": "3" }, "nextPage": "page_cinema", "priority": 1 },
+              { "condition": { "questionId": "interesse_sport", "operator": ">=", "value": "3" }, "nextPage": "page_sport", "priority": 2 },
+              { "condition": { "questionId": "interesse_calcio", "operator": ">=", "value": "3" }, "nextPage": "page_calcio", "priority": 3 },
+              { "condition": { "questionId": "interesse_intrattenimento", "operator": ">=", "value": "3" }, "nextPage": "page_intrattenimento", "priority": 4 }
+            ],
+            "defaultAction": "complete"
+          },
+          "questions": [
+            { "id": "interesse_cinema", "text": "Quanto ti piace il cinema?", "type": "rating", "required": true, "scale": 5 },
+            { "id": "interesse_sport", "text": "Quanto ti piace lo sport?", "type": "rating", "required": true, "scale": 5 },
+            { "id": "interesse_calcio", "text": "Quanto ti piace il calcio?", "type": "rating", "required": true, "scale": 5 },
+            { "id": "interesse_intrattenimento", "text": "Quanto ti piace l'intrattenimento?", "type": "rating", "required": true, "scale": 5 }
+          ]
+        },
+        {
+          "id": "page_cinema",
+          "title": "Approfondimento Cinema",
+          "description": "Dato il tuo interesse per il cinema, dimmi di più",
+          "showContinue": true,
+          "isLast": false,
+          "conditionalRouting": { "rules": [], "defaultAction": "complete" },
+          "questions": [
+            { "id": "cinema_genere_preferito", "text": "Quale genere cinematografico preferisci?", "type": "card", "required": true, "options": [ { "id": "azione", "label": "Film d'azione" }, { "id": "commedia", "label": "Commedie" }, { "id": "drama", "label": "Film drammatici" }, { "id": "horror", "label": "Film horror" }, { "id": "fantascienza", "label": "Fantascienza" } ] },
+            { "id": "cinema_frequenza", "text": "Quanto spesso vai al cinema?", "type": "card", "required": true, "options": [ { "id": "mai", "label": "Mai o quasi mai" }, { "id": "raramente", "label": "Raramente (1-2 volte l'anno)" }, { "id": "saltuariamente", "label": "Saltuariamente (ogni 2-3 mesi)" }, { "id": "spesso", "label": "Spesso (almeno una volta al mese)" }, { "id": "molto_spesso", "label": "Molto spesso (più volte al mese)" } ] }
+          ]
+        },
+        {
+          "id": "page_sport",
+          "title": "Approfondimento Sport",
+          "description": "Dato il tuo interesse per lo sport, dimmi di più",
+          "showContinue": true,
+          "isLast": false,
+          "conditionalRouting": { "rules": [], "defaultAction": "complete" },
+          "questions": [
+            { "id": "sport_preferiti", "text": "Quali sport segui di più?", "type": "multiple_choice", "required": true, "options": [ { "id": "calcio", "label": "Calcio" }, { "id": "basket", "label": "Basket" }, { "id": "tennis", "label": "Tennis" }, { "id": "formula1", "label": "Formula 1" }, { "id": "pallavolo", "label": "Pallavolo" }, { "id": "nuoto", "label": "Nuoto" } ] },
+            { "id": "sport_modalita", "text": "Come segui principalmente lo sport?", "type": "card", "required": true, "options": [ { "id": "tv", "label": "In TV" }, { "id": "streaming", "label": "In streaming online" }, { "id": "stadio", "label": "Allo stadio/dal vivo" }, { "id": "highlights", "label": "Solo highlights e riassunti" } ] }
+          ]
+        },
+        {
+          "id": "page_calcio",
+          "title": "Approfondimento Calcio",
+          "description": "Dato il tuo interesse per il calcio, dimmi di più",
+          "showContinue": true,
+          "isLast": false,
+          "conditionalRouting": { "rules": [], "defaultAction": "complete" },
+          "questions": [
+            { "id": "calcio_squadre_preferite", "text": "Seleziona le tue squadre preferite", "type": "multiple_choice_grouped", "required": true, "searchEnabled": true, "maxSelections": 5, "groups": [
+              { "id": "serie_a", "label": "Serie A", "options": [ { "id": "atalanta", "label": "Atalanta" }, { "id": "bologna", "label": "Bologna" }, { "id": "cagliari", "label": "Cagliari" }, { "id": "como", "label": "Como" }, { "id": "cremonese", "label": "Cremonese" }, { "id": "fiorentina", "label": "Fiorentina" }, { "id": "genoa", "label": "Genoa" }, { "id": "inter", "label": "Inter" }, { "id": "juventus", "label": "Juventus" }, { "id": "lazio", "label": "Lazio" }, { "id": "lecce", "label": "Lecce" }, { "id": "milan", "label": "Milan" }, { "id": "napoli", "label": "Napoli" }, { "id": "parma", "label": "Parma" }, { "id": "pisa", "label": "Pisa" }, { "id": "roma", "label": "Roma" }, { "id": "sassuolo", "label": "Sassuolo" }, { "id": "torino", "label": "Torino" }, { "id": "udinese", "label": "Udinese" }, { "id": "verona", "label": "Verona" } ] },
+              { "id": "serie_b", "label": "Serie B", "options": [ { "id": "ascoli", "label": "Ascoli" }, { "id": "brescia", "label": "Brescia" }, { "id": "catanzaro", "label": "Catanzaro" }, { "id": "cesena", "label": "Cesena" }, { "id": "cittadella", "label": "Cittadella" }, { "id": "cosenza", "label": "Cosenza" }, { "id": "cremonese", "label": "Cremonese" }, { "id": "frosinone", "label": "Frosinone" }, { "id": "mantova", "label": "Mantova" }, { "id": "modena", "label": "Modena" }, { "id": "palermo", "label": "Palermo" }, { "id": "pisa", "label": "Pisa" }, { "id": "reggiana", "label": "Reggiana" }, { "id": "salernitana", "label": "Salernitana" }, { "id": "sampdoria", "label": "Sampdoria" }, { "id": "spezia", "label": "Spezia" }, { "id": "ternana", "label": "Ternana" }, { "id": "venezia", "label": "Venezia" } ] },
+              { "id": "serie_c", "label": "Serie C", "options": [ { "id": "albinoLeffe", "label": "AlbinoLeffe" }, { "id": "alcione_milano", "label": "Alcione Milano" }, { "id": "arezzo", "label": "Arezzo" }, { "id": "audace_cerignola", "label": "Audace Cerignola" }, { "id": "az_picerno", "label": "AZ Picerno" }, { "id": "benevento", "label": "Benevento" }, { "id": "campobasso", "label": "Campobasso" }, { "id": "carpi", "label": "Carpi" }, { "id": "casarano", "label": "Casarano" }, { "id": "casertana", "label": "Casertana" }, { "id": "catania", "label": "Catania" }, { "id": "cavese", "label": "Cavese" }, { "id": "crotone", "label": "Crotone" }, { "id": "foggia", "label": "Foggia" }, { "id": "forli", "label": "Forlì" }, { "id": "giana_erminio", "label": "Giana Erminio" }, { "id": "giugliano", "label": "Giugliano" }, { "id": "gubbio", "label": "Gubbio" }, { "id": "juventus_next_gen", "label": "Juventus Next Gen" }, { "id": "latina", "label": "Latina" }, { "id": "lecco", "label": "Lecco" }, { "id": "livorno", "label": "Livorno" }, { "id": "lumezzane", "label": "Lumezzane" }, { "id": "monopoli", "label": "Monopoli" }, { "id": "pineto", "label": "Pineto" }, { "id": "pianese", "label": "Pianese" }, { "id": "pontedera", "label": "Pontedera" }, { "id": "ravenna", "label": "Ravenna" }, { "id": "rimini", "label": "Rimini" }, { "id": "sambenedettese", "label": "Sambenedettese" }, { "id": "ternana", "label": "Ternana" }, { "id": "torres", "label": "Torres" }, { "id": "vis_pesaro", "label": "Vis Pesaro" }, { "id": "trapani", "label": "Trapani" } ] }
+            ] },
+            { "id": "calcio_modalita_frui", "text": "Come guardi principalmente il calcio?", "type": "card", "required": true, "options": [ { "id": "tv", "label": "In TV" }, { "id": "streaming", "label": "Streaming" }, { "id": "stadio", "label": "Allo stadio" } ] }
+          ]
+        },
+        {
+          "id": "page_intrattenimento",
+          "title": "Approfondimento Intrattenimento",
+          "description": "Dato il tuo interesse per l'intrattenimento, dimmi di più",
+          "showContinue": true,
+          "isLast": false,
+          "conditionalRouting": { "rules": [], "defaultAction": "complete" },
+          "questions": [
+            { "id": "intrattenimento_tipi", "text": "Che tipo di intrattenimento preferisci?", "type": "multiple_choice", "required": true, "options": [ { "id": "talk_show", "label": "Talk show" }, { "id": "varieta", "label": "Programmi di varietà" }, { "id": "reality", "label": "Reality show" }, { "id": "game_show", "label": "Game show e quiz" }, { "id": "comedy", "label": "Comedy show" }, { "id": "talent", "label": "Talent show" } ] },
+            { "id": "intrattenimento_quando", "text": "Quando preferisci guardare programmi di intrattenimento?", "type": "card", "required": true, "options": [ { "id": "sera", "label": "La sera dopo cena" }, { "id": "weekend", "label": "Nel weekend" }, { "id": "pausa", "label": "Durante le pause" }, { "id": "sempre", "label": "In qualsiasi momento" } ] }
+          ]
+        }
+      ]
+    },
     "assicurazioni_casa_device": {
       "title": "Assicurazioni Casa e Device",
-      "questionnaire": [
-        {
-          "id": "acd_q1_proprieta",
-          "text": "Vivi in un immobile di tua proprietà o sei in affitto?",
-          "type": "card",
-          "options": [
-            { "id": "proprieta", "label": "Di proprietà" },
-            { "id": "affitto", "label": "In affitto" }
-          ],
-          "next": {
-            "proprieta": "acd_q2_anni_abitazione",
-            "affitto": "acd_q7_dispositivi"
-          }
-        },
-        {
-          "id": "acd_q2_anni_abitazione",
-          "text": "Da quanti anni vivi nella tua abitazione?",
-          "type": "open",
-          "next": "acd_q3_competenza"
-        },
-        {
-          "id": "acd_q3_competenza",
-          "text": "Quanto ti senti competente in materia di assicurazioni?",
-          "type": "card",
-          "options": [
-            { "id": "affatto", "label": "Affatto" },
-            { "id": "poco_consulente", "label": "Poco, ma mi affido a un consulente" },
-            { "id": "competente", "label": "Sono assolutamente competente" }
-          ],
-          "next": "acd_q4_assicurazione_casa"
-        },
-        {
-          "id": "acd_q4_assicurazione_casa",
-          "text": "Hai un'assicurazione sulla casa?",
-          "type": "card",
-          "options": [
-            { "id": "si", "label": "Sì" },
-            { "id": "no", "label": "No" }
-          ],
-          "next": {
-            "si": "acd_q5_tipo_assicurazione",
-            "no": "acd_q6_barriere"
-          }
-        },
-        {
-          "id": "acd_q5_tipo_assicurazione",
-          "text": "Che genere di assicurazione sulla casa hai?",
-          "type": "card",
-          "options": [
-            { "id": "furto_incendio", "label": "Furto/Incendio" },
-            { "id": "danni", "label": "Danni" },
-            { "id": "eventi_naturali", "label": "Eventi naturali" }
-          ],
-          "next": "acd_q7_dispositivi"
-        },
-        {
-          "id": "acd_q6_barriere",
-          "text": "Quali sono le principali barriere che ti impediscono di sottoscrivere un'assicurazione per la casa?",
-          "type": "card",
-          "options": [
-            { "id": "costi", "label": "Costi" },
-            { "id": "mancanza_info", "label": "Mancanza di informazioni" },
-            { "id": "non_necessaria", "label": "Non la ritengo necessaria" }
-          ],
-          "next": "acd_q7_dispositivi"
-        },
-        {
-          "id": "acd_q7_dispositivi",
-          "text": "Quali dispositivi elettronici possiedi attualmente?",
-          "type": "card",
-          "options": [
-            { "id": "smartphone", "label": "Smartphone" },
-            { "id": "tablet", "label": "Tablet" },
-            { "id": "smartwatch", "label": "Smartwatch" },
-            { "id": "laptop", "label": "Laptop" }
-          ],
-          "next": "acd_q8_uso_dispositivi"
-        },
-        {
-          "id": "acd_q8_uso_dispositivi",
-          "text": "Li usi più in casa o fuori?",
-          "type": "card",
-          "options": [
-            { "id": "casa", "label": "Più in casa" },
-            { "id": "fuori", "label": "Più fuori casa" },
-            { "id": "entrambi", "label": "Ugualmente" }
-          ],
-          "next": "acd_q9_danni_preoccupanti"
-        },
-        {
-          "id": "acd_q9_danni_preoccupanti",
-          "text": "Quali tipi di danni ai tuoi dispositivi ti preoccupano di più?",
-          "type": "card",
-          "options": [
-            { "id": "schermo_rotto", "label": "Schermo rotto" },
-            { "id": "danni", "label": "Danni" },
-            { "id": "guasti_hardware", "label": "Guasti hardware" }
-          ],
-          "next": "acd_q10_utilita_assicurazione"
-        },
-        {
-          "id": "acd_q10_utilita_assicurazione",
-          "text": "Ritieni utile assicurare i tuoi dispositivi oltre i 2 anni di garanzia legale già prevista?",
-          "type": "card",
-          "options": [
-            { "id": "si", "label": "Sì" },
-            { "id": "no", "label": "No" }
-          ],
-          "next": "acd_q11_copertura_attuale"
-        },
-        {
-          "id": "acd_q11_copertura_attuale",
-          "text": "Attualmente i tuoi dispositivi sono coperti da un'assicurazione integrativa?",
-          "type": "card",
-          "options": [
-            { "id": "si_alcuni", "label": "Sì, ho assicurato alcuni dispositivi" },
-            { "id": "no", "label": "No" }
-          ],
-          "next": {
-            "si_alcuni": "acd_q11_fornitori",
-            "no": "acd_finish"
-          }
-        },
-        {
-          "id": "acd_q11_fornitori",
-          "text": "Con quali fornitori hai scelto di assicurare i dispositivi?",
-          "type": "card",
-          "options": [
-            { "id": "allianz", "label": "Allianz" },
-            { "id": "american_express", "label": "American Express" },
-            { "id": "helvetia", "label": "Helvetia" },
-            { "id": "unipolsai", "label": "UnipolSai" },
-            { "id": "zurich", "label": "Zurich" },
-            { "id": "altro", "label": "Altro" },
-            { "id": "produttore", "label": "Ho un'assicurazione integrativa con il produttore" }
-          ],
-          "next": "acd_q12_soddisfazione"
-        },
-        {
-          "id": "acd_q12_soddisfazione",
-          "text": "Quanto ti soddisfano le assicurazioni che hai sui tuoi device?",
-          "type": "rating",
-          "scale": 5,
-          "next": "acd_finish"
-        },
-        {
-          "id": "acd_finish",
-          "text": "Grazie per aver condiviso le tue informazioni sulle assicurazioni!",
-          "type": "open"
-        }
-      ]
-    },
-    "viaggi_vacanze": {
-      "title": "Viaggi e Vacanze",
+      "questionnaireTitle": "La tua casa e i tuoi dispositivi",
+      "questionnaireSubtitle": "Aiutaci a capire le tue esigenze assicurative.",
       "pages": [
         {
-          "id": "page_1",
-          "title": "Le Tue Abitudini di Viaggio",
-          "description": "Raccontaci come ami viaggiare",
+          "id": "page_casa_intro",
+          "description": "Informazioni di base sulla tua casa",
           "showContinue": true,
           "isLast": false,
+          "conditionalRouting": {
+            "rules": [
+              { "condition": { "questionId": "casa_tipo_possesso", "operator": "==", "value": "proprieta" }, "nextPage": "page_casa_info_assicurazione", "priority": 1 }
+            ],
+            "defaultAction": "page_device_intro"
+          },
           "questions": [
-            {
-              "id": "tv_q1_frequenza",
-              "text": "Con che frequenza viaggi durante l'anno?",
-              "type": "card",
-              "required": true,
-              "options": [
-                { "id": "mai", "label": "Mai o quasi mai" },
-                { "id": "1_2_volte", "label": "1-2 volte l'anno" },
-                { "id": "3_5_volte", "label": "3-5 volte l'anno" },
-                { "id": "piu_5", "label": "Più di 5 volte l'anno" }
-              ]
-            },
-            {
-              "id": "tv_q2_destinazioni",
-              "text": "Che tipo di destinazioni preferisci?",
-              "type": "card",
-              "required": true,
-              "options": [
-                { "id": "italia", "label": "Principalmente in Italia" },
-                { "id": "europa", "label": "Europa" },
-                { "id": "intercontinentali", "label": "Viaggi intercontinentali" },
-                { "id": "tutto", "label": "Un po' di tutto" }
-              ]
-            },
-            {
-              "id": "tv_q3_durata",
-              "text": "Qual è la durata media dei tuoi viaggi?",
-              "type": "card",
-              "required": true,
-              "options": [
-                { "id": "weekend", "label": "Weekend (2-3 giorni)" },
-                { "id": "settimana", "label": "Una settimana" },
-                { "id": "due_settimane", "label": "Due settimane" },
-                { "id": "piu_due", "label": "Più di due settimane" }
-              ]
-            }
-          ],
-          "nextPage": "page_2"
+            { "id": "casa_tipo_possesso", "text": "Vivi in un immobile di tua proprietà o sei in affitto?", "type": "card", "required": true, "options": [ { "id": "proprieta", "label": "Proprietà" }, { "id": "affitto", "label": "Affitto" } ] }
+          ]
         },
         {
-          "id": "page_2",
-          "title": "Budget e Organizzazione",
-          "description": "Come organizzi e finanzi i tuoi viaggi",
+          "id": "page_casa_info_assicurazione",
+          "description": "Approfondisci la tua situazione assicurativa per la casa",
           "showContinue": true,
           "isLast": false,
+          "conditionalRouting": {
+            "rules": [
+              { "condition": { "questionId": "casa_assicurazione_presente", "operator": "==", "value": "si" }, "nextPage": "page_casa_tipo_assicurazione", "priority": 1 },
+              { "condition": { "questionId": "casa_assicurazione_presente", "operator": "==", "value": "no" }, "nextPage": "page_casa_barriere", "priority": 1 }
+            ],
+            "defaultAction": "page_device_intro"
+          },
           "questions": [
-            {
-              "id": "tv_q4_budget",
-              "text": "Qual è il tuo budget annuale per i viaggi?",
-              "type": "card",
-              "required": true,
-              "options": [
-                { "id": "sotto_1000", "label": "Sotto i 1.000€" },
-                { "id": "1000_3000", "label": "1.000€ - 3.000€" },
-                { "id": "3000_5000", "label": "3.000€ - 5.000€" },
-                { "id": "sopra_5000", "label": "Sopra i 5.000€" }
-              ]
-            },
-            {
-              "id": "tv_q5_prenotazione",
-              "text": "Come prenoti solitamente i tuoi viaggi?",
-              "type": "card",
-              "required": true,
-              "options": [
-                { "id": "online", "label": "Online (booking, expedia, etc.)" },
-                { "id": "agenzia", "label": "Agenzia di viaggi" },
-                { "id": "diretto", "label": "Direttamente con hotel/compagnie" },
-                { "id": "misto", "label": "Combinazione di metodi" }
-              ]
-            },
-            {
-              "id": "tv_q6_anticipo",
-              "text": "Con quanto anticipo prenoti di solito?",
-              "type": "card",
-              "required": true,
-              "options": [
-                { "id": "ultima_ora", "label": "All'ultimo momento" },
-                { "id": "1_mese", "label": "1 mese prima" },
-                { "id": "3_mesi", "label": "2-3 mesi prima" },
-                { "id": "oltre_3", "label": "Oltre 3 mesi prima" }
-              ]
-            }
-          ],
-          "nextPage": "page_3"
+            { "id": "casa_anni_abitazione", "text": "Da quanti anni vivi nella tua abitazione?", "type": "card", "required": true, "options": [ { "id": "meno_1", "label": "Meno di 1 anno" }, { "id": "1_3", "label": "1-3 anni" }, { "id": "3_5", "label": "3-5 anni" }, { "id": "oltre_5", "label": "Oltre 5 anni" } ] },
+            { "id": "casa_competenza_assicurazioni", "text": "Quanto ti senti competente in materia di assicurazioni?", "type": "card", "required": true, "options": [ { "id": "affatto", "label": "Affatto" }, { "id": "poco", "label": "Poco, ma mi affido a un consulente" }, { "id": "competente", "label": "Sono assolutamente competente" } ] },
+            { "id": "casa_assicurazione_presente", "text": "Hai un’assicurazione sulla casa?", "type": "card", "required": true, "options": [ { "id": "si", "label": "Sì" }, { "id": "no", "label": "No" } ] }
+          ]
         },
         {
-          "id": "page_3",
-          "title": "Assicurazione Viaggio",
-          "description": "Le tue abitudini riguardo l'assicurazione di viaggio",
+          "id": "page_casa_tipo_assicurazione",
+          "description": "Dettagli sulla copertura della tua casa",
           "showContinue": true,
           "isLast": false,
+          "conditionalRouting": { "rules": [], "defaultAction": "page_device_intro" },
           "questions": [
-            {
-              "id": "tv_q7_assicurazione",
-              "text": "Fai sempre un'assicurazione viaggio?",
-              "type": "card",
-              "required": true,
-              "options": [
-                { "id": "sempre", "label": "Sempre" },
-                { "id": "spesso", "label": "Spesso" },
-                { "id": "raramente", "label": "Raramente" },
-                { "id": "mai", "label": "Mai" }
-              ]
-            },
-            {
-              "id": "tv_q8_coperture",
-              "text": "Quali coperture consideri più importanti?",
-              "type": "card",
-              "required": true,
-              "options": [
-                { "id": "medica", "label": "Assistenza medica" },
-                { "id": "bagaglio", "label": "Bagaglio" },
-                { "id": "annullamento", "label": "Annullamento viaggio" },
-                { "id": "tutte", "label": "Tutte le coperture" }
-              ]
-            }
-          ],
-          "nextPage": "page_4"
+            { "id": "casa_tipo_assicurazione", "text": "Che genere di assicurazione sulla casa hai?", "type": "multiple_choice", "required": true, "options": [ { "id": "furto_incendio", "label": "Furto/Incendio" }, { "id": "danni", "label": "Danni" }, { "id": "eventi_naturali", "label": "Eventi naturali" } ] }
+          ]
         },
         {
-          "id": "page_4",
-          "title": "Valutazione Finale",
-          "description": "Completa il questionario con la tua valutazione",
-          "showContinue": false,
+          "id": "page_casa_barriere",
+          "description": "Cosa ti frena dal fare un'assicurazione casa",
+          "showContinue": true,
+          "isLast": false,
+          "conditionalRouting": { "rules": [], "defaultAction": "page_device_intro" },
+          "questions": [
+            { "id": "casa_barriere_assicurazione", "text": "Quali sono le principali barriere che ti impediscono di sottoscrivere un’assicurazione per la casa?", "type": "multiple_choice", "required": true, "options": [ { "id": "costi", "label": "Costi" }, { "id": "mancanza_informazioni", "label": "Mancanza di informazioni" }, { "id": "non_necessaria", "label": "Non la ritengo necessaria" } ] }
+          ]
+        },
+        {
+          "id": "page_device_intro",
+          "description": "Panoramica sui device che possiedi",
+          "showContinue": true,
+          "isLast": false,
+          "conditionalRouting": { "rules": [], "defaultAction": "page_device_utilizzo" },
+          "questions": [
+            { "id": "device_posseduti", "text": "Quali dispositivi elettronici possiedi attualmente?", "type": "multiple_choice", "required": true, "options": [ { "id": "smartphone", "label": "Smartphone" }, { "id": "tablet", "label": "Tablet" }, { "id": "smartwatch", "label": "Smartwatch" }, { "id": "laptop", "label": "Laptop" } ] }
+          ]
+        },
+        {
+          "id": "page_device_utilizzo",
+          "description": "Dove li usi maggiormente",
+          "showContinue": true,
+          "isLast": false,
+          "conditionalRouting": { "rules": [], "defaultAction": "page_device_preoccupazioni" },
+          "questions": [
+            { "id": "device_utilizzo_luogo", "text": "Li usi più in casa o fuori?", "type": "card", "required": true, "options": [ { "id": "casa", "label": "In casa" }, { "id": "fuori", "label": "Fuori casa" }, { "id": "entrambi", "label": "Entrambi" } ] }
+          ]
+        },
+        {
+          "id": "page_device_preoccupazioni",
+          "description": "Tipi di danni che ti preoccupano",
+          "showContinue": true,
+          "isLast": false,
+          "conditionalRouting": { "rules": [], "defaultAction": "page_device_assicurazione_utilita" },
+          "questions": [
+            { "id": "device_danni_preoccupazioni", "text": "Quali tipi di danni ai tuoi dispositivi ti preoccupano di più?", "type": "multiple_choice", "required": true, "options": [ { "id": "schermo_rotto", "label": "Schermo rotto" }, { "id": "danni", "label": "Danni" }, { "id": "guasti_hardware", "label": "Guasti hardware" } ] }
+          ]
+        },
+        {
+          "id": "page_device_assicurazione_utilita",
+          "description": "Valuta l'utilità di una assicurazione prolungata",
+          "showContinue": true,
+          "isLast": false,
+          "conditionalRouting": {
+            "rules": [
+              { "condition": { "questionId": "device_copertura_integrativa_presente", "operator": "==", "value": "si" }, "nextPage": "page_device_fornitori", "priority": 1 }
+            ],
+            "defaultAction": "page_device_soddisfazione"
+          },
+          "questions": [
+            { "id": "device_assicurazione_oltre_garanzia", "text": "Ritieni utile assicurare i tuoi dispositivi oltre i 2 anni di garanzia legale già prevista?", "type": "card", "required": true, "options": [ { "id": "si", "label": "Sì" }, { "id": "no", "label": "No" } ] },
+            { "id": "device_copertura_integrativa_presente", "text": "Attualmente i tuoi dispositivi sono coperti da un’assicurazione integrativa?", "type": "card", "required": true, "options": [ { "id": "si", "label": "Sì, ho assicurato alcuni dispositivi" }, { "id": "no", "label": "No" } ] }
+          ]
+        },
+        {
+          "id": "page_device_fornitori",
+          "description": "Con quali fornitori hai scelto di assicurare i dispositivi?",
+          "showContinue": true,
+          "isLast": false,
+          "conditionalRouting": { "rules": [], "defaultAction": "page_device_soddisfazione" },
+          "questions": [
+            { "id": "device_fornitori_assicurazione", "text": "Fornitori scelti", "type": "multiple_choice", "required": true, "options": [ { "id": "allianz", "label": "Allianz" }, { "id": "american_express", "label": "American Express" }, { "id": "helvetia", "label": "Helvetia" }, { "id": "unipolsai", "label": "UnipolSai" }, { "id": "zurich", "label": "Zurich" }, { "id": "altro", "label": "Altro" }, { "id": "produttore", "label": "Assicurazione integrativa col produttore" } ] }
+          ]
+        },
+        {
+          "id": "page_device_soddisfazione",
+          "description": "Valuta la soddisfazione sulle assicurazioni device",
+          "showContinue": true,
           "isLast": true,
+          "conditionalRouting": { "rules": [], "defaultAction": "complete" },
           "questions": [
-            {
-              "id": "tv_q9_soddisfazione",
-              "text": "Quanto sei soddisfatto delle assicurazioni viaggio che hai utilizzato?",
-              "type": "rating",
-              "required": true,
-              "scale": 5
-            },
-            {
-              "id": "tv_q10_commenti",
-              "text": "Hai suggerimenti o commenti aggiuntivi sui viaggi e le assicurazioni?",
-              "type": "open",
-              "required": false
-            },
-            {
-              "id": "tv_finish",
-              "text": "Grazie per aver completato il questionario sui viaggi!",
-              "type": "open",
-              "required": true
-            }
-          ],
-          "nextPage": null
+            { "id": "device_soddisfazione_assicurazioni", "text": "Quanto ti soddisfano le assicurazioni che hai sui tuoi device?", "type": "rating", "required": true, "scale": 5 }
+          ]
         }
       ]
-    },
-    "valutazione_servizi": {
-      "title": "Valutazione Servizi",
+    }
+    ,
+    "animali_domestici": {
+      "title": "Animali Domestici",
+      "questionnaireTitle": "Il tuo animale",
+      "questionnaireSubtitle": "Indicaci alcune informazioni sul tuo cane o gatto.",
       "pages": [
         {
-          "id": "page_1",
-          "title": "Valuta i Nostri Servizi",
-          "description": "Esprimi la tua valutazione da 1 a 5 per ciascun aspetto",
+          "id": "page_pet_tipo",
+          "title": "Tipo di Animale",
+          "description": "Seleziona il tipo di animale di cui vuoi parlare",
           "showContinue": true,
           "isLast": false,
+          "conditionalRouting": {
+            "rules": [
+              { "condition": { "questionId": "pet_tipo", "operator": "==", "value": "cane" }, "nextPage": "page_pet_cane", "priority": 1 },
+              { "condition": { "questionId": "pet_tipo", "operator": "==", "value": "gatto" }, "nextPage": "page_pet_gatto", "priority": 2 }
+            ],
+            "defaultAction": "complete"
+          },
           "questions": [
-            {
-              "id": "vs_q1_qualita",
-              "text": "Come valuti la qualità del servizio ricevuto?",
-              "type": "rating",
-              "required": true,
-              "scale": 5
-            },
-            {
-              "id": "vs_q2_rapidita", 
-              "text": "Quanto sei soddisfatto della rapidità del servizio?",
-              "type": "rating",
-              "required": true,
-              "scale": 5
-            },
-            {
-              "id": "vs_q3_cortesia",
-              "text": "Come valuti la cortesia del personale?",
-              "type": "rating",
-              "required": true,
-              "scale": 5
-            },
-            {
-              "id": "vs_q4_competenza",
-              "text": "Quanto ritieni competente il nostro staff?",
-              "type": "rating",
-              "required": true,
-              "scale": 5
-            },
-            {
-              "id": "vs_q5_prezzo",
-              "text": "Come giudichi il rapporto qualità-prezzo?",
-              "type": "rating",
-              "required": true,
-              "scale": 5
-            }
-          ],
-          "nextPage": "page_2"
+            { "id": "pet_tipo", "text": "Quale animale possiedi?", "type": "card", "required": true, "options": [ { "id": "cane", "label": "Cane" }, { "id": "gatto", "label": "Gatto" } ] }
+          ]
         },
         {
-          "id": "page_2",
-          "title": "Feedback Aggiuntivo",
-          "description": "Aiutaci a migliorare con i tuoi commenti",
-          "showContinue": false,
-          "isLast": true,
+          "id": "page_pet_cane",
+          "title": "Il Tuo Cane",
+          "description": "Qualche dettaglio sul tuo cane",
+          "showContinue": true,
+          "isLast": false,
+          "conditionalRouting": { "rules": [], "defaultAction": "page_pet_finale" },
           "questions": [
-            {
-              "id": "vs_q6_miglioramenti",
-              "text": "Cosa pensi che potremmo migliorare?",
-              "type": "open",
-              "required": false
-            },
-            {
-              "id": "vs_q7_raccomandazione",
-              "text": "Consiglieresti i nostri servizi ad un amico?",
-              "type": "card",
-              "required": true,
-              "options": [
-                { "id": "si_sicuramente", "label": "Sì, sicuramente" },
-                { "id": "si_probabilmente", "label": "Sì, probabilmente" },
-                { "id": "forse", "label": "Forse" },
-                { "id": "probabilmente_no", "label": "Probabilmente no" },
-                { "id": "no_mai", "label": "No, mai" }
-              ]
-            },
-            {
-              "id": "vs_finish",
-              "text": "Grazie per il tuo prezioso feedback!",
-              "type": "open",
-              "required": true
-            }
-          ],
-          "nextPage": null
+            { "id": "cane_taglia", "text": "Che taglia ha il tuo cane?", "type": "card", "required": true, "options": [ { "id": "piccola", "label": "Piccola" }, { "id": "media", "label": "Media" }, { "id": "grande", "label": "Grande" } ] },
+            { "id": "cane_attivita", "text": "Quanto è attivo il tuo cane?", "type": "rating", "required": true, "scale": 5 }
+          ]
+        },
+        {
+          "id": "page_pet_gatto",
+          "title": "Il Tuo Gatto",
+          "description": "Qualche dettaglio sul tuo gatto",
+          "showContinue": true,
+          "isLast": false,
+          "conditionalRouting": { "rules": [], "defaultAction": "page_pet_finale" },
+          "questions": [
+            { "id": "gatto_eta", "text": "Quanti anni ha il tuo gatto?", "type": "card", "required": true, "options": [ { "id": "meno_1", "label": "Meno di 1 anno" }, { "id": "1_5", "label": "1-5 anni" }, { "id": "5_10", "label": "5-10 anni" }, { "id": "oltre_10", "label": "Oltre 10 anni" } ] },
+            { "id": "gatto_indoor", "text": "Il tuo gatto vive principalmente in casa?", "type": "card", "required": true, "options": [ { "id": "si", "label": "Sì" }, { "id": "no", "label": "No" } ] }
+          ]
+        },
+        {
+          "id": "page_pet_finale",
+          "title": "Preferenze Cura",
+          "description": "Ultime preferenze sulla cura del tuo animale",
+          "showContinue": true,
+          "isLast": true,
+          "conditionalRouting": { "rules": [], "defaultAction": "complete" },
+          "questions": [
+            { "id": "pet_cura_servizi", "text": "Quali servizi di cura ti interessano?", "type": "multiple_choice", "required": true, "options": [ { "id": "toelettatura", "label": "Toelettatura" }, { "id": "assicurazione_pet", "label": "Assicurazione" }, { "id": "veterinario", "label": "Visite veterinarie" }, { "id": "alimentazione_speciale", "label": "Alimentazione speciale" } ] }
+          ]
         }
       ]
     }

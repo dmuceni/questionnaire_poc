@@ -168,11 +168,51 @@ const Question = ({ question, onAnswer }) => {
     );
   };
 
+  const renderMultipleChoice = () => {
+    return (
+      <div className="question-card">
+        <h2 className="question-text">{question.text}</h2>
+        <div className="multiple-choice-options">
+          {question.options?.map((option) => {
+            const isSelected = Array.isArray(selectedValue) && selectedValue.includes(option.id);
+            return (
+              <label key={option.id} className="multiple-choice-option">
+                <input
+                  type="checkbox"
+                  checked={isSelected}
+                  onChange={(e) => {
+                    const currentSelection = Array.isArray(selectedValue) ? [...selectedValue] : [];
+                    if (e.target.checked) {
+                      // Aggiungi l'opzione se non è già selezionata
+                      if (!currentSelection.includes(option.id)) {
+                        currentSelection.push(option.id);
+                      }
+                    } else {
+                      // Rimuovi l'opzione se deselezionata
+                      const index = currentSelection.indexOf(option.id);
+                      if (index > -1) {
+                        currentSelection.splice(index, 1);
+                      }
+                    }
+                    handleAnswer(currentSelection);
+                  }}
+                />
+                <span className="checkmark"></span>
+                {option.label}
+              </label>
+            );
+          })}
+        </div>
+      </div>
+    );
+  };
+
   return (
     <div className="question-container">
       {question.type === 'rating' && renderRatingScale()}
       {question.type === 'card' && renderCardOptions()}
       {question.type === 'open' && renderOpenQuestion()}
+      {question.type === 'multiple_choice' && renderMultipleChoice()}
     </div>
   );
 };

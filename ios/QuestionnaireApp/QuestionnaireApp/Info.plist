@@ -46,6 +46,6 @@
 		<true/>
 	</dict>
 	<key>APIBaseURL</key>
-	<string>http://192.168.0.246:3001</string>
+	<string>http://localhost:3001</string>
 </dict>
 </plist>
