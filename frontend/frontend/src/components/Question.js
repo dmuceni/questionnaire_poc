@@ -1,27 +1,22 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import './Question.css';
 
 const Question = ({ question, onAnswer }) => {
-  const getRatingMinValue = () => {
-    if (typeof question?.minScale === 'number') {
-      return question.minScale;
-    }
-
+  const getRatingMinValue = useCallback(() => {
+    if (typeof question?.minScale === 'number') return question.minScale;
     return 0;
-  };
+  }, [question?.minScale]);
 
-  const getRatingDefaultValue = () => {
-    if (typeof question?.defaultValue === 'number') {
-      return question.defaultValue;
-    }
-
+  const getRatingDefaultValue = useCallback(() => {
+    if (typeof question?.defaultValue === 'number') return question.defaultValue;
     return getRatingMinValue();
-  };
+  }, [question?.defaultValue, getRatingMinValue]);
 
   const [selectedValue, setSelectedValue] = useState(() => (
     question?.type === 'rating' ? getRatingDefaultValue() : null
   ));
-  const [inputValue, setInputValue] = useState('');
+  // Stato di ricerca per grouped multiple choice (isolato per domanda corrente)
+  const [groupedSearch, setGroupedSearch] = useState('');
 
   const handleAnswer = (value) => {
     setSelectedValue(value);
@@ -29,24 +24,11 @@ const Question = ({ question, onAnswer }) => {
   };
 
   useEffect(() => {
-    if (question?.type === 'rating') {
-      setSelectedValue(getRatingDefaultValue());
-    } else {
-      setSelectedValue(null);
-    }
-  }, [question]);
+    if (question?.type === 'rating') setSelectedValue(getRatingDefaultValue());
+    else setSelectedValue(null);
+  }, [question, getRatingDefaultValue]);
 
-  const handleInputChange = (e) => {
-    setInputValue(e.target.value);
-  };
-
-  const handleInputSubmit = (e) => {
-    e.preventDefault();
-    if (inputValue.trim()) {
-      onAnswer(inputValue.trim());
-      setInputValue('');
-    }
-  };
+  // Funzioni input text rimosse perché non necessarie (domanda open salva onChange)
 
   const renderRatingScale = () => {
     const minScale = getRatingMinValue();
@@ -207,12 +189,73 @@ const Question = ({ question, onAnswer }) => {
     );
   };
 
+  const renderGroupedMultipleChoice = () => {
+    const groups = question.groups || [];
+    const maxSel = question.maxSelections || Infinity;
+    const currentSelection = Array.isArray(selectedValue) ? selectedValue : [];
+
+    const toggle = (id) => {
+      let next = [...currentSelection];
+      const idx = next.indexOf(id);
+      if (idx >= 0) { next.splice(idx,1); }
+      else if (next.length < maxSel) { next.push(id); }
+      handleAnswer(next);
+    };
+
+    const filteredGroups = groups.map(g => ({
+      ...g,
+      options: g.options.filter(o => !groupedSearch || o.label.toLowerCase().includes(groupedSearch.toLowerCase()))
+    })).filter(g => g.options.length > 0);
+
+    return (
+      <div className="question-card">
+        <h2 className="question-text">{question.text}</h2>
+        {question.searchEnabled && (
+          <input
+            type="text"
+            placeholder="Cerca..."
+            className="grouped-search"
+            value={groupedSearch}
+            onChange={e => setGroupedSearch(e.target.value)}
+          />
+        )}
+        <div className="grouped-mc-wrapper">
+          {filteredGroups.map(g => (
+            <div key={g.id} className="group-block">
+              <div className="group-title">{g.label}</div>
+              <div className="group-options">
+                {g.options.map(opt => {
+                  const sel = currentSelection.includes(opt.id);
+                  return (
+                    <button
+                      type="button"
+                      key={opt.id}
+                      className={`group-option ${sel ? 'selected' : ''}`}
+                      onClick={() => toggle(opt.id)}
+                      disabled={!sel && currentSelection.length >= maxSel}
+                    >
+                      {opt.label}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          ))}
+        </div>
+        {maxSel !== Infinity && (
+          <div className="selection-hint">{currentSelection.length}/{maxSel} selezionate</div>
+        )}
+      </div>
+    );
+  };
+
   return (
     <div className="question-container">
       {question.type === 'rating' && renderRatingScale()}
       {question.type === 'card' && renderCardOptions()}
       {question.type === 'open' && renderOpenQuestion()}
       {question.type === 'multiple_choice' && renderMultipleChoice()}
+      {question.type === 'multiple_choice_grouped' && renderGroupedMultipleChoice()}
     </div>
   );
 };

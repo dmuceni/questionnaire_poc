@@ -1,71 +1,85 @@
-# Getting Started with Create React App
+## Frontend Questionario React
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Implementazione web del flusso questionario con due modalità:
 
-## Available Scripts
+1. Modalità "classica" (routing per domanda) — rotta: `/questionario/:cluster`
+2. Modalità a "pagine" data‑driven — rotta: `/questionario-pagine/:cluster`
 
-In the project directory, you can run:
+Il backend (proxy su `localhost:3001`) espone API per:
+- Domande classiche: `GET /api/questionnaire/:cluster`
+- Risposte classiche: `GET/POST /api/userAnswers/:userId/:cluster`
+- Pagine: `GET /api/pages/:cluster`
+- Risposte pagine: `GET/POST /api/pageAnswers/:userId/:cluster(/:pageId)`
+- Progress globale: `GET /api/progress/:userId`
 
-### `npm start`
+### Architettura principale
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-dd
+```
+src/
+	api.js                // layer di servizio REST
+	App.js                // definizione rotte
+	components/
+		QuestionnaireLoader // flusso classico domanda-per-domanda
+		QuestionnairePageFlow.jsx // nuovo flusso a pagine
+		PageView.jsx        // rendering singola pagina con n domande
+		ProgressBar.jsx     // barra avanzamento riusabile
+		Question.js         // rendering di vari tipi di domanda
+	pages/
+		QuestionnaireList.js // elenco cluster + percentuali
+```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Motori logici riutilizzati da backend / iOS sono stati tradotti in JS dentro `api.js` (funzioni `buildFullPath`, `calculatePageProgress`, ecc.).
 
-### `npm test`
+### Avvio
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. Avvia backend (cartella `backend`):
+2. Avvia frontend:
 
-### `npm run build`
+```
+npm install
+npm start
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Apri `http://localhost:3000`.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Aggiungere un nuovo tipo domanda
+Estendere `Question.js` aggiungendo un nuovo branch condizionale e relativo markup / stile.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Passare dalla modalità classica a pagine
+Per un cluster esistente visita `/questionario-pagine/<cluster>`. Se nel CMS il cluster contiene già `pages`, verranno usate direttamente; altrimenti il backend farà un wrapping automatico delle domande in pagine (chunk di 3 domande).
 
-### `npm run eject`
+### Calcolo progresso
+Modalità classica: percentuale = domande risposte / totale, con 99% prima di completare l'ultima.
+Modalità a pagine: considera solo domande `required` nelle pagine raggiungibili (routing condizionale), analogamente alla logica Swift e backend.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Esempio di cluster con routing condizionale
+`contenuti_televisivi` e `mezzi_trasporto` usano rating iniziali (>=3) per attivare pagine di approfondimento. Il motore:
+- Calcola le pagine raggiungibili dal nodo iniziale (BFS condizionale).
+- Mostra sempre la prima pagina raggiungibile non completata.
+- Considera completato il questionario solo quando tutte le pagine raggiungibili con domande required sono risposte.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Nuovo cluster `mezzi_trasporto`
+Struttura:
+- Pagina iniziale `page_mezzi_intro` con tre rating (auto, moto/scooter, mezzi pubblici).
+- Pagine condizionali: `page_auto`, `page_moto`, `page_pubblici` se il rating corrispondente >=3.
+- Pagina finale sempre raggiungibile `page_mezzi_finale`.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Pulizia codice effettuata
+- Rimossi file di backup e componenti duplicati non usati (`QuestionnaireLoader.js.backup`, vecchia lista `questionaires.js`, `logo.svg`).
+- Consolidato flusso pagine con stack di navigazione per il tasto Indietro e reset risposte pagina.
+- Aggiornata logica di routing per evitare completamento anticipato.
+- Eliminato boilerplate Create React App (`App.test.js`, `setupTests.js`, `reportWebVitals.js`) per ridurre rumore.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### Reset risposte
+Classico: POST `/api/userAnswers/:userId/reset/:cluster` (bottone "Ricomincia").
+Pagine: POST `/api/pageAnswers/:userId/:cluster/reset` (aggiungere UI se necessario).
 
-## Learn More
+### TODO futuri
+- Pulizia risposte di pagine non più raggiungibili quando cambiano condizioni (mirror logica Swift `cleanupUnreachablePages`).
+- Gestione bozza locale offline.
+- Validazioni avanzate e messaggi inline.
+- Animazioni transizione pagina.
+- Test unitari su motori (buildFullPath, calculatePageProgress).
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+---
+Questo README sostituisce quello generato automaticamente da Create React App per fornire documentazione ad-hoc del progetto.

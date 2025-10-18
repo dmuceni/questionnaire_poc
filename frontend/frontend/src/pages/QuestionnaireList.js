@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './QuestionnaireList.css';
+import { resetAllForCluster, fetchPages } from '../api';
 
 const USER_ID = 'user_123';
 
@@ -46,14 +47,32 @@ const QuestionnaireList = () => {
     return () => window.removeEventListener('progressChanged', handleProgressChange);
   }, []);
 
+  async function clusterHasPages(cluster) {
+    try {
+      const resp = await fetchPages(cluster);
+      return Array.isArray(resp?.pages) && resp.pages.length > 0;
+    } catch {
+      return false;
+    }
+  }
+
+  const handleContinue = async (cluster) => {
+    // Se il cluster ha pagine, mandiamo direttamente al flusso a pagine
+    const hasPages = await clusterHasPages(cluster);
+    navigate(hasPages ? `/questionario-pagine/${cluster}` : `/questionario/${cluster}`);
+  };
+
   const handleRestart = async (cluster) => {
-    const resp = await fetch(`/api/userAnswers/${USER_ID}/reset/${cluster}`, { method: 'POST' });
-    if (!resp.ok) {
-      console.error('Reset fallito');
+    try {
+      await resetAllForCluster(cluster); // svuota sia risposte classiche che pagine
+    } catch (e) {
+      console.error('Reset fallito', e);
       return;
     }
     setItems(prev => prev.map(i => i.cluster === cluster ? { ...i, percent: 0 } : i));
-    navigate(`/questionario/${cluster}`);
+    window.dispatchEvent(new CustomEvent('progressChanged'));
+    const hasPages = await clusterHasPages(cluster);
+    navigate(hasPages ? `/questionario-pagine/${cluster}` : `/questionario/${cluster}`);
   };
 
   if (loading) return <div className="loading">Caricamento...</div>;
@@ -80,9 +99,9 @@ const QuestionnaireList = () => {
             
             <div className="ql-actions">
               {i.percent < 100 && (
-                <button 
-                  className="btn btn-primary" 
-                  onClick={() => navigate(`/questionario/${i.cluster}`)}
+                <button
+                  className="btn btn-primary"
+                  onClick={() => handleContinue(i.cluster)}
                 >
                   Continua
                 </button>

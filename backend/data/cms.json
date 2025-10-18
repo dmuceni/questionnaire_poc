@@ -267,5 +267,80 @@
         }
       ]
     }
+    ,
+    "mezzi_trasporto": {
+      "title": "Preferenze Mezzi di Trasporto",
+      "questionnaireTitle": "I tuoi trasporti",
+      "questionnaireSubtitle": "Indica il tuo gradimento e alcune abitudini sui mezzi di trasporto.",
+      "pages": [
+        {
+          "id": "page_mezzi_intro",
+          "title": "Gradimento Mezzi",
+          "description": "Valuta da 1 a 5 quanto ti piacciono o utilizzi i seguenti mezzi",
+          "showContinue": true,
+          "isLast": false,
+          "conditionalRouting": {
+            "rules": [
+              { "condition": { "questionId": "grad_auto", "operator": ">=", "value": "3" }, "nextPage": "page_auto", "priority": 1 },
+              { "condition": { "questionId": "grad_moto", "operator": ">=", "value": "3" }, "nextPage": "page_moto", "priority": 2 },
+              { "condition": { "questionId": "grad_pubblici", "operator": ">=", "value": "3" }, "nextPage": "page_pubblici", "priority": 3 }
+            ],
+            "defaultAction": "page_mezzi_finale"
+          },
+          "questions": [
+            { "id": "grad_auto", "text": "Quanto ti piace / utilizzi l'automobile?", "type": "rating", "required": true, "scale": 5 },
+            { "id": "grad_moto", "text": "Quanto ti piace / utilizzi moto o scooter?", "type": "rating", "required": true, "scale": 5 },
+            { "id": "grad_pubblici", "text": "Quanto utilizzi / apprezzi i mezzi pubblici?", "type": "rating", "required": true, "scale": 5 }
+          ]
+        },
+        {
+          "id": "page_auto",
+          "title": "Dettagli Automobile",
+          "description": "Solo perché hai messo almeno 3 sull'auto",
+          "showContinue": true,
+          "isLast": false,
+          "conditionalRouting": { "rules": [], "defaultAction": "page_mezzi_finale" },
+          "questions": [
+            { "id": "auto_utilizzo_principale", "text": "Uso principale dell'auto", "type": "card", "required": true, "options": [ { "id": "lavoro", "label": "Andare al lavoro" }, { "id": "viaggi", "label": "Viaggi / weekend" }, { "id": "commissioni", "label": "Commissioni quotidiane" }, { "id": "altro", "label": "Altro" } ] },
+            { "id": "auto_carburante", "text": "Tipo di alimentazione", "type": "card", "required": true, "options": [ { "id": "benzina", "label": "Benzina" }, { "id": "diesel", "label": "Diesel" }, { "id": "elettrica", "label": "Elettrica" }, { "id": "ibrida", "label": "Ibrida" } ] }
+          ]
+        },
+        {
+          "id": "page_moto",
+          "title": "Dettagli Moto/Scooter",
+          "description": "Solo perché hai messo almeno 3 su moto/scooter",
+          "showContinue": true,
+          "isLast": false,
+          "conditionalRouting": { "rules": [], "defaultAction": "page_mezzi_finale" },
+          "questions": [
+            { "id": "moto_tipologia", "text": "Tipologia", "type": "card", "required": true, "options": [ { "id": "scooter", "label": "Scooter" }, { "id": "touring", "label": "Touring" }, { "id": "sportiva", "label": "Sportiva" }, { "id": "naked", "label": "Naked" } ] },
+            { "id": "moto_frequenza", "text": "Quanto spesso la usi?", "type": "card", "required": true, "options": [ { "id": "quotidianamente", "label": "Quotidianamente" }, { "id": "weekend", "label": "Solo weekend" }, { "id": "occasionale", "label": "Occasionalmente" } ] }
+          ]
+        },
+        {
+          "id": "page_pubblici",
+          "title": "Dettagli Mezzi Pubblici",
+          "description": "Solo perché hai messo almeno 3 sui mezzi pubblici",
+          "showContinue": true,
+          "isLast": false,
+          "conditionalRouting": { "rules": [], "defaultAction": "page_mezzi_finale" },
+          "questions": [
+            { "id": "pubblici_tipo", "text": "Quali mezzi usi di più?", "type": "multiple_choice", "required": true, "options": [ { "id": "bus", "label": "Bus" }, { "id": "metro", "label": "Metro" }, { "id": "tram", "label": "Tram" }, { "id": "treno", "label": "Treno" } ] },
+            { "id": "pubblici_abbonamento", "text": "Hai un abbonamento?", "type": "card", "required": true, "options": [ { "id": "si", "label": "Sì" }, { "id": "no", "label": "No" } ] }
+          ]
+        },
+        {
+          "id": "page_mezzi_finale",
+          "title": "Considerazioni Finali Trasporti",
+          "description": "Una domanda finale sui trasporti per tutti",
+          "showContinue": true,
+          "isLast": true,
+          "conditionalRouting": { "rules": [], "defaultAction": "complete" },
+          "questions": [
+            { "id": "trasporti_importanza_ecologia", "text": "Quanto conta per te l'impatto ecologico dei tuoi spostamenti?", "type": "rating", "required": true, "scale": 5 }
+          ]
+        }
+      ]
+    }
   }
 }

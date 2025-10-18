@@ -9,11 +9,18 @@
   },
   "user_123": {
     "contenuti_televisivi": {
-      "pageAnswers": {},
-      "lastUpdated": "2025-10-16T20:05:39.731Z"
+      "pageAnswers": {
+        "page_interessi": {},
+        "page_cinema": {},
+        "page_sport": {}
+      },
+      "lastUpdated": "2025-10-18T16:13:17.749Z"
     },
     "answers": {
-      "contenuti_televisivi": {}
+      "contenuti_televisivi": {},
+      "animali_domestici": {},
+      "assicurazioni_casa_device": {},
+      "mezzi_trasporto": {}
     },
     "abitudini_streaming": {
       "pageAnswers": {
@@ -94,17 +101,22 @@
       "lastUpdated": "2025-10-16T12:25:26.957Z"
     },
     "assicurazioni_casa_device": {
-      "pageAnswers": {},
-      "lastUpdated": "2025-10-16T20:14:13.035Z"
+      "pageAnswers": {
+        "page_casa_intro": {},
+        "page_casa_info_assicurazione": {},
+        "page_casa_tipo_assicurazione": {},
+        "page_device_intro": {}
+      },
+      "lastUpdated": "2025-10-18T16:22:26.391Z"
     },
     "animali_domestici": {
       "pageAnswers": {
         "page_pet_tipo": {
-          "pet_tipo": "gatto"
+          "pet_tipo": "cane"
         },
-        "page_pet_gatto": {
-          "gatto_eta": "1_5",
-          "gatto_indoor": "si"
+        "page_pet_cane": {
+          "cane_attivita": 3,
+          "cane_taglia": "grande"
         },
         "page_pet_finale": {
           "pet_cura_servizi": [
@@ -112,7 +124,24 @@
           ]
         }
       },
-      "lastUpdated": "2025-10-16T20:18:38.191Z"
+      "lastUpdated": "2025-10-18T16:12:06.394Z"
+    },
+    "mezzi_trasporto": {
+      "pageAnswers": {
+        "page_mezzi_intro": {
+          "grad_auto": 4,
+          "grad_moto": 1,
+          "grad_pubblici": 1
+        },
+        "page_auto": {
+          "auto_carburante": "benzina",
+          "auto_utilizzo_principale": "lavoro"
+        },
+        "page_mezzi_finale": {
+          "trasporti_importanza_ecologia": 3
+        }
+      },
+      "lastUpdated": "2025-10-18T16:29:27.321Z"
     }
   }
 }
