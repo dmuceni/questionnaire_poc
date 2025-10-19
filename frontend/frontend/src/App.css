@@ -1,27 +1,28 @@
 body {
   margin: 0;
-  background: #f8f9fa;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  background: #ffffff; /* sfondo globale bianco */
+  font-family: var(--font-family-base);
 }
 
-
 .App {
-  font-family: 'Inter', Arial, sans-serif;
   padding: 32px 8px;
   max-width: 480px;
   margin: 32px auto;
   min-height: 100vh;
-  background: #f8f9fa;
+  background: #ffffff; /* uniforme bianco */
+  font-family: var(--font-family-base);
 }
 
 @media (max-width: 600px) {
   .App {
-    padding: 16px 2vw;
+    /* Maggior respiro dai bordi su mobile.
+       Usa calc includendo safe-area per i dispositivi con notch (iOS). */
+    padding: min(28px, 7vh) calc(5vw + env(safe-area-inset-left)) min(24px, 6vh) calc(5vw + env(safe-area-inset-right));
     margin: 0;
     max-width: 100vw;
   }
   .question-card {
-    padding: 20px 4vw 16px 4vw;
+    padding: 24px 6vw 20px 6vw; /* aumenta padding orizzontale per coerenza */
     margin-bottom: 20px;
   }
   .card-options {
@@ -63,12 +64,12 @@ h1 {
 
 .question-card {
   background: #fff;
-  border-radius: 18px;
-  box-shadow: 0 4px 24px 0 rgba(60, 60, 130, 0.08), 0 1.5px 4px 0 rgba(60, 60, 130, 0.04);
+  border-radius: var(--radius-lg); /* ora 8px */
+  box-shadow: none; /* ombra rimossa */
   padding: 32px 24px 24px 24px;
   margin-bottom: 32px;
-  border: none;
-  transition: box-shadow 0.2s;
+  border: 1px solid #e0e0e0; /* sottile bordo per definizione */
+  transition: background 0.2s;
 }
 
 .question-card h3 {
@@ -104,7 +105,7 @@ h1 {
 
 .card-btn {
   padding: 18px;
-  border-radius: 12px;
+  border-radius: var(--radius-md); /* ora 6px */
   background: #fff;
   border: 2px solid #0057b8;
   color: #0057b8;
@@ -124,7 +125,7 @@ h1 {
 .open-form-input {
   padding: 12px;
   width: 100%;
-  border-radius: 8px;
+  border-radius: var(--radius-sm); /* ora 3px */
   border: 1px solid #ccc;
   margin-bottom: 16px;
   font-size: 16px;
@@ -132,7 +133,7 @@ h1 {
 
 .open-form-btn {
   padding: 12px 24px;
-  border-radius: 8px;
+  border-radius: var(--radius-md);
   background: #0057b8;
   color: #fff;
   border: none;

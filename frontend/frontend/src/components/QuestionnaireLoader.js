@@ -48,6 +48,7 @@ const QuestionnaireLoader = ({ onProgressChange }) => {
   const [currentId, setCurrentId] = useState(null);
   const [completed, setCompleted] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [clusterMeta, setClusterMeta] = useState({ title: '', questionnaireTitle: '', questionnaireSubtitle: '' });
   const [error, setError] = useState('');
 
   useEffect(() => {
@@ -55,11 +56,21 @@ const QuestionnaireLoader = ({ onProgressChange }) => {
     setLoading(true); setError('');
     Promise.all([
       fetch(`/api/questionnaire/${cluster}`),
-      fetch(`/api/userAnswers/${USER_ID}/${cluster}`)
+      fetch(`/api/userAnswers/${USER_ID}/${cluster}`),
+      fetch(`/api/progress/${USER_ID}`)
     ])
-      .then(async ([qsRes, ansRes]) => {
+      .then(async ([qsRes, ansRes, progressRes]) => {
         if (!qsRes.ok) throw new Error('Questionario non disponibile');
         if (!ansRes.ok) throw new Error('Risposte non disponibili');
+        if (progressRes.ok) {
+          const allProgress = await progressRes.json();
+          const meta = allProgress.find(p => p.cluster === cluster);
+          if (meta) setClusterMeta({
+            title: meta.title || '',
+            questionnaireTitle: meta.questionnaireTitle || meta.title || '',
+            questionnaireSubtitle: meta.questionnaireSubtitle || ''
+          });
+        }
         const qs = await qsRes.json();
         // Se il questionario è vuoto, potrebbe essere un cluster a Pagine -> redirect
         if (!Array.isArray(qs) || qs.length === 0) {
@@ -129,7 +140,29 @@ const QuestionnaireLoader = ({ onProgressChange }) => {
   const progress = computeProgress(questions, answers, stack, completed);
   if (completed) return <div className="completed-wrap"><div className="progress"><div className="progress-bar-outer"><div className="progress-bar-inner" /></div><div className="progress-text">100% completato</div></div><h2>Questionario completato</h2><button className="btn-back" onClick={() => navigate('/')}>Torna all'elenco</button></div>;
   const currentQuestion = questions.find(q => q.id === currentId) || questions[0];
-  return <div><div className="progress"><div className="progress-bar-outer"><div className="progress-bar-inner" style={{ width: `${progress}%` }} /></div><div className="progress-text">{progress}% completato</div></div>{currentQuestion && (<><Question question={currentQuestion} onAnswer={val => handleAnswer(currentQuestion.id, val)} /><div className="nav-row"><button className="btn-back" onClick={handleBack}>← Indietro</button></div></>)}</div>;
+  const headerTitle = clusterMeta.questionnaireTitle || clusterMeta.title || '';
+  const headerSubtitle = clusterMeta.questionnaireSubtitle || '';
+  return (
+    <div>
+      <div className="q-flow-topbar">
+        <div className="q-flow-header">
+          <div className="q-flow-header-inner">
+            {headerTitle && <h1>{headerTitle}</h1>}
+            {headerSubtitle && <p>{headerSubtitle}</p>}
+          </div>
+        </div>
+        <div className="progress"><div className="progress-bar-outer"><div className="progress-bar-inner" style={{ width: `${progress}%` }} /></div><div className="progress-text">{progress}% completato</div></div>
+      </div>
+      <div className="q-flow-container">
+        {currentQuestion && (
+          <>
+            <Question question={currentQuestion} onAnswer={val => handleAnswer(currentQuestion.id, val)} />
+            <div className="nav-row"><button className="btn-back" onClick={handleBack}>← Indietro</button></div>
+          </>
+        )}
+      </div>
+    </div>
+  );
 };
 
 export default QuestionnaireLoader;

@@ -26,8 +26,16 @@ export default function PageView({ page, initialAnswers, onSubmit, loadingNext }
         <Question key={q.id} question={q} onAnswer={(val) => handleQuestionAnswer(q.id, val)} />
       ))}
       <div className="nav-row">
-        <button className="btn-next" disabled={!isComplete || loadingNext} onClick={() => onSubmit(answers)}>
-          {page.isLast || page.nextPage === null ? 'Completa' : 'Continua'}
+        <button
+          className={`btn btn-primary${loadingNext ? ' is-loading' : ''}`}
+          disabled={!isComplete || loadingNext}
+          onClick={() => onSubmit(answers)}
+        >
+          {loadingNext
+            ? 'Salvataggio…'
+            : (page.isLast || page.nextPage === null
+              ? 'Completa'
+              : `Continua (${Object.values(answers).filter(v => v !== undefined && v !== null && v !== '').length} selezioni)`)}
         </button>
       </div>
     </div>

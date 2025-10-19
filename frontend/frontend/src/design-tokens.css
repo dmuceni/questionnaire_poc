@@ -1,0 +1,144 @@
+/* Design Tokens - base tema Figma (personalizzabili) */
+:root {
+  /* Palette principale */
+  --color-bg: #f8f9fa;
+  --color-surface: #ffffff;
+  --color-surface-alt: #f3f4f8;
+  --color-primary: #0069ff; /* blu più acceso */
+  --color-primary-rgb: 0,105,255;
+  --color-primary-contrast: #ffffff;
+  --color-accent: #ffd54f;
+  --color-accent-alt: #ffb74d;
+  --color-accent-cool: #42a5f5;
+  --color-accent-deep: #1976d2;
+  --color-border: rgba(15,23,42,0.08);
+  --color-border-strong: #d5dcf8;
+  --color-text: #1a1a1a;
+  --color-text-light: #666666;
+  --color-text-muted: #8a94b5;
+  --color-danger: #d32f2f;
+
+  /* Spaziature */
+  --space-2: 2px;
+  --space-4: 4px;
+  --space-6: 6px;
+  --space-8: 8px;
+  --space-10: 10px;
+  --space-12: 12px;
+  --space-16: 16px;
+  --space-20: 20px;
+  --space-24: 24px;
+  --space-32: 32px;
+  --space-40: 40px;
+
+  /* Raggi */
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 6px;
+  --radius-xl: 8px;
+  --radius-pill: 999px;
+
+  /* Ombre */
+  --shadow-sm: 0 2px 4px rgba(15,23,42,0.08);
+  --shadow-md: 0 4px 12px rgba(15,23,42,0.10);
+  --shadow-lg: 0 8px 24px rgba(15,23,42,0.12);
+  --shadow-focus-primary: 0 6px 18px rgba(var(--color-primary-rgb),0.25);
+
+  /* Tipografia
+    Nota: 'Product Sans' è un font proprietario Google; per uso interno devi avere la licenza. Se non è disponibile localmente verrà usato il fallback.
+  */
+  /* Font base aggiornato a Roboto */
+  --font-family-base: 'Roboto', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', 'Arial', sans-serif;
+  --font-size-xs: 12px;
+  --font-size-sm: 14px;
+  --font-size-base: 17px; /* leggermente più grande */
+  --font-size-md: 19px;
+  --font-size-lg: 21px;
+  --font-size-xl: 24px;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+}
+
+/* Utility */
+.container-narrow {
+  width: 100%;
+  max-width: 640px;
+  margin: 0 auto;
+  padding: var(--space-32) var(--space-16);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-8);
+  border: none;
+  border-radius: 10px;
+  font-family: var(--font-family-base);
+  font-size: 15px;
+  font-weight: 600;
+  padding: 14px 24px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex: 1 1;
+  text-align: center;
+  letter-spacing: -0.01em;
+}
+
+.btn-primary {
+  background: var(--color-primary);
+  color: var(--color-primary-contrast);
+  box-shadow: 0 4px 12px rgba(var(--color-primary-rgb),0.25); /* ombra più visibile */
+  font-size: var(--font-size-md); /* incremento locale per evidenza */
+  border-radius: 10px; /* spigoli più arrotondati come richiesto */
+  height: 56px;
+  min-height: 56px;
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
+.btn-primary:hover { background: #0b5ed7; }
+.btn-primary:active { background: #0a58ca; transform: translateY(1px); }
+.btn-primary:hover {
+  box-shadow: 0 6px 16px rgba(var(--color-primary-rgb),0.30);
+}
+.btn-primary:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(var(--color-primary-rgb),0.35), 0 6px 18px rgba(var(--color-primary-rgb),0.35);
+}
+.btn-primary.is-loading { position:relative; opacity:.85; }
+.btn-primary.is-loading::after {
+  content:''; width:16px; height:16px; border:3px solid rgba(255,255,255,.6); border-top-color:#fff; border-radius:50%; animation: spin .8s linear infinite; display:inline-block; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.btn-secondary {
+  background: var(--color-surface);
+  color: var(--color-primary);
+  border: 2px solid var(--color-primary);
+}
+.btn-secondary:hover { background: var(--color-primary); color: var(--color-primary-contrast); }
+
+.btn-danger { background: var(--color-danger); color: #fff; }
+.btn-danger:hover { background: #b52b2b; }
+
+.progress-shell {
+  margin-bottom: var(--space-24);
+}
+.progress-track { background: #eee; height: 12px; border-radius: var(--radius-pill); overflow:hidden; }
+.progress-bar { background: var(--color-primary); height: 100%; transition: width .3s; }
+.progress-text { font-size: var(--font-size-sm); margin-top: var(--space-6); font-weight: var(--font-weight-medium); }
+
+/* Card base */
+.surface-card {
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  padding: var(--space-32) var(--space-24) var(--space-24);
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--color-border);
+  position: relative;
+}
+.surface-card.header-gradient::before {
+  content:''; position:absolute; inset:0 auto auto 0; left:0; right:0; top:0; height:8px; border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  background: linear-gradient(90deg, var(--color-accent) 0%, var(--color-accent-alt) 20%, var(--color-accent-cool) 60%, var(--color-accent-deep) 100%);
+}

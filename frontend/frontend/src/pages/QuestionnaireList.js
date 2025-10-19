@@ -85,35 +85,34 @@ const QuestionnaireList = () => {
       
       <div className="ql-list">
         {items.map(i => (
-          <div key={i.cluster} className={`ql-card ${i.cluster.replace('_', '-')}`}>
+          <div
+            key={i.cluster}
+            className={`ql-card ${i.cluster.replace('_', '-')}`}
+            role="button"
+            aria-label={`Questionario ${i.title} ${i.percent === 100 ? 'completato' : 'in corso'}`}
+          >
+            <div className="ql-inline-progress">
+              <div className="ql-inline-progress-bar" style={{ width: `${i.percent}%` }} />
+            </div>
             <div className="ql-card-header">
-              <h3 className="ql-title">{i.title}</h3>
-              <span className={`ql-percent ${i.percent === 100 ? 'completed' : ''}`}>
-                {i.percent}%
-              </span>
-            </div>
-            
-            <div className="ql-progress">
-              <div className="ql-progress-bar" style={{ width: `${i.percent}%` }} />
-            </div>
-            
-            <div className="ql-actions">
-              {i.percent < 100 && (
-                <button
-                  className="btn btn-primary"
-                  onClick={() => handleContinue(i.cluster)}
-                >
-                  Continua
-                </button>
-              )}
-              {i.percent === 100 && (
-                <button 
-                  className="btn btn-danger" 
-                  onClick={() => handleRestart(i.cluster)}
-                >
-                  Ricomincia
-                </button>
-              )}
+              <div style={{flex:1}}>
+                <h3 className="ql-title">{i.title}</h3>
+                {i.questionnaireSubtitle && <p className="ql-subtitle">{i.questionnaireSubtitle}</p>}
+              </div>
+              <span className={`ql-percent ${i.percent === 100 ? 'completed' : ''}`}>{i.percent}%</span>
+              <span
+                className="ql-chevron"
+                aria-hidden="true"
+                style={{cursor:'pointer'}}
+                onClick={async (e) => {
+                  e.stopPropagation();
+                  if (i.percent === 100) {
+                    await handleRestart(i.cluster);
+                  } else {
+                    await handleContinue(i.cluster);
+                  }
+                }}
+              >›</span>
             </div>
           </div>
         ))}

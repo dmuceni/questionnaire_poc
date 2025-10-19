@@ -8,7 +8,6 @@ import {
   savePageAnswers,
   calculatePageProgress,
   cleanupUnreachablePages,
-  resetAllForCluster,
   computeReachablePageIndices,
 } from '../api';
 
@@ -25,7 +24,7 @@ export default function QuestionnairePageFlow() {
   const [error, setError] = useState(null);
   const [completed, setCompleted] = useState(false);
   const [progress, setProgress] = useState(0);
-  const [resetting, setResetting] = useState(false);
+  // const [resetting, setResetting] = useState(false);
   const [visitedStack, setVisitedStack] = useState([]); // array di indici pagina in ordine di visita
 
   // Carica pagine + risposte
@@ -109,6 +108,22 @@ export default function QuestionnairePageFlow() {
     });
   }, [currentIndex, pages]);
 
+  // Scroll & focus top quando cambia pagina corrente
+  useEffect(() => {
+    // Evita durante caricamenti iniziali
+    if (loading) return;
+    // Smooth scroll top
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    // Focus sul titolo se presente
+    setTimeout(() => {
+      const heading = document.querySelector('.page-view h2');
+      if (heading) {
+        heading.setAttribute('tabindex', '-1');
+        heading.focus({ preventScroll: true });
+      }
+    }, 50);
+  }, [currentIndex, loading]);
+
   const handleSubmitPage = async (answers) => {
     const page = pages[currentIndex];
     if (!page) return;
@@ -190,19 +205,19 @@ export default function QuestionnairePageFlow() {
     setCurrentIndex(targetIndex);
   };
 
-  const handleRestart = async () => {
-    if (!cluster) return;
-    setResetting(true);
-    try {
-      await resetAllForCluster(cluster);
-      setPageAnswers({});
-      setCompleted(false);
-      setCurrentIndex(0);
-      window.dispatchEvent(new CustomEvent('progressChanged'));
-    } finally {
-      setResetting(false);
-    }
-  };
+  // const handleRestart = async () => {
+  //   if (!cluster) return;
+  //   setResetting(true);
+  //   try {
+  //     await resetAllForCluster(cluster);
+  //     setPageAnswers({});
+  //     setCompleted(false);
+  //     setCurrentIndex(0);
+  //     window.dispatchEvent(new CustomEvent('progressChanged'));
+  //   } finally {
+  //     setResetting(false);
+  //   }
+  // };
 
   if (loading) return <div>Caricamento...</div>;
   if (error) return <div>Errore: {error} <button onClick={() => navigate('/')}>Indietro</button></div>;
@@ -214,8 +229,9 @@ export default function QuestionnairePageFlow() {
         <ProgressBar value={100} />
         <h2>Questionario completato</h2>
         <div className="nav-row">
-          <button className="btn-back" onClick={() => navigate('/')}>Torna all'elenco</button>
-          <button className="btn-back" disabled={resetting} onClick={handleRestart}>{resetting ? 'Reset...' : 'Ricomincia'}</button>
+          <button className="btn-back" onClick={() => navigate('/')}>
+            Torna all'elenco <span style={{marginLeft:8,display:'inline-block'}}>&#8250;</span>
+          </button>
         </div>
       </div>
     );
@@ -234,8 +250,9 @@ export default function QuestionnairePageFlow() {
         loadingNext={saving}
       />
       <div className="nav-row">
-        <button className="btn-back" onClick={handleBack}>← Indietro</button>
-        <button className="btn-back" disabled={resetting} onClick={handleRestart}>{resetting ? 'Reset...' : 'Ricomincia'}</button>
+        <button className="btn-back" onClick={handleBack}>
+          Indietro <span style={{marginLeft:8,display:'inline-block'}}>&#8250;</span>
+        </button>
       </div>
     </div>
   );

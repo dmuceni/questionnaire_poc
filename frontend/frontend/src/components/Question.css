@@ -1,3 +1,178 @@
+/* Fascia grigio chiaro per header, percentuale e avanzamento */
+.q-flow-topbar {
+  background: #f5f6f8;
+  border-radius: 16px;
+  padding: 24px 24px 16px 24px;
+  margin-bottom: 32px;
+  box-sizing: border-box;
+}
+.mc-table tr {
+  /* Il padding su tr non ha effetto, usare un wrapper per distanziare le righe */
+}
+/* Wrapper per distanziare le righe della tabella */
+.mc-row {
+  margin-bottom: 16px;
+  display: flex;
+  gap: 24px; /* spazio centrale tra colonne */
+}
+ .mc-table td {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+/* Radio button nativo, solo layout */
+/* Radio button nativo, solo layout */
+.mc-card input[type="radio"] {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  cursor: pointer;
+}
+/* nessuno stile custom per il radio button, resta nativo */
+/* Rimuove qualsiasi contorno blu da tutti gli elementi focusati */
+h1:focus, h1:focus-visible,
+h2:focus, h2:focus-visible,
+h3:focus, h3:focus-visible,
+button:focus, button:focus-visible,
+a:focus, a:focus-visible,
+input:focus, input:focus-visible,
+textarea:focus, textarea:focus-visible,
+select:focus, select:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+}
+/* Rimuove qualsiasi contorno blu dal titolo della pagina quando riceve il focus */
+h2.question-text:focus,
+h2.question-text:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+}
+ .mc-table td {
+  padding: 0;
+  margin: 0;
+}
+ .mc-table td:first-child {
+  margin-right: 8px;
+  padding-right: 8px;
+}
+ .mc-table td:last-child {
+  margin-left: 8px;
+  padding-left: 8px;
+}
+.mc-card {
+  width: 100%;
+  box-sizing: border-box;
+}
+.multiple-choice-options {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+@media (max-width: 600px) {
+  .multiple-choice-options {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+}
+.mc-card {
+  flex: 1 1 0;
+  min-width: 100px;
+  max-width: 220px;
+  margin-bottom: 0;
+}
+@media (max-width: 600px) {
+  .multiple-choice-options {
+    flex-direction: column;
+    gap: 12px;
+  }
+  .mc-card {
+    flex: 1 1 100%;
+    min-width: 0;
+  }
+}
+.mc-card {
+  margin-bottom: 0;
+}
+/* Multiple choice card style */
+.mc-card {
+  position: relative;
+  background: #fff;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 20px 24px 20px 20px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #374151;
+  box-sizing: border-box;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  min-height: 120px;
+  display: flex;
+  align-items: center;
+}
+.mc-table {
+  width: 100%;
+  max-width: 640px;
+  margin: 0 auto;
+  border-collapse: separate;
+}
+.mc-card.selected {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 2px rgba(59,130,246,0.12);
+}
+.mc-card:hover {
+  border-color: #3b82f6;
+}
+.mc-checkbox {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  opacity: 0;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+.mc-checkmark {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  height: 20px;
+  width: 20px;
+  background-color: #fff;
+  border: 2px solid #d1d5db;
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+.mc-card.selected .mc-checkmark {
+  background-color: #3b82f6;
+  border-color: #3b82f6;
+}
+.mc-card.selected .mc-checkmark:after {
+  content: "";
+  position: absolute;
+  left: 6px;
+  top: 2px;
+  width: 6px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+.mc-label {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 100%;
+}
+.option-checkbox {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  height: 100%;
+}
 /* QuestionnaireList.css - gradiente giallo-blu */
 .ql-card::before {
   content: '';
@@ -12,23 +187,38 @@
 
 /* Question.css - aggiungi questi stili per le scale */
 .question-container {
-  max-width: 600px;
+  max-width: 640px;
   margin: 0 auto;
-  padding: 24px 20px;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  /* padding rimosso su richiesta */
+  font-family: var(--font-family-base);
 }
 
 .question-card {
-  background: #f3f4f8;
-  border-radius: 20px;
-  border: 1px solid rgba(15, 23, 42, 0.08);
-  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
-  margin-bottom: 24px;
+  background: #fff; /* sfondo bianco ovunque */
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--color-border);
+  box-shadow: none; /* rimosso ombra */
+  margin-bottom: var(--space-24);
   box-sizing: border-box;
-  overflow: hidden; /* Importante per il border-radius */
+  overflow: hidden;
   position: relative;
-  padding: 38px 24px 32px 24px; /* Più spazio in alto */
+  padding: var(--space-32) var(--space-24) var(--space-24) var(--space-24);
 }
+
+/* Variante per le card rating: esterno grigio chiaro, area interattiva bianca */
+.question-card.rating-card {
+  background: #f5f6f8; /* leggero grigio chiaro */
+  border: 1px solid #e1e4e8;
+  padding: var(--space-24) var(--space-20) var(--space-16) var(--space-20); /* ridotto padding complessivo */
+}
+.question-card.rating-card .scale-interaction {
+  background: #ffffff;
+  border: none; /* bordo rimosso */
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+.question-card.rating-card h2.question-text { margin-bottom: var(--space-12); }
+.question-card.rating-card .rating-subtitle { font-size: var(--font-size-sm); color: var(--color-text-light); margin: 0 0 var(--space-16) 0; text-align: center; }
 
 /* Fascia gradiente in alto */
 .question-card::before {
@@ -36,60 +226,176 @@
   position: absolute;
   top: 0;
   left: 0;
-  right: 0;
-  height: 8px;
-  background: linear-gradient(90deg, #ffd54f 0%, #ffb74d 20%, #42a5f5 60%, #1976d2 100%);
+  padding: 48px 56px 48px 48px;
+  font-size: 26px;
+  min-height: 230px;
   border-radius: 20px 20px 0 0;
 }
 
 .question-text {
-  font-size: 20px;
-  font-weight: 600;
-  color: #1a1a1a;
-  margin-bottom: 32px;
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+  margin-bottom: var(--space-32);
   line-height: 1.4;
   text-align: center;
 }
+.question-text.plain { margin-bottom: var(--space-12); font-size: var(--font-size-md); font-weight: var(--font-weight-semibold); }
+
+.question-text:focus,
+.question-text:focus-visible { outline: none; }
+
+/* Wrapper semplice per tipi non rating */
+.question-block {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto var(--space-32) auto;
+}
+.question-block.grouped { margin-bottom: var(--space-40); }
 
 /* Nuovo stile per le scale numeriche */
 .scale-interaction {
   display: flex;
   align-items: center;
-  gap: 16px;
-  margin: 24px 0;
-  padding: 16px 20px;
-  background: #f8f9ff;
-  border: 1px solid #e1e5f8;
-  border-radius: 20px;
+  gap: var(--space-12); /* leggermente meno spazio laterale */
+  margin: var(--space-12) 0 0 0; /* meno spazio sopra, nessuno sotto */
+  padding: var(--space-12) var(--space-16); /* ridotto padding interno */
+  background: #fff;
+  border: none;
+  border-radius: var(--radius-lg); /* radius un po' più contenuto */
 }
 
-.scale-button {
-  width: 48px;
-  height: 48px;
-  border-radius: 14px;
-  border: 2px solid #0d6efd;
-  background: #ffffff;
-  color: #0d6efd;
-  font-size: 28px;
-  font-weight: 600;
+/* Tabs per gruppi – versione con underline (nessun bordo/pill) */
+.grouped-tabs {
+  display: flex;
+  width: 100%;
+  margin: 0 0 var(--space-12) 0;
+  background: transparent;
+  border-bottom: 1px solid var(--color-border);
+}
+.group-tab {
+  flex: 1;
+  background: none;
+  border: none;
+  padding: var(--space-10) var(--space-4) var(--space-8) var(--space-4);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  color: var(--color-text-light);
+  position: relative;
+  transition: color .2s ease;
+}
+.group-tab:hover { color: var(--color-text); }
+.group-tab:focus-visible { outline: none; }
+.group-tab.active { color: var(--color-primary); font-weight: var(--font-weight-semibold); }
+.group-tab.active::after,
+.group-tab::after {
+  content: '';
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: -1px;
+  height: 3px;
+  border-radius: 3px;
+  background: transparent;
+}
+.group-tab.active::after { background: var(--color-primary); }
+.group-tab:not(.active)::after { background: rgba(0,0,0,0.08); height: 2px; }
+
+/* Input ricerca full width coerente */
+.grouped-search {
+  width: 100%;
+  box-sizing: border-box;
+  padding: var(--space-12) var(--space-16);
+  font-size: var(--font-size-sm);
+  font-family: inherit;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface-alt);
+  margin-bottom: var(--space-12);
+  transition: border-color .2s, background .2s;
+}
+.grouped-search:focus { outline: none; border-color: var(--color-primary); background: #fff; }
+.grouped-search::placeholder { color: var(--color-text-muted); }
+
+/* Lista opzioni verticali (una sotto l'altra) */
+.grouped-mc-wrapper.single-group .group-options { display: flex; flex-direction: column; gap: var(--space-6); }
+.grouped-mc-wrapper.single-group .group-option {
+  flex: 0 1 calc(50% - var(--space-8));
+  text-align: left;
+  display: flex;
+  align-items: center;
+  gap: var(--space-10);
+  padding: 15px;
+  background: #fff;
+  border: 1px solid #d9d9d9;
+  border-radius: var(--radius-lg);
+  transition: border-color .2s, background .2s;
+}
+.grouped-mc-wrapper.single-group .group-option:hover { border-color: var(--color-border-strong); }
+.grouped-mc-wrapper.single-group .group-option.selected { border-color: var(--color-primary); box-shadow: 0 0 0 2px rgba(var(--color-primary-rgb),0.15); }
+.question-block.grouped { background: #fff; padding: 0 0 var(--space-8) 0; }
+.grouped-mc-wrapper.single-group .group-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-8);
+}
+.grouped-mc-wrapper.single-group .group-option {
+  flex: 0 1 calc(50% - var(--space-8));
+  text-align: left;
+  display: flex;
+  align-items: center;
+  gap: var(--space-10);
+}
+@media (max-width: 520px) {
+  .group-tab { padding: var(--space-8) var(--space-4); font-size: 13px; }
+  .group-tab.active::after, .group-tab:not(.active)::after { left: 8px; right: 8px; }
+}
+
+/* Icona squadra */
+.team-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-cool) 100%);
+  color: #fff;
+  font-size: 14px;
+  font-weight: var(--font-weight-bold);
   display: flex;
   align-items: center;
   justify-content: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+.group-option.selected .team-icon { box-shadow: 0 0 0 2px #fff, 0 2px 8px rgba(var(--color-primary-rgb),0.4); }
+.team-name { flex: 1; font-size: 14px; font-weight: var(--font-weight-medium); }
+
+.scale-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-md); /* forma originale leggermente arrotondata */
+  border: 2px solid var(--color-primary);
+  background: var(--color-surface);
+  color: var(--color-primary);
+  font-size: 28px;
+  font-weight: var(--font-weight-semibold);
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: background .2s, box-shadow .2s, color .2s;
 }
 
 .scale-button:hover:not(:disabled) {
-  background: #0d6efd;
-  color: #ffffff;
-  box-shadow: 0 6px 18px rgba(13, 110, 253, 0.25);
+  background: var(--color-primary);
+  color: var(--color-primary-contrast);
+  box-shadow: var(--shadow-focus-primary);
 }
 
 .scale-button:disabled {
   border-color: #c7d2f5;
   color: #c7d2f5;
   cursor: not-allowed;
-  background: #ffffff;
+  background: var(--color-surface);
 }
 
 .scale-button-symbol {
@@ -99,43 +405,51 @@
 
 .scale-slider-wrapper {
   flex: 1;
+  position: relative;
   display: flex;
-  flex-direction: column;
-  gap: 12px;
+  align-items: center; /* traccia centrata verticalmente rispetto ai bottoni */
+  padding: 0; /* nessun padding extra */
 }
 
 .scale-slider {
   -webkit-appearance: none;
+  appearance: none;
   width: 100%;
-  height: 14px;
-  background: linear-gradient(90deg, #eef1ff, #eef1ff);
-  border-radius: 999px;
+  height: 5px; /* più fine */
+  border-radius: var(--radius-pill);
   outline: none;
   position: relative;
-  border: 2px solid #d5dcf8;
+  border: none; /* rimosso bordo per look tratteggiato pulito */
   padding: 0;
+  background: repeating-linear-gradient(
+    to right,
+    #dfe5f5 0,
+    #dfe5f5 calc((100% / 6) - 10px), /* segmento pieno */
+    transparent calc((100% / 6) - 10px), /* inizio gap */
+    transparent calc(100% / 6) /* fine ciclo */
+  );
 }
 
 .scale-slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 32px;
-  height: 32px;
+  width: 22px;
+  height: 22px;
   border-radius: 50%;
   background: #ffffff;
-  border: 3px solid #0d6efd;
-  box-shadow: 0 6px 18px rgba(13, 110, 253, 0.25);
+  border: 1px solid #0d6efd; /* bordo più fine */
+  box-shadow: 0 3px 8px rgba(13,110,253,0.22);
   cursor: pointer;
   transition: transform 0.2s ease;
 }
 
 .scale-slider::-moz-range-thumb {
-  width: 32px;
-  height: 32px;
+  width: 22px;
+  height: 22px;
   border-radius: 50%;
   background: #ffffff;
-  border: 3px solid #0d6efd;
-  box-shadow: 0 6px 18px rgba(13, 110, 253, 0.25);
+  border: 1px solid #0d6efd; /* bordo più fine */
+  box-shadow: 0 3px 8px rgba(13,110,253,0.22);
   cursor: pointer;
   transition: transform 0.2s ease;
 }
@@ -145,22 +459,22 @@
   transform: scale(1.05);
 }
 
+/* Layout ticks flex (versione precedente) */
 .scale-ticks {
+  position: absolute;
+  top: calc(100% + 12px);
+  left: 0;
+  right: 0;
   display: flex;
   justify-content: space-between;
-  padding: 0 6px;
+  padding: 0 calc((100% / 12));
+  margin-bottom: 32px;
+  pointer-events: none;
 }
 
-.scale-tick {
-  font-size: 14px;
-  font-weight: 500;
-  color: #8a94b5;
-}
+.scale-tick { font-size: var(--font-size-sm); font-weight: var(--font-weight-medium); color: var(--color-text-muted); }
 
-.scale-tick.active {
-  color: #0d6efd;
-  font-weight: 600;
-}
+.scale-tick.active { color: var(--color-primary); font-weight: var(--font-weight-semibold); }
 
 /* Labels per gli estremi della scala */
 .scale-labels {
@@ -170,19 +484,16 @@
   padding: 0 8px;
 }
 
-.scale-label {
-  font-size: 14px;
-  color: #666666;
-  font-weight: 500;
-}
+.scale-label { font-size: var(--font-size-sm); color: var(--color-text-light); font-weight: var(--font-weight-medium); }
 
 /* Responsive per schermi piccoli */
 @media (max-width: 640px) {
+  /* Mantieni layout orizzontale anche su mobile: meno | slider | più */
   .scale-interaction {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 12px;
-    padding: 16px;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--space-12);
+    padding: var(--space-12) var(--space-16);
   }
 
   .scale-button {
@@ -197,11 +508,12 @@
 
   .scale-slider-wrapper {
     width: 100%;
-    gap: 10px;
+    padding: 0; /* nessun padding anche su mobile */
   }
 
   .scale-ticks {
-    padding: 0;
+    top: calc(100% + 14px); /* mobile: distanza maggiore per separare visivamente */
+    padding: 0 4px;
   }
 
   .scale-tick {
@@ -209,10 +521,15 @@
   }
 }
 
+/* Specifica per rating-card: spazio extra sotto l'interazione e sfondo bianco senza bordo */
+.question-card.rating-card .scale-interaction {
+  background: #ffffff;
+  border: none;
+  padding-bottom: 20px;
+}
+
 @media (max-width: 480px) {
-  .scale-interaction {
-    padding: 14px;
-  }
+  .scale-interaction { padding: var(--space-10) var(--space-12); }
 
   .scale-button {
     width: 40px;
@@ -220,14 +537,14 @@
     font-size: 22px;
   }
 
-  .scale-slider {
-    height: 12px;
-  }
+  .scale-slider { height: 6px; }
 
   .scale-slider::-webkit-slider-thumb,
   .scale-slider::-moz-range-thumb {
-    width: 28px;
-    height: 28px;
+    width: 22px;
+    height: 22px;
+    border: 2px solid #0d6efd;
+    box-shadow: 0 3px 10px rgba(13,110,253,0.25);
   }
 
   .scale-tick {
@@ -250,7 +567,7 @@
 }
 
 .card-option {
-  background: #ffffff;
+  background: #ffffff; /* conferma bianco */
   border: 2px solid #e0e0e0;
   border-radius: 16px;
   padding: 16px 20px;
@@ -290,6 +607,7 @@
   transition: border-color 0.2s ease;
   box-sizing: border-box;
   display: block; /* Forza block display */
+  background: #fff; /* uniformato */
 }
 
 .open-input:focus {
