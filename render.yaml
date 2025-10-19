@@ -1,0 +1,13 @@
+# Render deploy: unico servizio Express che serve anche il build React
+
+services:
+  - type: web
+    name: questionnaire-backend
+    runtime: node
+    buildCommand: cd ../frontend/frontend && npm install && npm run build && cd ../../backend && npm install
+    startCommand: node server.js
+    rootDir: backend
+    envVars:
+      - key: NODE_ENV
+        value: production
+    autoDeploy: true
