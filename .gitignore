@@ -1,0 +1,15 @@
+# Node modules
+node_modules/
+
+# Cache babel-loader
+frontend/frontend/node_modules/.cache/babel-loader/
+frontend/frontend/node_modules/.cache/default-development/
+
+# Cache generici
+.cache/
+*.cache
+
+# Altri file temporanei
+*.log
+*.tmp
+*.swp

@@ -1,20 +1,34 @@
 {
-  "users": {},
-  "sessions": {},
-  "metadata": {
-    "version": "1.0.0",
-    "lastModified": "2025-10-15T20:10:00.000Z",
-    "totalUsers": 0,
-    "totalSessions": 0
-  },
   "user_123": {
     "contenuti_televisivi": {
       "pageAnswers": {
-        "page_interessi": {},
-        "page_cinema": {},
-        "page_sport": {}
+        "page_interessi": {
+          "interesse_educativi": 3,
+          "interesse_intrattenimento": 3,
+          "interesse_calcio": 3,
+          "interesse_sport": 4,
+          "interesse_cinema": 4
+        },
+        "page_calcio": {
+          "calcio_squadre_preferite": [
+            "inter",
+            "verona"
+          ]
+        },
+        "page_sport": {
+          "sport_preferiti": [
+            "ciclismo",
+            "combattimento"
+          ]
+        },
+        "page_cinema": {
+          "cinema_genere_preferito": [
+            "fantascienza",
+            "drammatico"
+          ]
+        }
       },
-      "lastUpdated": "2025-10-18T16:13:17.749Z"
+      "lastUpdated": "2025-10-19T19:50:32.910Z"
     },
     "answers": {
       "contenuti_televisivi": {},
@@ -102,12 +116,41 @@
     },
     "assicurazioni_casa_device": {
       "pageAnswers": {
-        "page_casa_intro": {},
-        "page_casa_info_assicurazione": {},
-        "page_casa_tipo_assicurazione": {},
-        "page_device_intro": {}
+        "page_casa_intro": {
+          "casa_tipo_possesso": "proprieta"
+        },
+        "page_casa_info_assicurazione": {
+          "casa_anni_abitazione": "meno_1",
+          "casa_competenza_assicurazioni": "affatto",
+          "casa_assicurazione_presente": "si"
+        },
+        "page_casa_tipo_assicurazione": {
+          "casa_tipo_assicurazione": [
+            "furto_incendio"
+          ]
+        },
+        "page_device_intro": {
+          "device_posseduti": [
+            "tablet"
+          ]
+        },
+        "page_device_utilizzo": {
+          "device_utilizzo_luogo": "entrambi"
+        },
+        "page_device_preoccupazioni": {
+          "device_danni_preoccupazioni": [
+            "danni"
+          ]
+        },
+        "page_device_assicurazione_utilita": {
+          "device_assicurazione_oltre_garanzia": "si",
+          "device_copertura_integrativa_presente": "no"
+        },
+        "page_device_soddisfazione": {
+          "device_soddisfazione_assicurazioni": 4
+        }
       },
-      "lastUpdated": "2025-10-18T16:22:26.391Z"
+      "lastUpdated": "2025-10-19T19:50:55.491Z"
     },
     "animali_domestici": {
       "pageAnswers": {
@@ -115,33 +158,41 @@
           "pet_tipo": "cane"
         },
         "page_pet_cane": {
-          "cane_attivita": 3,
-          "cane_taglia": "grande"
+          "cane_taglia": "media",
+          "cane_attivita": 3
         },
+        "page_pet_gatto": {},
         "page_pet_finale": {
           "pet_cura_servizi": [
-            "veterinario"
+            "toelettatura",
+            "alimentazione_speciale"
           ]
         }
       },
-      "lastUpdated": "2025-10-18T16:12:06.394Z"
+      "lastUpdated": "2025-10-19T18:30:19.739Z"
     },
     "mezzi_trasporto": {
       "pageAnswers": {
         "page_mezzi_intro": {
           "grad_auto": 4,
-          "grad_moto": 1,
-          "grad_pubblici": 1
+          "grad_moto": 2,
+          "grad_pubblici": 3
         },
         "page_auto": {
-          "auto_carburante": "benzina",
-          "auto_utilizzo_principale": "lavoro"
+          "auto_utilizzo_principale": "viaggi",
+          "auto_carburante": "ibrida"
+        },
+        "page_pubblici": {
+          "pubblici_tipo": [
+            "metro"
+          ],
+          "pubblici_abbonamento": "no"
         },
         "page_mezzi_finale": {
-          "trasporti_importanza_ecologia": 3
+          "trasporti_importanza_ecologia": 4
         }
       },
-      "lastUpdated": "2025-10-18T16:29:27.321Z"
+      "lastUpdated": "2025-10-19T19:51:23.883Z"
     }
   }
 }

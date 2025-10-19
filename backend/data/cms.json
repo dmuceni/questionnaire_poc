@@ -7,66 +7,131 @@
       "pages": [
         {
           "id": "page_interessi",
-          "title": "I Tuoi Interessi",
-          "description": "Valuta quanto ti piacciono i seguenti contenuti su una scala da 1 a 5",
+          "title": "Misura le tue preferenze",
+          "description": "Quanto ti piacciono queste aree tematiche? 1 significa \"“per niente\" mentre 5 \"tantissimo\" ",
           "showContinue": true,
           "isLast": false,
           "conditionalRouting": {
             "rules": [
-              { "condition": { "questionId": "interesse_cinema", "operator": ">=", "value": "3" }, "nextPage": "page_cinema", "priority": 1 },
-              { "condition": { "questionId": "interesse_sport", "operator": ">=", "value": "3" }, "nextPage": "page_sport", "priority": 2 },
-              { "condition": { "questionId": "interesse_calcio", "operator": ">=", "value": "3" }, "nextPage": "page_calcio", "priority": 3 },
-              { "condition": { "questionId": "interesse_intrattenimento", "operator": ">=", "value": "3" }, "nextPage": "page_intrattenimento", "priority": 4 }
-            ],
+              { "condition": { "questionId": "interesse_calcio", "operator": ">=", "value": "3" }, "nextPage": "page_calcio", "priority": 1 } ,  
+                            { "condition": { "questionId": "interesse_sport", "operator": ">=", "value": "3" }, "nextPage": "page_sport", "priority": 3 },
+              { "condition": { "questionId": "interesse_cinema", "operator": ">=", "value": "3" }, "nextPage": "page_cinema", "priority": 2 }
+
+              
+                     ],
             "defaultAction": "complete"
           },
           "questions": [
-            { "id": "interesse_cinema", "text": "Quanto ti piace il cinema?", "type": "rating", "required": true, "scale": 5 },
-            { "id": "interesse_sport", "text": "Quanto ti piace lo sport?", "type": "rating", "required": true, "scale": 5 },
-            { "id": "interesse_calcio", "text": "Quanto ti piace il calcio?", "type": "rating", "required": true, "scale": 5 },
-            { "id": "interesse_intrattenimento", "text": "Quanto ti piace l'intrattenimento?", "type": "rating", "required": true, "scale": 5 }
+            { "id": "interesse_educativi", "text": "Contenuti educativi", "subtitle": "Cartoni animati e programmi per l’adolescenza", "type": "rating", "required": true, "scale": 5, "gradientType": { "from": "#e65100", "to": "#ffe0b2" } },
+            { "id": "interesse_intrattenimento", "text": "Intrattenimento", "subtitle": "Serie TV, show, news e documentari", "type": "rating", "required": true, "scale": 5, "gradientType": { "from": "#ff9800", "to": "#1976d2" } },
+            { "id": "interesse_calcio", "text": "Calcio", "type": "rating", "required": true, "scale": 5, "gradientType": { "from": "#1b5e20", "to": "#b9f6ca" } },
+            { "id": "interesse_sport", "text": "Sport",  "type": "rating", "required": true, "scale": 5, "gradientType": { "from": "#0d47a1", "to": "#82b1ff" } },
+
+            { "id": "interesse_cinema", "text": "Cinema", "type": "rating", "required": true, "scale": 5, "gradientType": { "from": "#b71c1c", "to": "#ffcdd2" } }
+
+          ]
+        },
+                {
+          "id": "page_calcio",
+          "title": "Per quali squadre fai il tifo?",
+          "description": "Scegli le squadre di calcio ti fanno battere il cuore.",
+          "showContinue": true,
+          "isLast": false,
+          "conditionalRouting": { "rules": [], "defaultAction": "complete" },
+          "questions": [
+            { "id": "calcio_squadre_preferite", "type": "multiple_choice_grouped", "required": true, "searchEnabled": true, "maxSelections": 5, "groups": [
+              { "id": "serie_a", "label": "Serie A", "options": [
+                { "id": "acmilan", "label": "AC Milan", "icon": "https://r2.thesportsdb.com/images/media/team/badge/wvspur1448806617.png" },
+                { "id": "atalanta", "label": "Atalanta", "icon": "https://r2.thesportsdb.com/images/media/team/badge/lrvxg71534873930.png" },
+                { "id": "bologna", "label": "Bologna", "icon": "https://r2.thesportsdb.com/images/media/team/badge/2qi1u3165559236.png" },
+                { "id": "cagliari", "label": "Cagliari", "icon": "https://r2.thesportsdb.com/images/media/team/badge/vsvxt1447534471.png" },
+                { "id": "como", "label": "Como", "icon": "https://r2.thesportsdb.com/images/media/team/badge/02x81t1627405841.png" },
+                { "id": "cremonese", "label": "Cremonese", "icon": "https://r2.thesportsdb.com/images/media/team/badge/6ng2vy1579708291.png" },
+                { "id": "fiorentina", "label": "Fiorentina", "icon": "https://r2.thesportsdb.com/images/media/team/badge/hc8nhu1656098030.png" },
+                { "id": "genoa", "label": "Genoa", "icon": "https://r2.thesportsdb.com/images/media/team/badge/52s8dn1655536000.png" },
+                { "id": "inter", "label": "Inter Milan", "icon": "https://r2.thesportsdb.com/images/media/team/badge/ryhu6d1617113103.png" },
+                { "id": "juventus", "label": "Juventus", "icon": "https://r2.thesportsdb.com/images/media/team/badge/uxf0gr1742983727.png" },
+                { "id": "lazio", "label": "Lazio", "icon": "https://r2.thesportsdb.com/images/media/team/badge/rwqyvs1448806608.png" },
+                { "id": "lecce", "label": "Lecce", "icon": "https://r2.thesportsdb.com/images/media/team/badge/j4vznr1567365249.png" },
+                { "id": "napoli", "label": "Napoli", "icon": "https://r2.thesportsdb.com/images/media/team/badge/l8qyxv1742982541.png" },
+                { "id": "parma", "label": "Parma", "icon": "https://r2.thesportsdb.com/images/media/team/badge/6yiaxs1627406063.png" },
+                { "id": "pisa", "label": "Pisa", "icon": "https://r2.thesportsdb.com/images/media/team/badge/2eso9w1579708399.png" },
+                { "id": "roma", "label": "Roma", "icon": "https://www.thesportsdb.com/images/media/team/badge/jwro2s1760820674.png" },
+                { "id": "sassuolo", "label": "Sassuolo", "icon": "https://r2.thesportsdb.com/images/media/team/badge/xystvp1448806138.png" },
+                { "id": "torino", "label": "Torino", "icon": "https://r2.thesportsdb.com/images/media/team/badge/xxprty1448806802.png" },
+                { "id": "udinese", "label": "Udinese", "icon": "https://r2.thesportsdb.com/images/media/team/badge/vwvstr1448806811.png" },
+                { "id": "verona", "label": "Hellas Verona", "icon": "https://r2.thesportsdb.com/images/media/team/badge/p6camf1593457737.png" }
+              ] },
+              { "id": "serie_b", "label": "Serie B", "options": [
+                { "id": "ascoli", "label": "Ascoli", "icon": "https://r2.thesportsdb.com/images/media/team/badge/6ng2vy1579708291.png" },
+                { "id": "brescia", "label": "Brescia", "icon": "https://r2.thesportsdb.com/images/media/team/badge/6mz7tb1648579351.png" },
+                { "id": "catanzaro", "label": "Catanzaro", "icon": "https://r2.thesportsdb.com/images/media/team/badge/byrc5e169995858.png" },
+                { "id": "cesena", "label": "Cesena", "icon": "https://r2.thesportsdb.com/images/media/team/badge/9l00zr1677256723.png" },
+                { "id": "cittadella", "label": "Cittadella", "icon": "https://r2.thesportsdb.com/images/media/team/badge/hklo0i1579724992.png" },
+                { "id": "cosenza", "label": "Cosenza", "icon": "https://r2.thesportsdb.com/images/media/team/badge/6ng2vy1579708291.png" },
+                { "id": "cremonese", "label": "Cremonese", "icon": "https://r2.thesportsdb.com/images/media/team/badge/6ng2vy1579708291.png" },
+                { "id": "frosinone", "label": "Frosinone", "icon": "https://r2.thesportsdb.com/images/media/team/badge/a7xa15160310120.png" },
+                { "id": "mantova", "label": "Mantova", "icon": "https://r2.thesportsdb.com/images/media/team/badge/6mz7tb1648579351.png" },
+                { "id": "modena", "label": "Modena", "icon": "https://r2.thesportsdb.com/images/media/team/badge/93n2wm1656015823.png" },
+                { "id": "palermo", "label": "Palermo", "icon": "https://r2.thesportsdb.com/images/media/team/badge/zi1tb01579708939.png" },
+                { "id": "pisa", "label": "Pisa", "icon": "https://r2.thesportsdb.com/images/media/team/badge/2eso9w1579708399.png" },
+                { "id": "reggiana", "label": "Reggiana", "icon": "https://r2.thesportsdb.com/images/media/team/badge/dffx6o1600266770.png" },
+                { "id": "salernitana", "label": "Salernitana", "icon": "https://r2.thesportsdb.com/images/media/team/badge/6ng2vy1579708291.png" },
+                { "id": "sampdoria", "label": "Sampdoria", "icon": "https://r2.thesportsdb.com/images/media/team/badge/pr6co21655592769.png" },
+                { "id": "spezia", "label": "Spezia", "icon": "https://r2.thesportsdb.com/images/media/team/badge/3wgebp1749146364.png" },
+                { "id": "ternana", "label": "Ternana", "icon": "https://r2.thesportsdb.com/images/media/team/badge/6ng2vy1579708291.png" },
+                { "id": "venezia", "label": "Venezia", "icon": "https://r2.thesportsdb.com/images/media/team/badge/95fg4n1656696080.png" }
+              ] },
+              { "id": "serie_c", "label": "Serie C", "options": [ { "id": "albinoLeffe", "label": "AlbinoLeffe" }, { "id": "alcione_milano", "label": "Alcione Milano" }, { "id": "arezzo", "label": "Arezzo" }, { "id": "audace_cerignola", "label": "Audace Cerignola" }, { "id": "az_picerno", "label": "AZ Picerno" }, { "id": "benevento", "label": "Benevento" }, { "id": "campobasso", "label": "Campobasso" }, { "id": "carpi", "label": "Carpi" }, { "id": "casarano", "label": "Casarano" }, { "id": "casertana", "label": "Casertana" }, { "id": "catania", "label": "Catania" }, { "id": "cavese", "label": "Cavese" }, { "id": "crotone", "label": "Crotone" }, { "id": "foggia", "label": "Foggia" }, { "id": "forli", "label": "Forlì" }, { "id": "giana_erminio", "label": "Giana Erminio" }, { "id": "giugliano", "label": "Giugliano" }, { "id": "gubbio", "label": "Gubbio" }, { "id": "juventus_next_gen", "label": "Juventus Next Gen" }, { "id": "latina", "label": "Latina" }, { "id": "lecco", "label": "Lecco" }, { "id": "livorno", "label": "Livorno" }, { "id": "lumezzane", "label": "Lumezzane" }, { "id": "monopoli", "label": "Monopoli" }, { "id": "pineto", "label": "Pineto" }, { "id": "pianese", "label": "Pianese" }, { "id": "pontedera", "label": "Pontedera" }, { "id": "ravenna", "label": "Ravenna" }, { "id": "rimini", "label": "Rimini" }, { "id": "sambenedettese", "label": "Sambenedettese" }, { "id": "ternana", "label": "Ternana" }, { "id": "torres", "label": "Torres" }, { "id": "vis_pesaro", "label": "Vis Pesaro" }, { "id": "trapani", "label": "Trapani" } ] }
+            ] }
+          ]
+        },
+                {
+          "id": "page_sport",
+          "title": "Quali sport ti appassionano?",
+          "description": "Dicci quali sport ti fanno sentire l'adrenalina della competizione.",
+          "showContinue": true,
+          "isLast": false,
+          "conditionalRouting": { "rules": [], "defaultAction": "complete" },
+          "questions": [
+              { "id": "sport_preferiti",  "type": "multiple_choice", "required": true, "options": [
+                { "id": "basket", "label": "Basket" },
+                { "id": "caccia", "label": "Caccia" },
+                { "id": "ciclismo", "label": "Ciclismo" },
+                { "id": "combattimento", "label": "Combattimento" },
+                { "id": "golf", "label": "Golf" },
+                { "id": "motori", "label": "Motori" },
+                { "id": "olimpiadi", "label": "Olimpiadi" },
+                { "id": "pesca", "label": "Pesca" },
+                { "id": "rugby", "label": "Rugby" },
+                { "id": "sport_acquatici", "label": "Sport Acquatici" }
+              ] }
           ]
         },
         {
           "id": "page_cinema",
-          "title": "Approfondimento Cinema",
-          "description": "Dato il tuo interesse per il cinema, dimmi di più",
+          "title": "Che tipo di film preferisci?",
+          "description": "Scegli i generi cinematografici che ti fanno emozionare.",
           "showContinue": true,
           "isLast": false,
           "conditionalRouting": { "rules": [], "defaultAction": "complete" },
           "questions": [
-            { "id": "cinema_genere_preferito", "text": "Quale genere cinematografico preferisci?", "type": "card", "required": true, "options": [ { "id": "azione", "label": "Film d'azione" }, { "id": "commedia", "label": "Commedie" }, { "id": "drama", "label": "Film drammatici" }, { "id": "horror", "label": "Film horror" }, { "id": "fantascienza", "label": "Fantascienza" } ] },
-            { "id": "cinema_frequenza", "text": "Quanto spesso vai al cinema?", "type": "card", "required": true, "options": [ { "id": "mai", "label": "Mai o quasi mai" }, { "id": "raramente", "label": "Raramente (1-2 volte l'anno)" }, { "id": "saltuariamente", "label": "Saltuariamente (ogni 2-3 mesi)" }, { "id": "spesso", "label": "Spesso (almeno una volta al mese)" }, { "id": "molto_spesso", "label": "Molto spesso (più volte al mese)" } ] }
-          ]
+              { "id": "cinema_genere_preferito",  "type": "multiple_choice", "required": true, "options": [
+                { "id": "azione", "label": "Azione" },
+                { "id": "avventura", "label": "Avventura" },
+                { "id": "commedia", "label": "Commedia" },
+                { "id": "drammatico", "label": "Drammatico" },
+                { "id": "fantascienza", "label": "Fantascienza" },
+                { "id": "fantasy", "label": "Fantasy" },
+                { "id": "horror", "label": "Horror" },
+                { "id": "musical", "label": "Musical" },
+                { "id": "romantico", "label": "Romantico" },
+                { "id": "thriller", "label": "Thriller" }
+              ] }
+            ]
         },
-        {
-          "id": "page_sport",
-          "title": "Approfondimento Sport",
-          "description": "Dato il tuo interesse per lo sport, dimmi di più",
-          "showContinue": true,
-          "isLast": false,
-          "conditionalRouting": { "rules": [], "defaultAction": "complete" },
-          "questions": [
-            { "id": "sport_preferiti", "text": "Quali sport segui di più?", "type": "multiple_choice", "required": true, "options": [ { "id": "calcio", "label": "Calcio" }, { "id": "basket", "label": "Basket" }, { "id": "tennis", "label": "Tennis" }, { "id": "formula1", "label": "Formula 1" }, { "id": "pallavolo", "label": "Pallavolo" }, { "id": "nuoto", "label": "Nuoto" } ] },
-            { "id": "sport_modalita", "text": "Come segui principalmente lo sport?", "type": "card", "required": true, "options": [ { "id": "tv", "label": "In TV" }, { "id": "streaming", "label": "In streaming online" }, { "id": "stadio", "label": "Allo stadio/dal vivo" }, { "id": "highlights", "label": "Solo highlights e riassunti" } ] }
-          ]
-        },
-        {
-          "id": "page_calcio",
-          "title": "Approfondimento Calcio",
-          "description": "Dato il tuo interesse per il calcio, dimmi di più",
-          "showContinue": true,
-          "isLast": false,
-          "conditionalRouting": { "rules": [], "defaultAction": "complete" },
-          "questions": [
-            { "id": "calcio_squadre_preferite", "text": "Seleziona le tue squadre preferite", "type": "multiple_choice_grouped", "required": true, "searchEnabled": true, "maxSelections": 5, "groups": [
-              { "id": "serie_a", "label": "Serie A", "options": [ { "id": "atalanta", "label": "Atalanta" }, { "id": "bologna", "label": "Bologna" }, { "id": "cagliari", "label": "Cagliari" }, { "id": "como", "label": "Como" }, { "id": "cremonese", "label": "Cremonese" }, { "id": "fiorentina", "label": "Fiorentina" }, { "id": "genoa", "label": "Genoa" }, { "id": "inter", "label": "Inter" }, { "id": "juventus", "label": "Juventus" }, { "id": "lazio", "label": "Lazio" }, { "id": "lecce", "label": "Lecce" }, { "id": "milan", "label": "Milan" }, { "id": "napoli", "label": "Napoli" }, { "id": "parma", "label": "Parma" }, { "id": "pisa", "label": "Pisa" }, { "id": "roma", "label": "Roma" }, { "id": "sassuolo", "label": "Sassuolo" }, { "id": "torino", "label": "Torino" }, { "id": "udinese", "label": "Udinese" }, { "id": "verona", "label": "Verona" } ] },
-              { "id": "serie_b", "label": "Serie B", "options": [ { "id": "ascoli", "label": "Ascoli" }, { "id": "brescia", "label": "Brescia" }, { "id": "catanzaro", "label": "Catanzaro" }, { "id": "cesena", "label": "Cesena" }, { "id": "cittadella", "label": "Cittadella" }, { "id": "cosenza", "label": "Cosenza" }, { "id": "cremonese", "label": "Cremonese" }, { "id": "frosinone", "label": "Frosinone" }, { "id": "mantova", "label": "Mantova" }, { "id": "modena", "label": "Modena" }, { "id": "palermo", "label": "Palermo" }, { "id": "pisa", "label": "Pisa" }, { "id": "reggiana", "label": "Reggiana" }, { "id": "salernitana", "label": "Salernitana" }, { "id": "sampdoria", "label": "Sampdoria" }, { "id": "spezia", "label": "Spezia" }, { "id": "ternana", "label": "Ternana" }, { "id": "venezia", "label": "Venezia" } ] },
-              { "id": "serie_c", "label": "Serie C", "options": [ { "id": "albinoLeffe", "label": "AlbinoLeffe" }, { "id": "alcione_milano", "label": "Alcione Milano" }, { "id": "arezzo", "label": "Arezzo" }, { "id": "audace_cerignola", "label": "Audace Cerignola" }, { "id": "az_picerno", "label": "AZ Picerno" }, { "id": "benevento", "label": "Benevento" }, { "id": "campobasso", "label": "Campobasso" }, { "id": "carpi", "label": "Carpi" }, { "id": "casarano", "label": "Casarano" }, { "id": "casertana", "label": "Casertana" }, { "id": "catania", "label": "Catania" }, { "id": "cavese", "label": "Cavese" }, { "id": "crotone", "label": "Crotone" }, { "id": "foggia", "label": "Foggia" }, { "id": "forli", "label": "Forlì" }, { "id": "giana_erminio", "label": "Giana Erminio" }, { "id": "giugliano", "label": "Giugliano" }, { "id": "gubbio", "label": "Gubbio" }, { "id": "juventus_next_gen", "label": "Juventus Next Gen" }, { "id": "latina", "label": "Latina" }, { "id": "lecco", "label": "Lecco" }, { "id": "livorno", "label": "Livorno" }, { "id": "lumezzane", "label": "Lumezzane" }, { "id": "monopoli", "label": "Monopoli" }, { "id": "pineto", "label": "Pineto" }, { "id": "pianese", "label": "Pianese" }, { "id": "pontedera", "label": "Pontedera" }, { "id": "ravenna", "label": "Ravenna" }, { "id": "rimini", "label": "Rimini" }, { "id": "sambenedettese", "label": "Sambenedettese" }, { "id": "ternana", "label": "Ternana" }, { "id": "torres", "label": "Torres" }, { "id": "vis_pesaro", "label": "Vis Pesaro" }, { "id": "trapani", "label": "Trapani" } ] }
-            ] },
-            { "id": "calcio_modalita_frui", "text": "Come guardi principalmente il calcio?", "type": "card", "required": true, "options": [ { "id": "tv", "label": "In TV" }, { "id": "streaming", "label": "Streaming" }, { "id": "stadio", "label": "Allo stadio" } ] }
-          ]
-        },
+
+
         {
           "id": "page_intrattenimento",
           "title": "Approfondimento Intrattenimento",
@@ -202,7 +267,7 @@
           "isLast": true,
           "conditionalRouting": { "rules": [], "defaultAction": "complete" },
           "questions": [
-            { "id": "device_soddisfazione_assicurazioni", "text": "Quanto ti soddisfano le assicurazioni che hai sui tuoi device?", "type": "rating", "required": true, "scale": 5 }
+            { "id": "device_soddisfazione_assicurazioni", "text": "Quanto ti soddisfano le assicurazioni che hai sui tuoi device?", "subtitle": "Scala 0 = per niente soddisfatto, 5 = molto soddisfatto", "type": "rating", "required": true, "scale": 5 }
           ]
         }
       ]
@@ -239,7 +304,7 @@
           "conditionalRouting": { "rules": [], "defaultAction": "page_pet_finale" },
           "questions": [
             { "id": "cane_taglia", "text": "Che taglia ha il tuo cane?", "type": "card", "required": true, "options": [ { "id": "piccola", "label": "Piccola" }, { "id": "media", "label": "Media" }, { "id": "grande", "label": "Grande" } ] },
-            { "id": "cane_attivita", "text": "Quanto è attivo il tuo cane?", "type": "rating", "required": true, "scale": 5 }
+            { "id": "cane_attivita", "text": "Quanto è attivo il tuo cane?", "subtitle": "0 = per niente attivo, 5 = molto attivo", "type": "rating", "required": true, "scale": 5 }
           ]
         },
         {
@@ -288,9 +353,9 @@
             "defaultAction": "page_mezzi_finale"
           },
           "questions": [
-            { "id": "grad_auto", "text": "Quanto ti piace / utilizzi l'automobile?", "type": "rating", "required": true, "scale": 5 },
-            { "id": "grad_moto", "text": "Quanto ti piace / utilizzi moto o scooter?", "type": "rating", "required": true, "scale": 5 },
-            { "id": "grad_pubblici", "text": "Quanto utilizzi / apprezzi i mezzi pubblici?", "type": "rating", "required": true, "scale": 5 }
+            { "id": "grad_auto", "text": "Quanto ti piace / utilizzi l'automobile?", "subtitle": "0 = mai / per niente, 5 = moltissimo / spesso", "type": "rating", "required": true, "scale": 5 },
+            { "id": "grad_moto", "text": "Quanto ti piace / utilizzi moto o scooter?", "subtitle": "0 = mai / per niente, 5 = moltissimo / spesso", "type": "rating", "required": true, "scale": 5 },
+            { "id": "grad_pubblici", "text": "Quanto utilizzi / apprezzi i mezzi pubblici?", "subtitle": "0 = quasi mai / per niente, 5 = molto / spesso", "type": "rating", "required": true, "scale": 5 }
           ]
         },
         {
@@ -337,7 +402,7 @@
           "isLast": true,
           "conditionalRouting": { "rules": [], "defaultAction": "complete" },
           "questions": [
-            { "id": "trasporti_importanza_ecologia", "text": "Quanto conta per te l'impatto ecologico dei tuoi spostamenti?", "type": "rating", "required": true, "scale": 5 }
+            { "id": "trasporti_importanza_ecologia", "text": "Quanto conta per te l'impatto ecologico dei tuoi spostamenti?", "subtitle": "0 = non conta, 5 = conta moltissimo", "type": "rating", "required": true, "scale": 5 }
           ]
         }
       ]
