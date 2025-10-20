@@ -11,24 +11,22 @@
         },
         "page_calcio": {
           "calcio_squadre_preferite": [
-            "inter",
-            "verona"
+            "acmilan"
           ]
         },
         "page_sport": {
           "sport_preferiti": [
-            "ciclismo",
-            "combattimento"
+            "basket"
           ]
         },
         "page_cinema": {
           "cinema_genere_preferito": [
-            "fantascienza",
-            "drammatico"
+            "avventura",
+            "azione"
           ]
         }
       },
-      "lastUpdated": "2025-10-19T19:50:32.910Z"
+      "lastUpdated": "2025-10-20T07:23:30.335Z"
     },
     "answers": {
       "contenuti_televisivi": {},

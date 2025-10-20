@@ -22,7 +22,7 @@ app.use('/api/pageAnswers', pageAnswersRouter);
 app.use(express.static(path.join(__dirname, '../frontend/frontend/build')));
 
 // Catch-all per SPA React
-app.get('*', (req, res) => {
+app.use((req, res) => {
 	res.sendFile(path.join(__dirname, '../frontend/frontend/build', 'index.html'));
 });
 
