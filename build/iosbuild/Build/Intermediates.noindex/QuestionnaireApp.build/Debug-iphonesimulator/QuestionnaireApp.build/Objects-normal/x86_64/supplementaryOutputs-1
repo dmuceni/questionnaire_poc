@@ -1,0 +1,18 @@
+"/Users/mucenid/questionnaire_poc/ios/QuestionnaireApp/QuestionnaireApp/QuestionnaireFlowView.swift":
+  swift-dependencies: "/Users/mucenid/questionnaire_poc/build/iosbuild/Build/Intermediates.noindex/QuestionnaireApp.build/Debug-iphonesimulator/QuestionnaireApp.build/Objects-normal/x86_64/QuestionnaireFlowView.swiftdeps"
+  const-values: "/Users/mucenid/questionnaire_poc/build/iosbuild/Build/Intermediates.noindex/QuestionnaireApp.build/Debug-iphonesimulator/QuestionnaireApp.build/Objects-normal/x86_64/QuestionnaireFlowView.swiftconstvalues"
+  object: "/Users/mucenid/questionnaire_poc/build/iosbuild/Build/Intermediates.noindex/QuestionnaireApp.build/Debug-iphonesimulator/QuestionnaireApp.build/Objects-normal/x86_64/QuestionnaireFlowView.o"
+  dependencies: "/Users/mucenid/questionnaire_poc/build/iosbuild/Build/Intermediates.noindex/QuestionnaireApp.build/Debug-iphonesimulator/QuestionnaireApp.build/Objects-normal/x86_64/QuestionnaireFlowView.d"
+  diagnostics: "/Users/mucenid/questionnaire_poc/build/iosbuild/Build/Intermediates.noindex/QuestionnaireApp.build/Debug-iphonesimulator/QuestionnaireApp.build/Objects-normal/x86_64/QuestionnaireFlowView.dia"
+"/Users/mucenid/questionnaire_poc/ios/QuestionnaireApp/QuestionnaireApp/QuestionnaireListView.swift":
+  dependencies: "/Users/mucenid/questionnaire_poc/build/iosbuild/Build/Intermediates.noindex/QuestionnaireApp.build/Debug-iphonesimulator/QuestionnaireApp.build/Objects-normal/x86_64/QuestionnaireListView.d"
+  const-values: "/Users/mucenid/questionnaire_poc/build/iosbuild/Build/Intermediates.noindex/QuestionnaireApp.build/Debug-iphonesimulator/QuestionnaireApp.build/Objects-normal/x86_64/QuestionnaireListView.swiftconstvalues"
+  object: "/Users/mucenid/questionnaire_poc/build/iosbuild/Build/Intermediates.noindex/QuestionnaireApp.build/Debug-iphonesimulator/QuestionnaireApp.build/Objects-normal/x86_64/QuestionnaireListView.o"
+  diagnostics: "/Users/mucenid/questionnaire_poc/build/iosbuild/Build/Intermediates.noindex/QuestionnaireApp.build/Debug-iphonesimulator/QuestionnaireApp.build/Objects-normal/x86_64/QuestionnaireListView.dia"
+  swift-dependencies: "/Users/mucenid/questionnaire_poc/build/iosbuild/Build/Intermediates.noindex/QuestionnaireApp.build/Debug-iphonesimulator/QuestionnaireApp.build/Objects-normal/x86_64/QuestionnaireListView.swiftdeps"
+"/Users/mucenid/questionnaire_poc/ios/QuestionnaireApp/QuestionnaireApp/QuestionnaireListViewModel.swift":
+  object: "/Users/mucenid/questionnaire_poc/build/iosbuild/Build/Intermediates.noindex/QuestionnaireApp.build/Debug-iphonesimulator/QuestionnaireApp.build/Objects-normal/x86_64/QuestionnaireListViewModel.o"
+  dependencies: "/Users/mucenid/questionnaire_poc/build/iosbuild/Build/Intermediates.noindex/QuestionnaireApp.build/Debug-iphonesimulator/QuestionnaireApp.build/Objects-normal/x86_64/QuestionnaireListViewModel.d"
+  diagnostics: "/Users/mucenid/questionnaire_poc/build/iosbuild/Build/Intermediates.noindex/QuestionnaireApp.build/Debug-iphonesimulator/QuestionnaireApp.build/Objects-normal/x86_64/QuestionnaireListViewModel.dia"
+  swift-dependencies: "/Users/mucenid/questionnaire_poc/build/iosbuild/Build/Intermediates.noindex/QuestionnaireApp.build/Debug-iphonesimulator/QuestionnaireApp.build/Objects-normal/x86_64/QuestionnaireListViewModel.swiftdeps"
+  const-values: "/Users/mucenid/questionnaire_poc/build/iosbuild/Build/Intermediates.noindex/QuestionnaireApp.build/Debug-iphonesimulator/QuestionnaireApp.build/Objects-normal/x86_64/QuestionnaireListViewModel.swiftconstvalues"

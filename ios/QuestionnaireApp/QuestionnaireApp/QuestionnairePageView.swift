@@ -106,6 +106,7 @@ struct QuestionnairePageView: View {
     }
     
     private func handleContinue() {
+        print("🔍 QuestionnairePageView.handleContinue: isValid=\(isValid), currentAnswers=\(currentAnswers)")
         if isValid {
             onContinue(currentAnswers)
         } else {

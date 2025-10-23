@@ -14,7 +14,7 @@
           "conditionalRouting": {
             "rules": [
               { "condition": { "questionId": "interesse_calcio", "operator": ">=", "value": "3" }, "nextPage": "page_calcio", "priority": 1 } ,  
-                            { "condition": { "questionId": "interesse_sport", "operator": ">=", "value": "3" }, "nextPage": "page_sport", "priority": 3 },
+              { "condition": { "questionId": "interesse_sport", "operator": ">=", "value": "3" }, "nextPage": "page_sport", "priority": 3 },
               { "condition": { "questionId": "interesse_cinema", "operator": ">=", "value": "3" }, "nextPage": "page_cinema", "priority": 2 }
 
               

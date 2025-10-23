@@ -27,4 +27,5 @@ app.use((req, res) => {
 });
 
 const PORT = process.env.PORT || 3001;
-app.listen(PORT, '0.0.0.0', () => console.log('Backend avviato su porta', PORT, 'su tutte le interfacce'));
+// Bind to the IPv6 unspecified address so the server accepts both IPv6 (::1) and IPv4 (127.0.0.1)
+app.listen(PORT, '::', () => console.log('Backend avviato su porta', PORT, 'su tutte le interfacce (IPv6/IPv4)'));

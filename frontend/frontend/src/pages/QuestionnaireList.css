@@ -27,18 +27,17 @@
   gap: 16px;
 }
 
+/* Card senza bordo per look più pulito */
 .ql-card {
-  background: #ffffff;
-  border-radius: 12px; /* meno arrotondata */
-  padding: 24px 24px 20px 24px; /* spazio ridotto, linea sopra ora dedicata al progresso */
-  box-shadow: none; /* ombra rimossa */
-  border: 1px solid #e2e2e2; /* bordo sottile */
-  transition: background 0.2s ease;
-  position: relative;
-}
-
-.ql-card:hover {
-  transform: none; /* disabilitato effetto sollevamento */
+  background: #fff;
+  border: none;
+  border-radius: 18px;
+  padding: 24px 24px 18px 24px;
+  margin-bottom: 18px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow .2s;
 }
 
 /* Rimosso gradiente superiore, sostituito da barra di progresso inline */
@@ -64,9 +63,11 @@
 .ql-card-header {
   display: flex;
   justify-content: flex-start;
-  align-items: flex-start;
-  gap: 12px;
+  align-items: center; /* centra verticalmente percentuale e chevron */
+  gap: 16px;
   margin-bottom: 12px;
+  padding-top: 8px;
+  padding-bottom: 8px;
 }
 
 .ql-title {

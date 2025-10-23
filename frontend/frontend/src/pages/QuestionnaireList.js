@@ -80,7 +80,7 @@ const QuestionnaireList = () => {
   return (
     <div className="ql-wrap">
       <div className="ql-header">
-        <h1>Questionari</h1>
+        <h1>La tua esperienza</h1>
       </div>
       
       <div className="ql-list">

@@ -41,7 +41,8 @@ final class QuestionnairePageFlowViewModel: ObservableObject {
     func goToNextPage(with answers: [String: CodableValue]) async {
         guard let currentPage = currentPage else { return }
         
-        // Salva le risposte della pagina corrente
+    print("🔍 goToNextPage called for page=\(currentPage.id), answers=\(answers)")
+    // Salva le risposte della pagina corrente
         pageAnswers[currentPage.id] = answers
         await apiClient.savePageAnswers(answers, cluster: cluster, pageId: currentPage.id)
         
@@ -50,15 +51,19 @@ final class QuestionnairePageFlowViewModel: ObservableObject {
         
         // Determina la prossima pagina
         if let nextPageId = determineNextPage(currentPage: currentPage, answers: answers) {
+            print("🔍 determineNextPage -> nextPageId=\(nextPageId)")
             if let nextPageIndex = pages.firstIndex(where: { $0.id == nextPageId }) {
                 currentPageIndex = nextPageIndex
+                print("🔍 goToNextPage: moved to index=\(currentPageIndex)")
             } else {
                 // Pagina non trovata, completa il questionario
                 completed = true
+                print("🔍 goToNextPage: nextPageId not found in pages -> marking completed")
             }
         } else {
             // Nessuna pagina successiva, completa il questionario
             completed = true
+            print("🔍 goToNextPage: determineNextPage returned nil -> marking completed")
         }
     }
     
@@ -134,18 +139,31 @@ final class QuestionnairePageFlowViewModel: ObservableObject {
     }
     
     private func determineNextPage(currentPage: QuestionnairePage, answers: [String: CodableValue]) -> String? {
-        guard let navigation = currentPage.nextPage else { return nil }
-        
+        guard let navigation = currentPage.nextPage else { 
+            print("🔍 determineNextPage: no navigation defined for page=\(currentPage.id)")
+            return nil
+        }
+
+        print("🔍 determineNextPage: evaluating navigation for page=\(currentPage.id). default=\(navigation.default ?? "nil") conditionsCount=\(navigation.conditions?.count ?? 0)")
+
         // Controlla le condizioni
         if let conditions = navigation.conditions {
             for condition in conditions {
+                let answerVal = answers[condition.questionId]?.stringValue ?? "(nil)"
+                print("🔍 determineNextPage: condition questionId=\(condition.questionId) expected=\(condition.value) actual=\(answerVal) -> nextPage=\(condition.nextPage)")
                 if answers[condition.questionId]?.stringValue == condition.value {
+                    print("🔍 determineNextPage: condition matched -> returning \(condition.nextPage)")
                     return condition.nextPage
                 }
             }
         }
-        
+
         // Usa la pagina di default
+        if let def = navigation.default {
+            print("🔍 determineNextPage: returning default -> \(def)")
+        } else {
+            print("🔍 determineNextPage: navigation.default is nil -> will mark completed")
+        }
         return navigation.default
     }
 

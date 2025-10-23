@@ -1,0 +1,18 @@
+"/Users/mucenid/questionnaire_poc/ios/QuestionnaireApp/Views/WebViewClean.swift":
+  swift-dependencies: "/Users/mucenid/questionnaire_poc/build/iosbuild/Build/Intermediates.noindex/QuestionnaireApp.build/Debug-iphonesimulator/QuestionnaireApp.build/Objects-normal/x86_64/WebViewClean.swiftdeps"
+  const-values: "/Users/mucenid/questionnaire_poc/build/iosbuild/Build/Intermediates.noindex/QuestionnaireApp.build/Debug-iphonesimulator/QuestionnaireApp.build/Objects-normal/x86_64/WebViewClean.swiftconstvalues"
+  diagnostics: "/Users/mucenid/questionnaire_poc/build/iosbuild/Build/Intermediates.noindex/QuestionnaireApp.build/Debug-iphonesimulator/QuestionnaireApp.build/Objects-normal/x86_64/WebViewClean.dia"
+  dependencies: "/Users/mucenid/questionnaire_poc/build/iosbuild/Build/Intermediates.noindex/QuestionnaireApp.build/Debug-iphonesimulator/QuestionnaireApp.build/Objects-normal/x86_64/WebViewClean.d"
+  object: "/Users/mucenid/questionnaire_poc/build/iosbuild/Build/Intermediates.noindex/QuestionnaireApp.build/Debug-iphonesimulator/QuestionnaireApp.build/Objects-normal/x86_64/WebViewClean.o"
+"/Users/mucenid/questionnaire_poc/ios/QuestionnaireApp/QuestionnaireApp/Views/WebViewScreen.swift":
+  swift-dependencies: "/Users/mucenid/questionnaire_poc/build/iosbuild/Build/Intermediates.noindex/QuestionnaireApp.build/Debug-iphonesimulator/QuestionnaireApp.build/Objects-normal/x86_64/WebViewScreen.swiftdeps"
+  dependencies: "/Users/mucenid/questionnaire_poc/build/iosbuild/Build/Intermediates.noindex/QuestionnaireApp.build/Debug-iphonesimulator/QuestionnaireApp.build/Objects-normal/x86_64/WebViewScreen.d"
+  diagnostics: "/Users/mucenid/questionnaire_poc/build/iosbuild/Build/Intermediates.noindex/QuestionnaireApp.build/Debug-iphonesimulator/QuestionnaireApp.build/Objects-normal/x86_64/WebViewScreen.dia"
+  const-values: "/Users/mucenid/questionnaire_poc/build/iosbuild/Build/Intermediates.noindex/QuestionnaireApp.build/Debug-iphonesimulator/QuestionnaireApp.build/Objects-normal/x86_64/WebViewScreen.swiftconstvalues"
+  object: "/Users/mucenid/questionnaire_poc/build/iosbuild/Build/Intermediates.noindex/QuestionnaireApp.build/Debug-iphonesimulator/QuestionnaireApp.build/Objects-normal/x86_64/WebViewScreen.o"
+"/Users/mucenid/questionnaire_poc/ios/QuestionnaireApp/QuestionnaireApp/APIClient.swift":
+  dependencies: "/Users/mucenid/questionnaire_poc/build/iosbuild/Build/Intermediates.noindex/QuestionnaireApp.build/Debug-iphonesimulator/QuestionnaireApp.build/Objects-normal/x86_64/APIClient.d"
+  const-values: "/Users/mucenid/questionnaire_poc/build/iosbuild/Build/Intermediates.noindex/QuestionnaireApp.build/Debug-iphonesimulator/QuestionnaireApp.build/Objects-normal/x86_64/APIClient.swiftconstvalues"
+  diagnostics: "/Users/mucenid/questionnaire_poc/build/iosbuild/Build/Intermediates.noindex/QuestionnaireApp.build/Debug-iphonesimulator/QuestionnaireApp.build/Objects-normal/x86_64/APIClient.dia"
+  object: "/Users/mucenid/questionnaire_poc/build/iosbuild/Build/Intermediates.noindex/QuestionnaireApp.build/Debug-iphonesimulator/QuestionnaireApp.build/Objects-normal/x86_64/APIClient.o"
+  swift-dependencies: "/Users/mucenid/questionnaire_poc/build/iosbuild/Build/Intermediates.noindex/QuestionnaireApp.build/Debug-iphonesimulator/QuestionnaireApp.build/Objects-normal/x86_64/APIClient.swiftdeps"

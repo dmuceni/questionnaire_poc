@@ -3,30 +3,14 @@
     "contenuti_televisivi": {
       "pageAnswers": {
         "page_interessi": {
-          "interesse_educativi": 3,
+          "interesse_educativi": 4,
           "interesse_intrattenimento": 3,
-          "interesse_calcio": 3,
-          "interesse_sport": 4,
+          "interesse_calcio": 4,
+          "interesse_sport": 5,
           "interesse_cinema": 4
-        },
-        "page_calcio": {
-          "calcio_squadre_preferite": [
-            "acmilan"
-          ]
-        },
-        "page_sport": {
-          "sport_preferiti": [
-            "basket"
-          ]
-        },
-        "page_cinema": {
-          "cinema_genere_preferito": [
-            "avventura",
-            "azione"
-          ]
         }
       },
-      "lastUpdated": "2025-10-20T07:23:30.335Z"
+      "lastUpdated": "2025-10-23T12:37:52.014Z"
     },
     "answers": {
       "contenuti_televisivi": {},
@@ -129,26 +113,19 @@
         },
         "page_device_intro": {
           "device_posseduti": [
-            "tablet"
+            "smartphone"
           ]
         },
         "page_device_utilizzo": {
-          "device_utilizzo_luogo": "entrambi"
+          "device_utilizzo_luogo": "casa"
         },
         "page_device_preoccupazioni": {
           "device_danni_preoccupazioni": [
-            "danni"
+            "schermo_rotto"
           ]
-        },
-        "page_device_assicurazione_utilita": {
-          "device_assicurazione_oltre_garanzia": "si",
-          "device_copertura_integrativa_presente": "no"
-        },
-        "page_device_soddisfazione": {
-          "device_soddisfazione_assicurazioni": 4
         }
       },
-      "lastUpdated": "2025-10-19T19:50:55.491Z"
+      "lastUpdated": "2025-10-23T14:26:41.875Z"
     },
     "animali_domestici": {
       "pageAnswers": {

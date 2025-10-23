@@ -6,7 +6,10 @@
 	objectVersion = 60;
 	objects = {
 
-/* Begin PBXBuildFile section */
+		/* Begin PBXBuildFile section */
+			849BC4E52EAA09030092BC71 /* WebViewScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849BC4E42EAA09030092BC70 /* WebViewScreen.swift */; };
+			849BC4E62EAA09030092BC71 /* WebViewClean.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849BC4E22EAA09030092BC70 /* WebViewClean.swift */; };
+			849BC4E72EAA09030092BC70 /* WebViewModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849BC4E32EAA09030092BC70 /* WebViewModal.swift */; };
 		A1B2C3D4E5F6000000000030 /* QuestionnaireAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F6000000000020 /* QuestionnaireAppApp.swift */; };
 		A1B2C3D4E5F6000000000031 /* Question.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F6000000000022 /* Question.swift */; };
 		A1B2C3D4E5F6000000000032 /* QuestionnaireProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F6000000000023 /* QuestionnaireProgress.swift */; };
@@ -26,6 +29,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+	849BC4E22EAA09030092BC70 /* WebViewClean.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Views/WebViewClean.swift; sourceTree = "<group>"; };
+		849BC4E32EAA09030092BC70 /* WebViewModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewModal.swift; sourceTree = "<group>"; };
+		849BC4E42EAA09030092BC70 /* WebViewScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Views/WebViewScreen.swift; sourceTree = "<group>"; };
 		A1B2C3D4E5F600000000000B /* QuestionnaireApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QuestionnaireApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1B2C3D4E5F6000000000020 /* QuestionnaireAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionnaireAppApp.swift; sourceTree = "<group>"; };
 		A1B2C3D4E5F6000000000021 /* QuestionnaireRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionnaireRoute.swift; sourceTree = "<group>"; };
@@ -126,6 +132,9 @@
 		A1B2C3D4E5F6000000000011 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				/* removed root WebViewClean.swift reference */
+				849BC4E32EAA09030092BC70 /* WebViewModal.swift */,
+				849BC4E42EAA09030092BC70 /* WebViewScreen.swift */,
 				A1B2C3D4E5F6000000000029 /* ProgressBarView.swift */,
 				A1B2C3D4E5F600000000002A /* QuestionView.swift */,
 				A1B2C3D4E5F600000000002B /* QuestionnaireListView.swift */,
@@ -219,6 +228,9 @@
 				A1B2C3D4E5F600000000003B /* QuestionnaireListView.swift in Sources */,
 				A1B2C3D4E5F6000000000037 /* QuestionnaireListViewModel.swift in Sources */,
 				A1B2C3D4E5F6000000000035 /* APIClient.swift in Sources */,
+				849BC4E52EAA09030092BC71 /* WebViewScreen.swift in Sources */,
+				849BC4E62EAA09030092BC71 /* WebViewClean.swift in Sources */,
+				849BC4E72EAA09030092BC70 /* WebViewModal.swift in Sources */,
 				A1B2C3D4E5F6000000000030 /* QuestionnaireAppApp.swift in Sources */,
 				A1B2C3D4E5F6000000000034 /* QuestionnaireRoute.swift in Sources */,
 				A1B2C3D4E5F6000000000039 /* ProgressBarView.swift in Sources */,

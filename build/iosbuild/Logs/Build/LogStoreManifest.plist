@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>logFormatVersion</key>
+	<integer>11</integer>
+	<key>logs</key>
+	<dict>
+		<key>F8BE0B0D-EABA-47D3-A1B1-71102B3BCB84</key>
+		<dict>
+			<key>className</key>
+			<string>IDECommandLineBuildLog</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>F8BE0B0D-EABA-47D3-A1B1-71102B3BCB84.xcactivitylog</string>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+				<key>totalNumberOfAnalyzerIssues</key>
+				<integer>0</integer>
+				<key>totalNumberOfErrors</key>
+				<integer>0</integer>
+				<key>totalNumberOfTestFailures</key>
+				<integer>0</integer>
+				<key>totalNumberOfWarnings</key>
+				<integer>0</integer>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>QuestionnaireApp project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>QuestionnaireApp</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Cleaning project QuestionnaireApp with scheme QuestionnaireApp and configuration Debug</string>
+			<key>timeStartedRecording</key>
+			<real>782901592.55682695</real>
+			<key>timeStoppedRecording</key>
+			<real>782901593.63673902</real>
+			<key>title</key>
+			<string>Cleaning project QuestionnaireApp with scheme QuestionnaireApp and configuration Debug</string>
+			<key>uniqueIdentifier</key>
+			<string>F8BE0B0D-EABA-47D3-A1B1-71102B3BCB84</string>
+		</dict>
+		<key>F9D058BE-BB28-45CE-8B97-7A2F537D151E</key>
+		<dict>
+			<key>className</key>
+			<string>IDECommandLineBuildLog</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>F9D058BE-BB28-45CE-8B97-7A2F537D151E.xcactivitylog</string>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+				<key>totalNumberOfAnalyzerIssues</key>
+				<integer>0</integer>
+				<key>totalNumberOfErrors</key>
+				<integer>0</integer>
+				<key>totalNumberOfTestFailures</key>
+				<integer>0</integer>
+				<key>totalNumberOfWarnings</key>
+				<integer>0</integer>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>QuestionnaireApp project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>QuestionnaireApp</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Cleaning project QuestionnaireApp with scheme QuestionnaireApp and configuration Debug</string>
+			<key>timeStartedRecording</key>
+			<real>782901481.60162699</real>
+			<key>timeStoppedRecording</key>
+			<real>782901482.50491297</real>
+			<key>title</key>
+			<string>Cleaning project QuestionnaireApp with scheme QuestionnaireApp and configuration Debug</string>
+			<key>uniqueIdentifier</key>
+			<string>F9D058BE-BB28-45CE-8B97-7A2F537D151E</string>
+		</dict>
+	</dict>
+</dict>
+</plist>

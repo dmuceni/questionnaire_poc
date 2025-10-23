@@ -19,6 +19,10 @@ struct QuestionnairePageFlowView: View {
             .navigationTitle(title)
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarBackButtonHidden()
+            .onReceive(NotificationCenter.default.publisher(for: Notification.Name("WebViewChevronBackTapped"))) { _ in
+                print("🔔 QuestionnairePageFlowView: received WebViewChevronBackTapped")
+                viewModel.goToPreviousPage()
+            }
             .onAppear {
                 viewModel.onProgressChanged = { listViewModel.refresh() }
                 viewModel.load()
@@ -55,7 +59,10 @@ struct QuestionnairePageFlowView: View {
                 savedAnswers: viewModel.getAnswersForPage(currentPage.id),
                 onContinue: { answers in
                     Task {
+                        print("🔍 QuestionnairePageFlowView.onContinue: called for page=\(currentPage.id) with answers=\(answers)")
+                        print("🔍 QuestionnairePageFlowView: before goToNextPage currentIndex=\(viewModel.currentPageIndex) pages=[\(viewModel.pages.map({ $0.id }).joined(separator: ","))]")
                         await viewModel.goToNextPage(with: answers)
+                        print("🔍 QuestionnairePageFlowView: after goToNextPage currentIndex=\(viewModel.currentPageIndex) currentPage=\(viewModel.currentPage?.id ?? "nil")")
                     }
                 },
                 onBack: {
